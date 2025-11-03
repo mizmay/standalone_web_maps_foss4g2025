@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Step 3 - Use Maplibre to Render Your Map - Te Ara Hura Workshop</title>
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@300;400;600&family=Overpass+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../workshop.css">
+</head>
+<body>
+  <div class="workshop-container">
+    <aside class="workshop-sidebar">
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+        <span class="toggle-icon">☰</span>
+      </button>
+      <div class="sidebar-content" id="sidebarContent">
+        <div class="sidebar-logo">
+          <img src="../images/foss4g2025-logo.svg" alt="FOSS4G 2025" class="logo">
+        </div>
+        <div class="sidebar-header">
+          <h2><a href="../welcome/" class="sidebar-header-link">Standalone Web Maps, No Platform Required</a></h2>
+        </div>
+        <nav class="sidebar-nav">
+          
+            
+            
+              <a href="../step-01/" class="sidebar-item">
+            
+              <span class="step-number">Step 1</span>
+              <span class="step-title">Get Set Up</span>
+            </a>
+          
+            
+            
+              <a href="../step-02/" class="sidebar-item">
+            
+              <span class="step-number">Step 2</span>
+              <span class="step-title">Use Overpass to Create an OpenStreetMap Extract</span>
+            </a>
+          
+            
+            
+              <a href="./" class="sidebar-item active">
+            
+              <span class="step-number">Step 3</span>
+              <span class="step-title">Use Maplibre to Render Your Map</span>
+            </a>
+          
+            
+            
+              <a href="../step-04/" class="sidebar-item">
+            
+              <span class="step-number">Step 4</span>
+              <span class="step-title">Initialize GitHub Pages to Display Your Map</span>
+            </a>
+          
+          
+            <div class="sidebar-divider"></div>
+            <div class="sidebar-label">Bonus Steps</div>
+            
+          
+        </nav>
+      </div>
+    </aside>
+
+    <main class="workshop-main">
+      <article class="workshop-content">
+        
+          <h1>Step 3 - Use Maplibre to Render Your Map</h1>
+        
+        
+        
+        <p>In this step, we'll set up a local web server, create the HTML structure, and use MapLibre GL JS to display the Te Ara Hura trail on a map.</p>
+<h2>Setting up a Local Server</h2>
+<h3>Install Caddy</h3>
+<p>Since we're working with static files, we need a local web server. We'll use Caddy, which is simple and works well for web maps.</p>
+<p>For this step, you will need a terminal window, either inside VS Code or elsewhere if you are not using this code editor. In VS Code, go to Terminal &gt; New Terminal</p>
+<p>Copy and paste or type the commands below at the command prompt.</p>
+<h4>macOS Installation</h4>
+<pre><code class="language-bash">brew install caddy
+</code></pre>
+<h4>Linux Installation</h4>
+<pre><code class="language-bash">sudo apt-get install -y debian-keyring debian-archive-keyring apt-transport-https
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
+sudo apt-get update
+sudo apt-get install caddy
+</code></pre>
+<h4>Windows Installation</h4>
+<p>Download from <a rel="noreferrer" target="_blank" href="https://caddyserver.com/download">https://caddyserver.com/download</a> or use Chocolatey:</p>
+<pre><code class="language-bash">choco install caddy
+</code></pre>
+<h4>Verify Installation</h4>
+<pre><code class="language-bash">caddy version
+</code></pre>
+<h3>Start the Local Server</h3>
+<ol>
+<li>
+<p><strong>Navigate to your repository</strong>:</p>
+<pre><code class="language-bash">cd /path/to/your/repository
+</code></pre>
+</li>
+<li>
+<p><strong>Start Caddy</strong> using the Makefile:</p>
+<pre><code class="language-bash">make serve
+</code></pre>
+<p>This will start a server at <code>http://localhost:1234/</code></p>
+</li>
+<li>
+<p><strong>Keep the terminal window open</strong> - the server needs to keep running</p>
+</li>
+</ol>
+<h2>Use Maplibre to Create a Web Map</h2>
+<p>Now that you are running a web server on your local machine and have some data, all you need to render Te Ara Hura in a web map are the style parameters (also known as a stylesheet), which you will define in a file called <code>style.json</code>, then we will walk through how to set up Maplibre to run in an HTML page, <code>index.html</code>.</p>
+<h3>Create a Stylesheet</h3>
+<p>Create a file called <code>style.json</code> by copying and pasting the text below into a new text file and saving it at the root of your repository:</p>
+<pre><code class="language-json">{
+  "version": 8,
+  "sources": {
+    "te-ara-hura": {
+      "type": "geojson",
+      "data": "sources/te_ara_hura.geojson"
+    }
+  },
+  "layers": [
+    {
+      "id": "trail-line",
+      "type": "line",
+      "source": "te-ara-hura",
+      "paint": {
+        "line-color": "#e41f18",
+        "line-width": 3,
+        "line-dasharray": [2, 2]
+      }
+    }
+  ]
+}
+</code></pre>
+<p>The MapLibre style specification is a JSON file that defines what data to display (<code>sources</code>) and how to render it (<code>layers</code>). Sources provide the map data (in this case a GeoJSON containing the trail data), while layers define visual styling (colors, line widths, opacity, etc.). See the <a rel="noreferrer" target="_blank" href="https://maplibre.org/maplibre-style-spec/">full MapLibre style specification</a> for more details.</p>
+<h3>Create a Web Map Using GL JS:</h3>
+<p>Create a file called <code>index.html</code> by copying and pasting the text below into a new text file and saving this at the root of your repository:</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Te Ara Hura Trail Map&lt;/title&gt;
+  
+  &lt;!-- Local copies of MapLibre GL JS --&gt;
+  &lt;script src="lib/maplibre-gl.5.10.0.js"&gt;&lt;/script&gt;
+  &lt;link href="lib/maplibre-gl.5.10.0.css" rel="stylesheet" /&gt;
+  
+  &lt;style&gt;
+    /* Required CSS statements defining the map to be the full size of the viewport*/
+    #map {
+      width: 100vw;
+      height: 100vh;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id="map"&gt;&lt;/div&gt;
+  
+  &lt;script&gt;
+    // Javascript to create a new map using Maplibre GL JS
+    const map = new maplibregl.Map({
+      container: 'map',
+      style: 'style.json',
+      center: [175.0709, -36.7990], // Waiheke Island coordinates
+      zoom: 12
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h3>View Your Map</h3>
+<ol>
+<li>
+<p><strong>Open your browser</strong> and navigate to: <code>http://localhost:1234/index.html</code></p>
+</li>
+<li>
+<p><strong>You should see</strong>:</p>
+<ul>
+<li>An empty white map canvas centered on Waiheke Island</li>
+<li>The Te Ara Hura trail displayed as a red dashed line</li>
+</ul>
+</li>
+</ol>
+<h3>What You Have Now</h3>
+<p>At the end of this step, you should have:</p>
+<ul>
+<li><code>index.html</code> - HTML file that loads MapLibre and references your stylesheet</li>
+<li><code>style.json</code> - Stylesheet defining your map sources and layers</li>
+<li>Local server running at <code>http://localhost:1234/</code></li>
+<li>A working map displaying the Te Ara Hura trail as a red dashed line</li>
+</ul>
+<p>At this stage, your map is only available on your local machine. In the next step, we will push your changes to Github Pages, where it will be viewable on the Web.</p>
+
+        
+          <div class="map-preview-container">
+  <h2>Your Map Preview</h2>
+  <div class="map-preview-wrapper">
+    <img src="../images/step-03.png" alt="Map preview showing expected result at this stage" class="map-preview-image" style="max-width: 100%; height: auto; border: 1px solid #dee2e6; border-radius: 4px;">
+    
+      <p class="map-note">This is what your map should look like when you view it locally at http://localhost:1234/</p>
+    
+  </div>
+</div>
+
+
+        
+        
+        <hr>
+<p><strong><a href="../step-02/">← Previous: Step 2</a> | <a href="../step-04/">Next: Step 4 - Initialize GitHub Pages →</a></strong></p>
+      </article>
+    </main>
+  </div>
+
+  <footer class="workshop-footer">
+    <p>FOSS4G 2025 Workshop - <a rel="noreferrer" target="_blank" href="https://talks.osgeo.org/foss4g-2025/speaker/7A883D/">Stephanie May</a></p>
+    <p class="footer-attribution">
+      Background image: <a rel="noreferrer" target="_blank" href="https://www.flickr.com/photos/4nitsirk/5624277298" title="The sun returns to Waiheke Island">The sun returns to Waiheke Island</a> by <a rel="noreferrer" target="_blank" href="https://www.flickr.com/photos/4nitsirk/">Kristina D.C. Hoeppner</a>, <a target="_blank" href="https://creativecommons.org/licenses/by-sa/2.0/deed.en" rel="noreferrer">CC BY-SA 2.0</a>
+    </p>
+  </footer>
+
+  <script>
+    // Toggle sidebar on mobile
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebarContent = document.getElementById('sidebarContent');
+    
+    if (sidebarToggle && sidebarContent) {
+      sidebarToggle.addEventListener('click', function() {
+        const sidebar = sidebarContent.closest('.workshop-sidebar');
+        if (sidebar) {
+          sidebar.classList.toggle('open');
+        }
+        sidebarContent.classList.toggle('open');
+        sidebarToggle.classList.toggle('active');
+      });
+      
+      // Close sidebar when clicking outside on mobile
+      document.addEventListener('click', function(event) {
+        if (window.innerWidth <= 768) {
+          if (!sidebarContent.contains(event.target) && !sidebarToggle.contains(event.target)) {
+            sidebarContent.classList.remove('open');
+            sidebarToggle.classList.remove('active');
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
+

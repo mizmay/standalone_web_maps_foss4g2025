@@ -1,0 +1,577 @@
+/* Workshop Instruction Pages Styles - FOSS4G 2025 Theme */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Overpass', system-ui, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f8f9fa;
+}
+
+/* Workshop Container */
+.workshop-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.workshop-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 280px;
+  background-color: #f8f9fa;
+  border-right: 2px solid #dee2e6;
+  z-index: 100;
+  overflow-y: auto;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-toggle {
+  display: none;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 101;
+  background-color: #57A9BB;
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.25rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transition: background-color 0.2s;
+}
+
+.sidebar-toggle:hover {
+  background-color: #2E6B7A;
+}
+
+.sidebar-toggle.active {
+  background-color: #7FB8C8;
+}
+
+.sidebar-content {
+  padding: 1.5rem 0;
+  height: 100%;
+}
+
+.sidebar-logo {
+  padding: 0 1rem 1rem;
+  border-bottom: 2px solid #dee2e6;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebar-logo .logo {
+  width: auto;
+  max-width: 200px;
+}
+
+.sidebar-header {
+  padding: 0 1.5rem 1rem;
+  border-bottom: 2px solid #dee2e6;
+  margin-bottom: 1rem;
+}
+
+.sidebar-header h2 {
+  color: #57A9BB;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.sidebar-header-link {
+  color: #57A9BB;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.sidebar-header-link:hover {
+  color: #2E6B7A;
+  text-decoration: underline;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0 0.75rem;
+}
+
+.sidebar-item {
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem 1rem;
+  color: #333;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.2s, color 0.2s;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.sidebar-item:hover {
+  background-color: #e9ecef;
+  color: #57A9BB;
+}
+
+.sidebar-item.active {
+  background-color: #E8F0F8;
+  color: #2E6B7A;
+  font-weight: 600;
+  border-left: 4px solid #57A9BB;
+  padding-left: 0.75rem;
+}
+
+.sidebar-item.bonus {
+  color: #666;
+  font-style: italic;
+}
+
+.sidebar-item.bonus.active {
+  background-color: #E8F0F8;
+  color: #2E6B7A;
+  font-style: normal;
+}
+
+.step-number {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #2E6B7A;
+  margin-bottom: 0.25rem;
+}
+
+.sidebar-item.active .step-number {
+  color: inherit;
+}
+
+.step-title {
+  color: #666;
+  line-height: 1.3;
+}
+
+.sidebar-item.active .step-title {
+  color: inherit;
+}
+
+.sidebar-divider {
+  height: 1px;
+  background-color: #dee2e6;
+  margin: 0.75rem 0;
+}
+
+.sidebar-label {
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Main Content Area */
+.workshop-main {
+  flex: 1;
+  margin-left: 280px;
+  padding: 2.5rem 3rem;
+  background-image: 
+    linear-gradient(to bottom, rgba(248, 249, 250, 0.35) 0%, rgba(248, 249, 250, 0.85) 100%),
+    url('images/waiheke_island.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.workshop-content {
+  background-color: white;
+  padding: 3rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.workshop-content h1 {
+  color: #57A9BB;
+  margin-bottom: 1.5rem;
+  font-size: 2.5rem;
+  font-weight: 600;
+  border-bottom: 4px solid #57A9BB;
+  padding-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.workshop-content h2 {
+  color: #2E6B7A;
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+  font-size: 1.875rem;
+  font-weight: 600;
+  border-bottom: 2px solid #7FB8C8;
+  padding-bottom: 0.5rem;
+}
+
+.workshop-content h3 {
+  color: #57A9BB;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.workshop-content h4 {
+  color: #7FB8C8;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.workshop-content p {
+  margin-bottom: 1.25rem;
+  line-height: 1.7;
+}
+
+.workshop-content ul,
+.workshop-content ol {
+  margin-left: 2rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+}
+
+/* Unordered lists - use default bullets */
+.workshop-content ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+
+.workshop-content ul li {
+  margin-bottom: 0.5rem;
+}
+
+/* Code Blocks */
+.workshop-content code {
+  background-color: #f1f3f5;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  font-family: 'Overpass Mono', system-ui, monospace;
+  font-size: 0.9em;
+  color: #57A9BB;
+  border: 1px solid #dee2e6;
+}
+
+.workshop-content pre {
+  background-color: #2E6B7A;
+  color: #e8f0f8;
+  border: 1px solid #57A9BB;
+  border-radius: 6px;
+  padding: 1.5rem;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(44, 95, 141, 0.2);
+}
+
+.workshop-content pre code {
+  background-color: transparent;
+  padding: 0;
+  border: none;
+  color: inherit;
+  font-size: 0.9rem;
+}
+
+/* Links - FOSS4G Blue */
+.workshop-content a {
+  color: #57A9BB;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.workshop-content a:hover {
+  color: #7FB8C8;
+  border-bottom-color: #7FB8C8;
+}
+
+/* Blockquotes */
+.workshop-content blockquote {
+  border-left: 4px solid #57A9BB;
+  padding-left: 1.5rem;
+  margin-left: 0;
+  margin-bottom: 1.5rem;
+  color: #555;
+  font-style: italic;
+  background-color: #f8f9fa;
+  padding: 1rem 1.5rem;
+  border-radius: 4px;
+}
+
+/* Map Preview */
+.map-preview-container {
+  margin: 2.5rem 0;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 2px solid #dee2e6;
+}
+
+.map-preview-container h2 {
+  color: #2E6B7A;
+  font-size: 1.875rem;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+}
+
+.map-preview-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.map-preview-container .map-iframe {
+  width: 100%;
+  height: 500px;
+  border: 1px solid #adb5bd;
+  border-radius: 6px;
+  background-color: #f1f3f5;
+}
+
+.map-preview-container .map-note {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #666;
+  font-style: italic;
+  text-align: center;
+}
+
+.map-preview-container .map-note code {
+  background-color: #e9ecef;
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.85em;
+  color: #57A9BB;
+}
+
+/* Legacy class support - kept for backward compatibility */
+.map-preview iframe {
+  height: 500px;
+}
+
+/* Footer - FOSS4G Dark Theme */
+.workshop-footer {
+  background-color: #2E6B7A;
+  color: white;
+  text-align: center;
+  padding: 2.5rem 1rem;
+  margin-top: 4rem;
+}
+
+.workshop-footer a {
+  color: #7FB8C8;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.workshop-footer a:hover {
+  color: #57A9BB;
+}
+
+.workshop-footer p {
+  margin-bottom: 0.5rem;
+}
+
+.workshop-footer .footer-attribution {
+  font-size: 0.75rem;
+  opacity: 0.8;
+  margin-top: 1rem;
+  line-height: 1.4;
+}
+
+/* Strong/Bold Text */
+.workshop-content strong {
+  color: #2E6B7A;
+  font-weight: 600;
+}
+
+
+/* Accent Colors - FOSS4G 2025 Palette (from 2025.foss4g.org) */
+:root {
+  --foss4g-primary: #57A9BB;
+  --foss4g-primary-dark: #2E6B7A;
+  --foss4g-primary-light: #7FB8C8;
+  --foss4g-accent-green: #4CAF50;
+  --foss4g-accent-yellow: #FFEB3B;
+  --foss4g-accent-red: #F44336;
+}
+
+.workshop-content mark {
+  background-color: #E8F0F8;
+  color: #2E6B7A;
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+}
+
+/* Success States (Green) */
+.workshop-content .success,
+.workshop-content .check {
+  color: #4CAF50;
+  font-weight: 600;
+}
+
+/* Check marks in content are used as bullets - no CSS-added check marks needed */
+
+/* Highlight/Warning (Yellow) */
+.workshop-content .highlight,
+.workshop-content .warning,
+.workshop-content .important {
+  background-color: rgba(255, 235, 59, 0.15);
+  border-left: 4px solid #FFEB3B;
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 4px;
+}
+
+.workshop-content .warning::before {
+  content: "⚠️ ";
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+/* Error/Alert (Red) */
+.workshop-content .error,
+.workshop-content .alert {
+  background-color: rgba(244, 67, 54, 0.1);
+  border-left: 4px solid #F44336;
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 4px;
+  color: #B71C1C;
+}
+
+.workshop-content .error::before,
+.workshop-content .alert::before {
+  content: "⚠ ";
+  color: #F44336;
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+/* Info Box (Blue) */
+.workshop-content .info {
+  background-color: rgba(87, 169, 187, 0.08);
+  border-left: 4px solid #57A9BB;
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 4px;
+}
+
+.workshop-content .info::before {
+  content: "ℹ️ ";
+  margin-right: 0.5rem;
+}
+
+/* Success Box (Green) */
+.workshop-content .success-box {
+  background-color: rgba(76, 175, 80, 0.1);
+  border-left: 4px solid #4CAF50;
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 4px;
+}
+
+.workshop-content .success-box::before {
+  content: "✓ ";
+  color: #4CAF50;
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+/* Button-like Links */
+.workshop-content a[href^="http"]:not([href*="workshop"]):after {
+  content: " ↗";
+  font-size: 0.8em;
+  opacity: 0.7;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+
+  .workshop-content {
+    padding: 2rem;
+  }
+
+  .workshop-content h1 {
+    font-size: 2rem;
+  }
+
+  .workshop-content h2 {
+    font-size: 1.5rem;
+  }
+
+  /* Sidebar becomes collapsible on mobile */
+  .workshop-sidebar {
+    transform: translateX(-100%);
+    width: 280px;
+    top: 0;
+    height: 100vh;
+  }
+
+  .sidebar-toggle {
+    display: block;
+    top: 10px;
+  }
+  
+  .workshop-container {
+    margin-top: 0;
+  }
+
+  .sidebar-content.open + .workshop-sidebar,
+  .workshop-sidebar.open {
+    transform: translateX(0);
+    box-shadow: 2px 0 8px rgba(0,0,0,0.15);
+  }
+
+  .workshop-main {
+    margin-left: 0;
+    max-width: 100%;
+    padding: 2rem 1rem;
+  }
+
+  .map-preview-container .map-iframe,
+  .map-preview iframe {
+    height: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .workshop-main {
+    padding: 1rem 0.5rem;
+  }
+
+  .workshop-content {
+    padding: 1.5rem;
+  }
+
+  .workshop-content h1 {
+    font-size: 1.75rem;
+  }
+
+  .workshop-content h2 {
+    font-size: 1.25rem;
+  }
+
+  .map-preview iframe,
+  .map-preview-container .map-iframe {
+    height: 300px;
+  }
+}

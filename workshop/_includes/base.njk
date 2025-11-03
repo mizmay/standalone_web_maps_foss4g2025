@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if title %}{{ title }} - {% endif %}Te Ara Hura Workshop</title>
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@300;400;600&family=Overpass+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../workshop.css">
+</head>
+<body>
+  <div class="workshop-container">
+    <aside class="workshop-sidebar">
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+        <span class="toggle-icon">☰</span>
+      </button>
+      <div class="sidebar-content" id="sidebarContent">
+        <div class="sidebar-logo">
+          <img src="../images/foss4g2025-logo.svg" alt="FOSS4G 2025" class="logo">
+        </div>
+        <div class="sidebar-header">
+          <h2><a href="../welcome/" class="sidebar-header-link">Standalone Web Maps, No Platform Required</a></h2>
+        </div>
+        <nav class="sidebar-nav">
+          {% for stepItem in workshop.steps %}
+            {% set stepPath = stepItem.file | replace('.html', '') %}
+            {% if step == stepItem.number %}
+              <a href="./" class="sidebar-item active">
+            {% else %}
+              <a href="../{{ stepPath }}/" class="sidebar-item">
+            {% endif %}
+              <span class="step-number">Step {{ stepItem.number }}</span>
+              <span class="step-title">{{ stepItem.title }}</span>
+            </a>
+          {% endfor %}
+          {% if workshop.bonusSteps %}
+            <div class="sidebar-divider"></div>
+            <div class="sidebar-label">Bonus Steps</div>
+            {% for bonusStep in workshop.bonusSteps %}
+              {% set bonusPath = bonusStep.file | replace('.html', '') %}
+              {% if step == bonusStep.number %}
+                <a href="./" class="sidebar-item bonus active">
+              {% else %}
+                <a href="../{{ bonusPath }}/" class="sidebar-item bonus">
+              {% endif %}
+                <span class="step-number">Step {{ bonusStep.number }}</span>
+                <span class="step-title">{{ bonusStep.title }}</span>
+              </a>
+            {% endfor %}
+          {% endif %}
+        </nav>
+      </div>
+    </aside>
+
+    <main class="workshop-main">
+      <article class="workshop-content">
+        {% if title %}
+          <h1>{{ title }}</h1>
+        {% endif %}
+        
+        {% set contentParts = content | extractNav %}
+        {{ contentParts.content | safe }}
+
+        {% if mapImage %}
+          {% include "map-embed.njk" %}
+        {% endif %}
+        
+        {{ contentParts.nav | safe }}
+      </article>
+    </main>
+  </div>
+
+  <footer class="workshop-footer">
+    <p>FOSS4G 2025 Workshop - <a href="https://talks.osgeo.org/foss4g-2025/speaker/7A883D/">Stephanie May</a></p>
+    <p class="footer-attribution">
+      Background image: <a href="https://www.flickr.com/photos/4nitsirk/5624277298" title="The sun returns to Waiheke Island">The sun returns to Waiheke Island</a> by <a href="https://www.flickr.com/photos/4nitsirk/">Kristina D.C. Hoeppner</a>, <a href="https://creativecommons.org/licenses/by-sa/2.0/deed.en" rel="license noopener noreferrer">CC BY-SA 2.0</a>
+    </p>
+  </footer>
+
+  <script>
+    // Toggle sidebar on mobile
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebarContent = document.getElementById('sidebarContent');
+    
+    if (sidebarToggle && sidebarContent) {
+      sidebarToggle.addEventListener('click', function() {
+        const sidebar = sidebarContent.closest('.workshop-sidebar');
+        if (sidebar) {
+          sidebar.classList.toggle('open');
+        }
+        sidebarContent.classList.toggle('open');
+        sidebarToggle.classList.toggle('active');
+      });
+      
+      // Close sidebar when clicking outside on mobile
+      document.addEventListener('click', function(event) {
+        if (window.innerWidth <= 768) {
+          if (!sidebarContent.contains(event.target) && !sidebarToggle.contains(event.target)) {
+            sidebarContent.classList.remove('open');
+            sidebarToggle.classList.remove('active');
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
+

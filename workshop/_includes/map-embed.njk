@@ -1,0 +1,14 @@
+<div class="map-preview-container">
+  <h2>Your Map Preview</h2>
+  <div class="map-preview-wrapper">
+    <img 
+      src="../images/{{ mapImage }}" 
+      alt="Map preview showing expected result at this stage"
+      class="map-preview-image"
+      style="max-width: 100%; height: auto; border: 1px solid #dee2e6; border-radius: 4px;">
+    {% if mapNote %}
+      <p class="map-note">{{ mapNote }}</p>
+    {% endif %}
+  </div>
+</div>
+

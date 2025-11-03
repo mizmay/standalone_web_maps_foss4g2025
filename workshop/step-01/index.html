@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Step 1 - Get Set Up - Te Ara Hura Workshop</title>
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@300;400;600&family=Overpass+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../workshop.css">
+</head>
+<body>
+  <div class="workshop-container">
+    <aside class="workshop-sidebar">
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+        <span class="toggle-icon">☰</span>
+      </button>
+      <div class="sidebar-content" id="sidebarContent">
+        <div class="sidebar-logo">
+          <img src="../images/foss4g2025-logo.svg" alt="FOSS4G 2025" class="logo">
+        </div>
+        <div class="sidebar-header">
+          <h2><a href="../welcome/" class="sidebar-header-link">Standalone Web Maps, No Platform Required</a></h2>
+        </div>
+        <nav class="sidebar-nav">
+          
+            
+            
+              <a href="./" class="sidebar-item active">
+            
+              <span class="step-number">Step 1</span>
+              <span class="step-title">Get Set Up</span>
+            </a>
+          
+            
+            
+              <a href="../step-02/" class="sidebar-item">
+            
+              <span class="step-number">Step 2</span>
+              <span class="step-title">Use Overpass to Create an OpenStreetMap Extract</span>
+            </a>
+          
+            
+            
+              <a href="../step-03/" class="sidebar-item">
+            
+              <span class="step-number">Step 3</span>
+              <span class="step-title">Use Maplibre to Render Your Map</span>
+            </a>
+          
+            
+            
+              <a href="../step-04/" class="sidebar-item">
+            
+              <span class="step-number">Step 4</span>
+              <span class="step-title">Initialize GitHub Pages to Display Your Map</span>
+            </a>
+          
+          
+            <div class="sidebar-divider"></div>
+            <div class="sidebar-label">Bonus Steps</div>
+            
+          
+        </nav>
+      </div>
+    </aside>
+
+    <main class="workshop-main">
+      <article class="workshop-content">
+        
+          <h1>Step 1 - Get Set Up</h1>
+        
+        
+        
+        <h2>GitHub Account Setup</h2>
+<p>To participate in this workshop and deploy your map, you'll need a GitHub account.</p>
+<h3>Create a GitHub Account</h3>
+<p>If you already have a Github account, please sign in.</p>
+<p>Otherwise, follow these steps:</p>
+<ol>
+<li>
+<p><strong>Go to GitHub</strong>: Visit <a rel="noreferrer" target="_blank" href="https://github.com">https://github.com</a></p>
+</li>
+<li>
+<p><strong>Sign up</strong>: Click "Sign up" and follow the prompts</p>
+<ul>
+<li>Choose a username</li>
+<li>Provide your email address</li>
+<li>Create a secure password</li>
+<li>Verify your email address</li>
+</ul>
+</li>
+</ol>
+<h3>Fork the Workshop Repository</h3>
+<p>Once you have a GitHub account and are signed in:</p>
+<ol>
+<li>
+<p><strong>Navigate to the workshop repository</strong>: <a rel="noreferrer" target="_blank" href="https://github.com/mizmay/standalone_web_maps_foss4g2025">mizmay/standalone_web_maps_foss4g2025</a></p>
+</li>
+<li>
+<p><strong>Fork the repository</strong>:</p>
+<ul>
+<li>Click the "Fork" button in the top right corner</li>
+<li>Use the defaults to fork a copy to your account</li>
+<li>Leave "Copy the <code>main</code> branch only" checked</li>
+<li>You now have the starter files you need</li>
+</ul>
+</li>
+</ol>
+<h2>Set Up Your Local Computer</h2>
+<h3>Optional: Install VS Code</h3>
+<p>If you don't already have a code editor, a popular choice is Visual Studio Code (VS Code):</p>
+<ol>
+<li><strong>Download VS Code</strong>: Visit <a rel="noreferrer" target="_blank" href="https://code.visualstudio.com/">https://code.visualstudio.com/</a></li>
+<li><strong>Install</strong>: Follow the installation instructions for your operating system</li>
+<li><strong>Verify</strong>: Open VS Code to confirm it's installed correctly</li>
+</ol>
+<p><strong>Note</strong>: VS Code is built on open source but includes proprietary components (telemetry, branding). If you prefer a fully open source alternative, consider <a rel="noreferrer" target="_blank" href="https://vscodium.com/">VSCodium</a>, which uses the same codebase without Microsoft's additions. The workshop instructions work with either version.</p>
+<h3>Clone Your Fork Locally</h3>
+<p>After forking, you'll want to work with the code on your computer:</p>
+<ol>
+<li>
+<p><strong>Get your repository URL</strong>:</p>
+<ul>
+<li>On your fork's page, click the green "Code" button</li>
+<li>Copy the HTTPS URL (looks like <code>https://github.com/YOUR-USERNAME/standalone_web_maps_foss4g2025.git</code>)</li>
+</ul>
+</li>
+<li>
+<p><strong>Clone the repository using VS Code</strong>:</p>
+<ul>
+<li>Open VS Code. There should be an Explorer button in the top left corner, when you tap this you can "Clone Repository". Or...</li>
+<li>Press <code>Cmd+Shift+P</code> (Mac) or <code>Ctrl+Shift+P</code> (Windows/Linux) to open the command palette, Type "Git: Clone" and select it</li>
+<li>In either case, paste your repository URL</li>
+<li>Choose a folder location to save the repository</li>
+<li>VS Code will open the cloned repository automatically</li>
+</ul>
+<p><strong>Alternative (Command Line)</strong>:
+This will work from any terminal or command line interface. You can then edit the contents from any text editor:</p>
+<pre><code class="language-bash">git clone https://github.com/YOUR-USERNAME/standalone_web_maps_foss4g2025.git
+cd repository-name
+</code></pre>
+</li>
+</ol>
+<h2>Verify Your Setup</h2>
+<p>You should now have:</p>
+<ul>
+<li>A GitHub account</li>
+<li>A code or text editor installed on your computer</li>
+<li>Your own fork of the workshop repository on Github</li>
+<li>A local copy on your computer</li>
+</ul>
+
+        
+        
+        <hr>
+<p><strong><a href="../step-02/">Next: Step 2 - Use Overpass to Create an OpenStreetMap Extract →</a></strong></p>
+      </article>
+    </main>
+  </div>
+
+  <footer class="workshop-footer">
+    <p>FOSS4G 2025 Workshop - <a rel="noreferrer" target="_blank" href="https://talks.osgeo.org/foss4g-2025/speaker/7A883D/">Stephanie May</a></p>
+    <p class="footer-attribution">
+      Background image: <a rel="noreferrer" target="_blank" href="https://www.flickr.com/photos/4nitsirk/5624277298" title="The sun returns to Waiheke Island">The sun returns to Waiheke Island</a> by <a rel="noreferrer" target="_blank" href="https://www.flickr.com/photos/4nitsirk/">Kristina D.C. Hoeppner</a>, <a target="_blank" href="https://creativecommons.org/licenses/by-sa/2.0/deed.en" rel="noreferrer">CC BY-SA 2.0</a>
+    </p>
+  </footer>
+
+  <script>
+    // Toggle sidebar on mobile
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebarContent = document.getElementById('sidebarContent');
+    
+    if (sidebarToggle && sidebarContent) {
+      sidebarToggle.addEventListener('click', function() {
+        const sidebar = sidebarContent.closest('.workshop-sidebar');
+        if (sidebar) {
+          sidebar.classList.toggle('open');
+        }
+        sidebarContent.classList.toggle('open');
+        sidebarToggle.classList.toggle('active');
+      });
+      
+      // Close sidebar when clicking outside on mobile
+      document.addEventListener('click', function(event) {
+        if (window.innerWidth <= 768) {
+          if (!sidebarContent.contains(event.target) && !sidebarToggle.contains(event.target)) {
+            sidebarContent.classList.remove('open');
+            sidebarToggle.classList.remove('active');
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
+

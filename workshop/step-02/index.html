@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Step 2 - Use Overpass to Create an OpenStreetMap Extract - Te Ara Hura Workshop</title>
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@300;400;600&family=Overpass+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../workshop.css">
+</head>
+<body>
+  <div class="workshop-container">
+    <aside class="workshop-sidebar">
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+        <span class="toggle-icon">☰</span>
+      </button>
+      <div class="sidebar-content" id="sidebarContent">
+        <div class="sidebar-logo">
+          <img src="../images/foss4g2025-logo.svg" alt="FOSS4G 2025" class="logo">
+        </div>
+        <div class="sidebar-header">
+          <h2><a href="../welcome/" class="sidebar-header-link">Standalone Web Maps, No Platform Required</a></h2>
+        </div>
+        <nav class="sidebar-nav">
+          
+            
+            
+              <a href="../step-01/" class="sidebar-item">
+            
+              <span class="step-number">Step 1</span>
+              <span class="step-title">Get Set Up</span>
+            </a>
+          
+            
+            
+              <a href="./" class="sidebar-item active">
+            
+              <span class="step-number">Step 2</span>
+              <span class="step-title">Use Overpass to Create an OpenStreetMap Extract</span>
+            </a>
+          
+            
+            
+              <a href="../step-03/" class="sidebar-item">
+            
+              <span class="step-number">Step 3</span>
+              <span class="step-title">Use Maplibre to Render Your Map</span>
+            </a>
+          
+            
+            
+              <a href="../step-04/" class="sidebar-item">
+            
+              <span class="step-number">Step 4</span>
+              <span class="step-title">Initialize GitHub Pages to Display Your Map</span>
+            </a>
+          
+          
+            <div class="sidebar-divider"></div>
+            <div class="sidebar-label">Bonus Steps</div>
+            
+          
+        </nav>
+      </div>
+    </aside>
+
+    <main class="workshop-main">
+      <article class="workshop-content">
+        
+          <h1>Step 2 - Use Overpass to Create an OpenStreetMap Extract</h1>
+        
+        
+        
+        <h2>Extract Te Ara Hura Data from OpenStreetMap</h2>
+<p>In this step, we'll use Overpass Turbo to extract the Te Ara Hura trail data from OpenStreetMap. The trail is stored as <a rel="noreferrer" target="_blank" href="https://www.openstreetmap.org/relation/6170321#map=13/-36.79898/175.07092">relation 6170321</a> in OpenStreetMap.</p>
+<h3>About Te Ara Hura</h3>
+<p><strong>Te Ara Hura</strong> (The Wandering Path) is a collection of walks to explore Waiheke Island and discover its natural beauty. The trail network includes coastline walks, native bush paths, and visits to historic sites. Learn more on the <a rel="noreferrer" target="_blank" href="https://www.aucklandcouncil.govt.nz/parks-recreation/get-outdoors/find-a-walk/Pages/te-ara-hura-walk-waiheke-network.aspx">Auckland Council website</a>.</p>
+<h3>Export the Trail Relation from OpenStreetMap</h3>
+<ol>
+<li>
+<p><strong>Go to Overpass Turbo</strong>: Visit <a rel="noreferrer" target="_blank" href="https://overpass-turbo.eu/">https://overpass-turbo.eu/</a></p>
+</li>
+<li>
+<p><strong>Paste this query</strong> into the query window:</p>
+</li>
+</ol>
+<pre><code class="language-overpass">/* Te Ara Hura Trail - Waiheke Island */
+[out:json][timeout:25];
+
+// Store the relation
+rel(6170321)-&gt;.rel;
+
+// Get member ways and their nodes
+(
+  way(r.rel);
+  node(w); // nodes of the ways
+)-&gt;.ways_and_nodes;
+
+// Get member nodes that are *direct* members of the relation
+node(r.rel)-&gt;.standalone_nodes;
+
+// Combine all
+(
+  .ways_and_nodes;
+  .standalone_nodes;
+);
+out body;
+</code></pre>
+<ol start="3">
+<li>
+<p><strong>Run the query</strong>: Click the "Run" button (or press Ctrl+Enter)</p>
+</li>
+<li>
+<p><strong>Wait for results</strong>: The query will execute and display the trail data on the map</p>
+</li>
+<li>
+<p><strong>Verify the data</strong>: You should see the Te Ara Hura trail network displayed on Waiheke Island</p>
+</li>
+</ol>
+<h3>Download as GeoJSON</h3>
+<ol>
+<li>
+<p><strong>Download the data</strong>: Click the "Export" button</p>
+</li>
+<li>
+<p><strong>Select format</strong>: Choose "GeoJSON" from the format dropdown</p>
+</li>
+<li>
+<p><strong>Download the file</strong>: Click "Download" and save the file as <code>te_ara_hura.geojson</code></p>
+</li>
+</ol>
+<h3>Save to Your Repository</h3>
+<ol>
+<li><strong>Copy the file to your repository</strong>:</li>
+</ol>
+<p>In the process of downloading you can create a new <code>sources</code> directory inside your local repository, or you can do that now.</p>
+<p>Manually, via VS Code or your local file system:</p>
+<ul>
+<li>Create a new folder called <code>sources/</code> in your local repository</li>
+<li>Move the downloaded <code>te_ara_hura.geojson</code> file there</li>
+</ul>
+<p>From the terminal:</p>
+<pre><code class="language-bash"># Make sure you're in your repository directory
+mkdir sources
+cp ~/Downloads/te_ara_hura.geojson sources/te_ara_hura.geojson
+</code></pre>
+<ol start="2">
+<li>
+<p><strong>Verify the file</strong>:</p>
+<pre><code class="language-bash">ls -lh sources/te_ara_hura.geojson
+</code></pre>
+<p>You should see the file listed with its size (464 KB).</p>
+</li>
+</ol>
+<h3>Commit and Upload to GitHub</h3>
+<p>Now let's save your progress to GitHub:</p>
+<ol>
+<li>
+<p><strong>Commit the file</strong>:</p>
+<p>Using VS Code:</p>
+<ul>
+<li>Open the Source Control panel (icon on the left sidebar, or <code>Ctrl+Shift+G</code>)</li>
+<li>You should see <code>sources/te_ara_hura.geojson</code> listed as a new file</li>
+<li>Click the "+" icon next to it to stage the file</li>
+<li>Enter a commit message: "Add Te Ara Hura trail GeoJSON"</li>
+<li>Click the checkmark to commit</li>
+<li>Click the "Sync Changes" button (or "Push") to upload to GitHub</li>
+</ul>
+<p>Using the command line:</p>
+<pre><code class="language-bash">git add sources/te_ara_hura.geojson
+git commit -m "Add Te Ara Hura trail GeoJSON"
+git push origin main
+</code></pre>
+</li>
+<li>
+<p><strong>View your GeoJSON on GitHub</strong>:</p>
+<ul>
+<li>Go to your repository on GitHub (https://github.com/YOUR-USERNAME/standalone_web_maps_foss4g2025)</li>
+<li>Navigate to <code>sources/te_ara_hura.geojson</code></li>
+<li>Click on the file to view it</li>
+<li>GitHub will automatically render the GeoJSON as an interactive map showing the trail network</li>
+<li>Switch from "Preview" to "Code" to see the structure of the data directly</li>
+</ul>
+</li>
+</ol>
+<h3>Understanding the Data</h3>
+<p>The GeoJSON file contains:</p>
+<ul>
+<li><strong>Trail geometry</strong>: The paths that make up the Te Ara Hura network</li>
+<li><strong>Trail segments</strong>: Individual way segments that connect to form the complete trail</li>
+<li><strong>Properties</strong>: Metadata about the trail (name, network, operator, etc.)</li>
+</ul>
+<h3>What You Have Now</h3>
+<p>At the end of this step, you should have:</p>
+<ul>
+<li><code>sources/te_ara_hura.geojson</code> - The trail data is stored in the cloud and ready to display on your map</li>
+</ul>
+<p>This GeoJSON file will be loaded and displayed on your map in the next steps.</p>
+
+        
+        
+        <hr>
+<p><strong><a href="../step-01/">← Previous: Step 1</a> | <a href="../step-03/">Next: Step 3 - Use Maplibre to Render Your Map →</a></strong></p>
+      </article>
+    </main>
+  </div>
+
+  <footer class="workshop-footer">
+    <p>FOSS4G 2025 Workshop - <a rel="noreferrer" target="_blank" href="https://talks.osgeo.org/foss4g-2025/speaker/7A883D/">Stephanie May</a></p>
+    <p class="footer-attribution">
+      Background image: <a rel="noreferrer" target="_blank" href="https://www.flickr.com/photos/4nitsirk/5624277298" title="The sun returns to Waiheke Island">The sun returns to Waiheke Island</a> by <a rel="noreferrer" target="_blank" href="https://www.flickr.com/photos/4nitsirk/">Kristina D.C. Hoeppner</a>, <a target="_blank" href="https://creativecommons.org/licenses/by-sa/2.0/deed.en" rel="noreferrer">CC BY-SA 2.0</a>
+    </p>
+  </footer>
+
+  <script>
+    // Toggle sidebar on mobile
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebarContent = document.getElementById('sidebarContent');
+    
+    if (sidebarToggle && sidebarContent) {
+      sidebarToggle.addEventListener('click', function() {
+        const sidebar = sidebarContent.closest('.workshop-sidebar');
+        if (sidebar) {
+          sidebar.classList.toggle('open');
+        }
+        sidebarContent.classList.toggle('open');
+        sidebarToggle.classList.toggle('active');
+      });
+      
+      // Close sidebar when clicking outside on mobile
+      document.addEventListener('click', function(event) {
+        if (window.innerWidth <= 768) {
+          if (!sidebarContent.contains(event.target) && !sidebarToggle.contains(event.target)) {
+            sidebarContent.classList.remove('open');
+            sidebarToggle.classList.remove('active');
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
+

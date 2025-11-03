@@ -1,0 +1,34 @@
+{
+  "title": "Standalone Web Maps Workshop",
+  "subtitle": "Creating a map of Te Ara Hura Trail, Waiheke Island",
+  "instructor": {
+    "name": "Stephanie May",
+    "url": "https://talks.osgeo.org/foss4g-2025/speaker/7A883D/"
+  },
+  "steps": [
+    {
+      "number": 1,
+      "file": "step-01.html",
+      "title": "Get Set Up"
+    },
+    {
+      "number": 2,
+      "file": "step-02.html",
+      "title": "Use Overpass to Create an OpenStreetMap Extract"
+    },
+    {
+      "number": 3,
+      "file": "step-03.html",
+      "title": "Use Maplibre to Render Your Map"
+    },
+    {
+      "number": 4,
+      "file": "step-04.html",
+      "title": "Initialize GitHub Pages to Display Your Map"
+    }
+  ],
+  "bonusSteps": [],
+  "totalSteps": 4,
+  "totalBonusSteps": 0
+}
+

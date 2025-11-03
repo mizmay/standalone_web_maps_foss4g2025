@@ -1,156 +1,251 @@
-# Standalone Web Map Workshop: Te Ara Hura Trail
+# Workshop Instruction Pages
 
-This repository contains the materials for creating a standalone web map of **Te Ara Hura** (The Wandering Path) on Waiheke Island, Auckland, New Zealand. 
+This branch contains the workshop instruction materials for the **Standalone Web Maps Workshop: Te Ara Hura Trail**.
 
-## Workshop Overview
+## Branch Structure
 
-This 3-hour workshop will guide you through creating your own standalone web map. By the end, you'll have a fully functional web map application that you can:
-- Clone and customize for your own projects
-- Host on GitHub Pages or any static hosting service
-- Run entirely offline (no external dependencies)
-- Share with others without requiring a server
+This is the `workshop-instructions` branch. The instruction pages are built using [Eleventy](https://www.11ty.dev/) and published via GitHub Pages.
 
-## Map Context: Te Ara Hura
+**Note**: This branch is for maintaining workshop instruction materials only. Attendees should fork the `main` branch, which contains the starter files they need.
 
-**Te Ara Hura** is a walking trail network on Waiheke Island, located in the Hauraki Gulf near Auckland, New Zealand. The trail offers beautiful coastal views and connects various parts of the island, making it an ideal subject for a web mapping workshop.
-
-## Repository Structure
-
-### Current Architecture (Initial Setup)
-
-The repository starts with the following structure:
+## Directory Structure
 
 ```
-standalone_web_maps_foss4g2025/
-├── README.md                    # This file
-├── Makefile                     # Build and serve commands (uses Caddy)
-├── lib/                         # Third-party libraries and resources (self-contained)
-│   ├── maplibre-gl.5.10.0.js    # MapLibre GL JS library
-│   ├── maplibre-gl.5.10.0.css   # MapLibre GL JS styles
-│   └── pmtiles.4.3.0.js         # PMTiles library for tile serving
-└── sources/                     # Place to store source data files
+workshop-instructions/
+├── README.md                  # This file
+├── .eleventy.js               # Eleventy build configuration
+├── package.json               # Build dependencies
+└── workshop/                  # Instruction pages source
+    ├── _includes/             # Templates
+    │   ├── base.njk           # Base layout template
+    │   └── map-embed.njk      # Map embed component
+    ├── _data/                  # Global data
+    │   └── workshop.json       # Workshop metadata
+    ├── welcome.md              # Workshop welcome page
+    ├── step-01.md              # Step 1 instructions
+    ├── step-02.md              # Step 2 instructions
+    ├── ...
+    └── workshop.css            # Styles for instruction pages
 ```
 
-### Final Architecture (After Workshop Completion)
-
-By the end of the workshop, you will have this:
-
-```
-standalone_web_maps_foss4g2025/
-├── README.md                    # This file
-├── Makefile                     # Build and serve commands (uses Caddy)
-├── index.html                   # Main HTML file for the web map (contains inline CSS and JavaScript)
-├── style.json                   # MapLibre style specification (sources, layers, styling)
-├── lib/                         # Third-party libraries (self-contained)
-│   ├── maplibre-gl.5.10.0.js    # MapLibre GL JS library
-│   ├── maplibre-gl.5.10.0.css   # MapLibre GL JS styles
-│   ├── pmtiles.4.3.0.js         # PMTiles library for tile serving
-│   ├── fonts/                    # Noto Sans font files (for text rendering) - added in later steps
-│   │   ├── Noto Sans Regular/
-│   │   ├── Noto Sans Medium/
-│   │   ├── Noto Sans Italic/
-│   │   └── OFL.txt              # Open Font License
-│   └── sprites/                  # Sprite sheets for map icons - added in later steps
-│       ├── sprite.png
-│       └── sprite.json
-└── sources/                     # Source data files
-    ├── waiheke_island.pmtiles   # PMTiles archive for Waiheke Island basemap - added in later steps
-    └── te_ara_hura.geojson       # GeoJSON file for Te Ara Hura trail
-```
-
-## Technologies Used
-
-- **MapLibre GL JS** (v5.10.0): Open-source map rendering library (fork of Mapbox GL JS)
-- **PMTiles** (v4.3.0): Protocol for serving map tiles in a single archive file
-- **HTML5/CSS3/JavaScript**: Standard web technologies
-- **GeoJSON**: Vector data format for geographic features
-
-## Getting Started
+## Building the Workshop Site
 
 ### Prerequisites
 
-- A modern web browser (Chrome, Firefox, Safari, or Edge)
-- A text editor or IDE
-- Git (for cloning and version control)
-- Basic familiarity with HTML, CSS, and JavaScript (helpful but not required)
+- Node.js (v18 or later)
+- npm
 
-### Setup Instructions
+### Setup
 
-1. **Clone this repository** to your local machine:
+1. **Install dependencies**:
    ```bash
-   git clone <repository-url>
-   cd standalone_web_maps_foss4g2025
+   npm install
    ```
 
-2. **Fork the repository** to your own GitHub account so you can:
-   - Save your customizations
-   - Host your map on GitHub Pages
-   - Share your finished project
-
-3. **Serve the files locally** using the Makefile (which uses Caddy):
+2. **Build the site**:
    ```bash
-   make serve
+   npm run build
    ```
-   This will start a local web server using Caddy at `http://localhost:1234/`
+   This will generate HTML files in the `workshop/` directory using relative paths.
 
-4. **Open in your browser**: Navigate to `http://localhost:1234/` to see your map
+3. **Serve locally for testing**:
+   Serve from the repository root to match GitHub Pages structure:
+   ```bash
+   # Using Python
+   python3 -m http.server 8000
+   # Then visit: http://localhost:8000/workshop/
+   
+   # Or using Caddy (if installed)
+   caddy file-server --listen 127.0.0.1:8000
+   # Then visit: http://localhost:8000/workshop/
+   ```
+   
+   **Note**: The Eleventy dev server (`npm run serve`) serves from the `workshop/` directory, so relative paths won't work correctly. Use a file server from the repo root instead.
 
-## Workshop Goals
+### Building Locally
 
-By the end of this workshop, you will:
-- Understand the architecture of standalone web maps
-- Learn how to integrate MapLibre GL JS into a web page
-- Load and display GeoJSON data on a map
-- Style map layers and customize the appearance
-- Create interactive features (popups, tooltips, etc.)
-- Understand the PMTiles format for efficient tile delivery
-- Deploy your map to GitHub Pages or another hosting service
+The build process:
+1. Reads Markdown files from `workshop/` directory
+2. Processes them through Eleventy templates
+3. Outputs HTML files to `workshop/` directory (same location)
+4. Passes through CSS and images/ directory for instruction pages
 
-## Workshop Workflow
+### Deployment
 
-The workshop will proceed step by step, building the map application incrementally:
+The workshop site is published via GitHub Pages.
 
-1. **Setup and Repository Structure** - Understanding the project structure
-2. **Basic Map Display** - Creating your first map view
-3. **Loading Source Data** - Adding the Te Ara Hura trail data
-4. **Styling and Customization** - Making the map look great
-5. **Interactivity** - Adding user interactions
-6. **Polishing and Deployment** - Final touches and sharing your map
+## Editing Instructions
 
-## File Descriptions
+### Adding a New Step
 
-- **index.html**: The main HTML file containing the map container, inline CSS for styling, and JavaScript to initialize MapLibre
-- **style.json**: MapLibre style specification defining data sources (GeoJSON, PMTiles) and layer styling
-- **sources/**: Contains GeoJSON and PMTiles geographic data files for the map
-- **lib/**: All third-party libraries (MapLibre, PMTiles), fonts, and sprites bundled locally (ensures offline functionality)
+1. **Create a new Markdown file** in `workshop/`:
+   ```bash
+   touch workshop/step-XX.md
+   ```
 
-## Making It Your Own
+2. **Add front matter** at the top:
+   ```markdown
+   ---
+   layout: base.njk
+   title: Step XX - Your Title
+   step: XX
+   prev: step-XX.html
+   next: step-XX.html
+   showMapPreview: true
+   ---
+   ```
 
-After completing the workshop, feel free to:
-- Replace the Te Ara Hura trail data with your own geographic features
-- Customize the map style and colors
-- Add your own interactive features
-- Modify the design and layout
-- Extend functionality with additional MapLibre GL JS features
+3. **Write your content** in Markdown below the front matter
+
+4. **Update `workshop/_data/workshop.json`** to include the new step
+
+5. **Build and commit**:
+   ```bash
+   npm run build  # Build for GitHub Pages
+   git add workshop/step-XX.html workshop/_data/workshop.json
+   git commit -m "Add step XX"
+   git push origin workshop-instructions
+   ```
+
+### Editing Existing Steps
+
+1. **Edit the Markdown file** (e.g., `workshop/step-01.md`)
+
+2. **Build**:
+   ```bash
+   npm run build
+   ```
+
+3. **Commit changes**:
+   ```bash
+   git add workshop/step-01.md workshop/step-01.html
+   git commit -m "Update step 1"
+   git push origin workshop-instructions
+   ```
+
+### Updating the Base Template
+
+Edit `workshop/_includes/base.njk` to change:
+- Navigation structure
+- Header/footer
+- Overall page layout
+
+Then rebuild and commit.
+
+### Updating Workshop Metadata
+
+Edit `workshop/_data/workshop.json` to:
+- Update step list
+- Modify workshop title/subtitle
+- Change instructor information
+- Update total step count
+
+## File Types
+
+### Markdown Files (`.md`)
+
+- Written in Markdown with front matter (YAML)
+- Processed by Eleventy into HTML
+- Use `.md` extension
+- Located in `workshop/` directory
+
+### Template Files (`.njk`)
+
+- Nunjucks templates in `workshop/_includes/`
+- Used for consistent layout across pages
+- Can include other templates using `{% include %}`
+
+### Data Files (`.json`)
+
+- Global data in `workshop/_data/`
+- Automatically available in templates as `workshop.*`
+- Use for step lists, metadata, etc.
+
+## Workflow
+
+### Local Development & Testing
+
+1. **Make changes** to Markdown files or templates
+2. **Build the site**: `npm run build`
+   - Uses relative paths for all links (CSS, navigation, content)
+   - Works identically for both local testing and GitHub Pages
+3. **Test locally** by serving from repository root:
+   ```bash
+   python3 -m http.server 8000
+   # Then visit: http://localhost:8000/workshop/
+   ```
+   Or use Caddy:
+   ```bash
+   caddy file-server --listen 127.0.0.1:8000
+   # Then visit: http://localhost:8000/workshop/
+   ```
+4. **Verify links and styles work correctly**
+
+### Deploying to GitHub Pages
+
+1. **Build the site**: `npm run build`
+   - Uses relative paths (works for both local and GitHub Pages)
+2. **Commit built HTML files**: `git add workshop/**/*.html`
+3. **Push to GitHub**: `git push origin workshop-instructions`
+4. **GitHub Pages automatically updates** (serves from root at `/workshop/`)
+
+### Important Notes
+
+- **Single build command** - no separate local vs GitHub Pages builds needed
+- **Always test locally** by serving from repository root (not from `workshop/` directory)
+- **Relative paths everywhere** - CSS, navigation, and content links use relative paths that work in both environments
+
+## GitHub Pages Configuration
+
+The workshop site is configured to serve from this branch:
+- **Settings → Pages → Source**: `workshop-instructions` branch
+- **Folder**: `/ (root)`
+
+This means the built HTML files in `workshop/` are served at:
+`https://[username].github.io/[repo-name]/workshop/`
+
+
+### Installing Dependencies
+
+When you clone or pull changes:
+```bash
+npm install
+```
+
+This will:
+- Read `package.json` and `package-lock.json`
+- Install all dependencies into `node_modules/` (not committed)
+- Ensure consistent versions across all environments
+
+## Troubleshooting
+
+**Build fails?**
+- Check that all dependencies are installed: `npm install`
+- Verify Markdown syntax is correct
+- Check Eleventy error messages
+
+**Seeing `index-o.html` files in your editor?**
+- These are Eleventy build artifacts (duplicate permalink outputs)
+- They're already in `.gitignore` and won't be committed
+- Safe to ignore or delete them - they'll be regenerated on build
+- They don't affect the published site
+
+**Changes not showing?**
+- Make sure you ran `npm run build`
+- Verify HTML files were generated
+- Check that you committed and pushed the built files
+
+**Map doesn't embed?**
+- The map preview iframe points to `../../index.html` (relative to instruction pages)
+- Attendees must create `index.html` in the repository root (on `main` branch)
+- Check file paths in templates are correct
 
 ## Resources
 
+- [Eleventy Documentation](https://www.11ty.dev/docs/)
+- [Nunjucks Template Engine](https://mozilla.github.io/nunjucks/)
 - [MapLibre GL JS Documentation](https://maplibre.org/maplibre-gl-js-docs/)
-- [PMTiles Specification](https://github.com/protomaps/PMTiles)
-- [GeoJSON Specification](https://geojson.org/)
-- [Waiheke Island Information](https://www.waiheke.co.nz/)
-
-## License
-
-[Add your license information here - consider open source licensing for workshop materials]
-
-## Workshop Instructor
-
-This workshop is led by [Stephanie May](https://talks.osgeo.org/foss4g-2025/speaker/7A883D/), open source enthusiast, CNG board member, MapLibre board member, and cartographer at large.
-
-Created for FOSS4G 2025 workshop attendees.
 
 ---
 
-**Note**: This is a workshop repository. Feel free to fork, modify, and use it as a starting point for your own mapping projects!
-
+**Note**: Remember to commit both source Markdown files AND the generated HTML files after building!

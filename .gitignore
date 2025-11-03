@@ -1,0 +1,29 @@
+# Node.js
+node_modules/
+node_modules/.package-lock.json
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build output (if needed, but we're committing built HTML)
+# workshop/*.html
+# workshop/step-*/index.html
+
+# Ignore index-o artifacts (old build files)
+workshop/**/index-o*
+**/index-o/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary files
+*.tmp
+*.temp
+

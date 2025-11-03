@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Step 4 - Initialize GitHub Pages to Display Your Map - Te Ara Hura Workshop</title>
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@300;400;600&family=Overpass+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../workshop.css">
+</head>
+<body>
+  <div class="workshop-container">
+    <aside class="workshop-sidebar">
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+        <span class="toggle-icon">☰</span>
+      </button>
+      <div class="sidebar-content" id="sidebarContent">
+        <div class="sidebar-logo">
+          <img src="../images/foss4g2025-logo.svg" alt="FOSS4G 2025" class="logo">
+        </div>
+        <div class="sidebar-header">
+          <h2><a href="../welcome/" class="sidebar-header-link">Standalone Web Maps, No Platform Required</a></h2>
+        </div>
+        <nav class="sidebar-nav">
+          
+            
+            
+              <a href="../step-01/" class="sidebar-item">
+            
+              <span class="step-number">Step 1</span>
+              <span class="step-title">Get Set Up</span>
+            </a>
+          
+            
+            
+              <a href="../step-02/" class="sidebar-item">
+            
+              <span class="step-number">Step 2</span>
+              <span class="step-title">Use Overpass to Create an OpenStreetMap Extract</span>
+            </a>
+          
+            
+            
+              <a href="../step-03/" class="sidebar-item">
+            
+              <span class="step-number">Step 3</span>
+              <span class="step-title">Use Maplibre to Render Your Map</span>
+            </a>
+          
+            
+            
+              <a href="./" class="sidebar-item active">
+            
+              <span class="step-number">Step 4</span>
+              <span class="step-title">Initialize GitHub Pages to Display Your Map</span>
+            </a>
+          
+          
+            <div class="sidebar-divider"></div>
+            <div class="sidebar-label">Bonus Steps</div>
+            
+          
+        </nav>
+      </div>
+    </aside>
+
+    <main class="workshop-main">
+      <article class="workshop-content">
+        
+          <h1>Step 4 - Initialize GitHub Pages to Display Your Map</h1>
+        
+        
+        
+        <h2>Deploy Your Map to GitHub Pages</h2>
+<p>In this step, you'll deploy your map so it's accessible on the web via GitHub Pages. Since you're working from your <strong>forked version</strong> of this repository, your map will be hosted on your own GitHub Pages site.</p>
+<h3>Commit Your Changes</h3>
+<p>First, let's save your work to your repository. Switch to the Source Control tab on VS Code and commit the new files you created in the previous step as you did in Step 2, or open a new terminal window and follow the steps below to do it manually:</p>
+<ol>
+<li>
+<p><strong>Check your changes</strong>:</p>
+<pre><code class="language-bash">git status
+</code></pre>
+<p>You should see:</p>
+<ul>
+<li><code>index.html</code> (new file)</li>
+<li><code>styles.json</code> (new file)</li>
+</ul>
+</li>
+<li>
+<p><strong>Add your files</strong>:</p>
+<pre><code class="language-bash">git add .
+</code></pre>
+</li>
+<li>
+<p><strong>Commit your changes</strong>:</p>
+<pre><code class="language-bash">git commit -m "Add initial map of Te Ara Hura trail"
+</code></pre>
+</li>
+<li>
+<p><strong>Push to your fork</strong>:</p>
+<pre><code class="language-bash">git push origin main
+</code></pre>
+</li>
+</ol>
+<h3>Add .nojekyll File (Recommended)</h3>
+<p>GitHub Pages uses Jekyll by default to process sites. For pure static files (HTML, CSS, JS), Jekyll processing isn't needed and can sometimes cause issues. Adding a <code>.nojekyll</code> file tells GitHub to skip Jekyll processing.</p>
+<p><strong>Note</strong>: Your site might work without this file, but it's a best practice to include it to ensure Jekyll doesn't interfere with your files.</p>
+<p>Open a new terminal if you don't have one open already and paste the following lines, one at a time:</p>
+<pre><code class="language-bash">touch .nojekyll
+git add .nojekyll
+git commit -m "Add .nojekyll to disable Jekyll processing"
+git push origin main
+</code></pre>
+<h3>Enable GitHub Pages</h3>
+<ol>
+<li>
+<p><strong>Go to your repository on GitHub</strong>: Navigate to the webpage for your fork on GitHub</p>
+</li>
+<li>
+<p><strong>Open Settings</strong>: Click on the "Settings" tab at the top</p>
+</li>
+<li>
+<p><strong>Go to Pages</strong>: In the left sidebar, click "Pages"</p>
+</li>
+<li>
+<p><strong>Configure Pages</strong>:</p>
+<ul>
+<li><strong>Source</strong>: Select "Deploy from a branch"</li>
+<li><strong>Branch</strong>: Select <code>main</code></li>
+<li><strong>Folder</strong>: Select <code>/ (root)</code></li>
+<li>Click "Save"</li>
+</ul>
+</li>
+<li>
+<p><strong>Wait for deployment</strong>: GitHub will take a minute or two to build and deploy your site</p>
+</li>
+<li>
+<p><strong>Get your URL</strong>: At the top of the page GitHub will display "Your site is live at" and your site URL, which will be:</p>
+<pre><code>https://YOUR-USERNAME.github.io/standalone_web_maps_foss4g2025/
+</code></pre>
+</li>
+</ol>
+<h3>Verify Your Deployment</h3>
+<ol>
+<li>
+<p><strong>Visit your GitHub Pages URL</strong>: Navigate to the URL GitHub provided</p>
+</li>
+<li>
+<p><strong>Check your map</strong>: You should see your the Te Ara Hura trail as in the previous step</p>
+</li>
+<li>
+<p><strong>Check in different browsers</strong>: Try opening in Chrome, Firefox, and Safari</p>
+</li>
+</ol>
+<h3>Update Your Links</h3>
+<p>If you have any hard-coded paths or URLs in your files, make sure they work with your GitHub Pages URL. Since we're using relative paths (<code>lib/</code>, <code>sources/</code>), everything should work automatically.</p>
+<h3>What You Have Now</h3>
+<p>At the end of this step, you should have:</p>
+<ul>
+<li>Your map files committed to your repository</li>
+<li>GitHub Pages enabled and configured</li>
+<li>A live URL where your map is accessible</li>
+<li><code>.nojekyll</code> file (recommended) to ensure Jekyll doesn't interfere</li>
+</ul>
+<p>Your map is now live on the web! 🎉</p>
+<p>Now you are probably wondering how to add a basemap, or at the very least some reference layers. We'll tackle that next.</p>
+
+        
+        
+        <hr>
+<p><strong><a href="../step-03/">← Previous: Step 3</a></strong></p>
+      </article>
+    </main>
+  </div>
+
+  <footer class="workshop-footer">
+    <p>FOSS4G 2025 Workshop - <a rel="noreferrer" target="_blank" href="https://talks.osgeo.org/foss4g-2025/speaker/7A883D/">Stephanie May</a></p>
+    <p class="footer-attribution">
+      Background image: <a rel="noreferrer" target="_blank" href="https://www.flickr.com/photos/4nitsirk/5624277298" title="The sun returns to Waiheke Island">The sun returns to Waiheke Island</a> by <a rel="noreferrer" target="_blank" href="https://www.flickr.com/photos/4nitsirk/">Kristina D.C. Hoeppner</a>, <a target="_blank" href="https://creativecommons.org/licenses/by-sa/2.0/deed.en" rel="noreferrer">CC BY-SA 2.0</a>
+    </p>
+  </footer>
+
+  <script>
+    // Toggle sidebar on mobile
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebarContent = document.getElementById('sidebarContent');
+    
+    if (sidebarToggle && sidebarContent) {
+      sidebarToggle.addEventListener('click', function() {
+        const sidebar = sidebarContent.closest('.workshop-sidebar');
+        if (sidebar) {
+          sidebar.classList.toggle('open');
+        }
+        sidebarContent.classList.toggle('open');
+        sidebarToggle.classList.toggle('active');
+      });
+      
+      // Close sidebar when clicking outside on mobile
+      document.addEventListener('click', function(event) {
+        if (window.innerWidth <= 768) {
+          if (!sidebarContent.contains(event.target) && !sidebarToggle.contains(event.target)) {
+            sidebarContent.classList.remove('open');
+            sidebarToggle.classList.remove('active');
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
+

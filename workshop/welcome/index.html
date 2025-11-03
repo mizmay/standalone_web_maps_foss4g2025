@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Standalone Web Maps, No Platform Required - Te Ara Hura Workshop</title>
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@300;400;600&family=Overpass+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../workshop.css">
+</head>
+<body>
+  <div class="workshop-container">
+    <aside class="workshop-sidebar">
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+        <span class="toggle-icon">☰</span>
+      </button>
+      <div class="sidebar-content" id="sidebarContent">
+        <div class="sidebar-logo">
+          <img src="../images/foss4g2025-logo.svg" alt="FOSS4G 2025" class="logo">
+        </div>
+        <div class="sidebar-header">
+          <h2><a href="../welcome/" class="sidebar-header-link">Standalone Web Maps, No Platform Required</a></h2>
+        </div>
+        <nav class="sidebar-nav">
+          
+            
+            
+              <a href="../step-01/" class="sidebar-item">
+            
+              <span class="step-number">Step 1</span>
+              <span class="step-title">Get Set Up</span>
+            </a>
+          
+            
+            
+              <a href="../step-02/" class="sidebar-item">
+            
+              <span class="step-number">Step 2</span>
+              <span class="step-title">Use Overpass to Create an OpenStreetMap Extract</span>
+            </a>
+          
+            
+            
+              <a href="../step-03/" class="sidebar-item">
+            
+              <span class="step-number">Step 3</span>
+              <span class="step-title">Use Maplibre to Render Your Map</span>
+            </a>
+          
+            
+            
+              <a href="../step-04/" class="sidebar-item">
+            
+              <span class="step-number">Step 4</span>
+              <span class="step-title">Initialize GitHub Pages to Display Your Map</span>
+            </a>
+          
+          
+            <div class="sidebar-divider"></div>
+            <div class="sidebar-label">Bonus Steps</div>
+            
+          
+        </nav>
+      </div>
+    </aside>
+
+    <main class="workshop-main">
+      <article class="workshop-content">
+        
+          <h1>Standalone Web Maps, No Platform Required</h1>
+        
+        
+        
+        <p>This workshop will guide you through creating a web map of <strong>Te Ara Hura</strong> (The Wandering Path) on Waiheke Island, Auckland, New Zealand using open source data and tools.</p>
+<h2>Workshop Overview</h2>
+<p>This 3-hour workshop will guide you through creating your own standalone web map. By the end, you'll have a fully functional web map application that you can:</p>
+<ul>
+<li>Clone and customize for your own projects</li>
+<li>Host on GitHub Pages or any static hosting service</li>
+<li>Run entirely offline (no external dependencies)</li>
+<li>Share with others without requiring a server</li>
+</ul>
+<h2>Workshop Steps</h2>
+<p>This workshop is divided into 8 main steps:</p>
+<ol>
+<li><a href="../step-01/"><strong>Get Set Up</strong></a> - Create an account or log into Github, get set up on your local machine</li>
+<li><a href="../step-02/"><strong>Use Overpass to Create an OpenStreetMap Extract</strong></a> - Extract Te Ara Hura trail data</li>
+<li><a href="../step-03/"><strong>Use Maplibre to Render Your Map</strong></a> - Set up local server and create your first map</li>
+<li><a href="../step-04/"><strong>Initialize GitHub Pages to Display Your Map</strong></a> - Deploy your map to the web</li>
+<li><a href="../step-05/"><strong>Define a Bounding Box and Download Reference Layers from Protomaps</strong></a> - Download basemap tiles</li>
+<li><a href="../step-06/"><strong>Configure the Stylesheet</strong></a> - Set up styling with local sprites and fonts</li>
+<li><a href="../step-07/"><strong>Add Terrain (Hillshade, Contours)</strong></a> - Visualize elevation and topography</li>
+<li><a href="../step-08/"><strong>Add Interactivity</strong></a> - Add popups, controls, and interactive features</li>
+</ol>
+<h3>Bonus Steps (Time Permitting)</h3>
+<ol start="9">
+<li><strong>Customize the Stylesheet</strong> - Modify colors and styling</li>
+<li><strong>Create Custom Icons / Spritesheet</strong> - Design and add custom icons</li>
+<li><strong>Configure for Cloud Storage</strong> - Use cloud storage for large files</li>
+</ol>
+<hr>
+<p>Ready to begin? Start with <a href="../step-01/">Step 1 - Get Set Up</a>!</p>
+
+        
+        
+        
+      </article>
+    </main>
+  </div>
+
+  <footer class="workshop-footer">
+    <p>FOSS4G 2025 Workshop - <a rel="noreferrer" target="_blank" href="https://talks.osgeo.org/foss4g-2025/speaker/7A883D/">Stephanie May</a></p>
+    <p class="footer-attribution">
+      Background image: <a rel="noreferrer" target="_blank" href="https://www.flickr.com/photos/4nitsirk/5624277298" title="The sun returns to Waiheke Island">The sun returns to Waiheke Island</a> by <a rel="noreferrer" target="_blank" href="https://www.flickr.com/photos/4nitsirk/">Kristina D.C. Hoeppner</a>, <a target="_blank" href="https://creativecommons.org/licenses/by-sa/2.0/deed.en" rel="noreferrer">CC BY-SA 2.0</a>
+    </p>
+  </footer>
+
+  <script>
+    // Toggle sidebar on mobile
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebarContent = document.getElementById('sidebarContent');
+    
+    if (sidebarToggle && sidebarContent) {
+      sidebarToggle.addEventListener('click', function() {
+        const sidebar = sidebarContent.closest('.workshop-sidebar');
+        if (sidebar) {
+          sidebar.classList.toggle('open');
+        }
+        sidebarContent.classList.toggle('open');
+        sidebarToggle.classList.toggle('active');
+      });
+      
+      // Close sidebar when clicking outside on mobile
+      document.addEventListener('click', function(event) {
+        if (window.innerWidth <= 768) {
+          if (!sidebarContent.contains(event.target) && !sidebarToggle.contains(event.target)) {
+            sidebarContent.classList.remove('open');
+            sidebarToggle.classList.remove('active');
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
+
