@@ -53,11 +53,11 @@ workshop-instructions/
    ```bash
    # Using Python
    python3 -m http.server 8000
-   # Then visit: http://localhost:8000/workshop/
+   # Then visit: http://localhost:8000/workshop/welcome/
    
    # Or using Caddy (if installed)
    caddy file-server --listen 127.0.0.1:8000
-   # Then visit: http://localhost:8000/workshop/
+   # Then visit: http://localhost:8000/workshop/welcome/
    ```
    
    **Note**: The Eleventy dev server (`npm run serve`) serves from the `workshop/` directory, so relative paths won't work correctly. Use a file server from the repo root instead.
@@ -172,12 +172,12 @@ Edit `workshop/_data/workshop.json` to:
 3. **Test locally** by serving from repository root:
    ```bash
    python3 -m http.server 8000
-   # Then visit: http://localhost:8000/workshop/
+   # Then visit: http://localhost:8000/workshop/welcome/
    ```
    Or use Caddy:
    ```bash
    caddy file-server --listen 127.0.0.1:8000
-   # Then visit: http://localhost:8000/workshop/
+   # Then visit: http://localhost:8000/workshop/welcome/
    ```
 4. **Verify links and styles work correctly**
 

@@ -10,7 +10,6 @@ This workshop will guide you through creating a web map of **Te Ara Hura** (The 
 This 3-hour workshop will guide you through creating your own standalone web map. By the end, you'll have a fully functional web map application that you can:
 - Clone and customize for your own projects
 - Host on GitHub Pages or any static hosting service
-- Run entirely offline (no external dependencies)
 - Share with others without requiring a server
 
 ## Workshop Steps

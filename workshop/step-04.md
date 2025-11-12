@@ -80,7 +80,9 @@ Open a new terminal if you don't have one open already and paste the following l
 
 2. **Check your map**: You should see your the Te Ara Hura trail as in the previous step
 
-3. **Check in different browsers**: Try opening in Chrome, Firefox, and Safari
+3. **Check in different browsers**: Try opening in Chrome, Firefox<sup>*</sup>, and Safari
+
+<sup>*</sup> *There is currently a [bug](https://github.com/protomaps/PMTiles/issues/584) in Firefox that prevents PMTiles from rendering correctly via Github Pages. There's a simple fix and we're hopeful it will get merged.*
 
 ### Update Your Links
 
