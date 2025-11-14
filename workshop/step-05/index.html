@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Step 4 - Initialize GitHub Pages to Display Your Map - Te Ara Hura Workshop</title>
+  <title>Step 5 - Download Reference Layers from Protomaps - Te Ara Hura Workshop</title>
   <link rel="icon" type="image/x-icon" href="../favicon.ico">
   <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@300;400;600&family=Overpass+Mono:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../workshop.css">
@@ -49,7 +49,7 @@
           
             
             
-              <a href="./" class="sidebar-item active">
+              <a href="../step-04/" class="sidebar-item">
             
               <span class="step-number">Step 4</span>
               <span class="step-title">Initialize GitHub Pages to Display Your Map</span>
@@ -57,7 +57,7 @@
           
             
             
-              <a href="../step-05/" class="sidebar-item">
+              <a href="./" class="sidebar-item active">
             
               <span class="step-number">Step 5</span>
               <span class="step-title">Download Reference Layers from Protomaps</span>
@@ -99,110 +99,84 @@
     <main class="workshop-main">
       <article class="workshop-content">
         
-          <h1>Step 4 - Initialize GitHub Pages to Display Your Map</h1>
+          <h1>Step 5 - Download Reference Layers from Protomaps</h1>
         
         
         
-        <h2>Deploy Your Map to GitHub Pages</h2>
-<p>In this step, you'll deploy your map so it's accessible on the web via GitHub Pages. Since you're working from your <strong>forked version</strong> of this repository, your map will be hosted on your own GitHub Pages site.</p>
+        <p>In this step, we'll download a tile extract for Waiheke Island to use as our map's basemap (roads, labels, landcover, etc.).</p>
+<h2>Downloading Protomaps</h2>
+<p>Protomaps provides global basemap tiles stored in PMTiles format and extractable by bounding box, so you can grab just what you need to provide some reference layers on your trail map.</p>
+<h3>Install PMTiles CLI</h3>
+<p>First, we need to install the PMTiles command-line tool to download and extract tiles. From the command line:</p>
+<h4>macOS Installation</h4>
+<pre><code class="language-bash">brew install pmtiles
+</code></pre>
+<h4>Linux/Windows Installation</h4>
+<p>Download from <a rel="noreferrer" target="_blank" href="https://github.com/protomaps/go-pmtiles/releases">https://github.com/protomaps/go-pmtiles/releases</a> or follow the <a rel="noreferrer" target="_blank" href="https://docs.protomaps.com/guide/getting-started">Protomaps Getting Started guide</a>.</p>
+<h4>Verify Installation</h4>
+<pre><code class="language-bash">pmtiles version
+</code></pre>
+<h3>Define the Bounding Box</h3>
+<p>For Waiheke Island, Auckland, New Zealand, we'll use this bounding box:</p>
+<ul>
+<li><strong>West (min longitude)</strong>: 174.8</li>
+<li><strong>East (max longitude)</strong>: 175.2</li>
+<li><strong>South (min latitude)</strong>: -37.0</li>
+<li><strong>North (max latitude)</strong>: -36.7</li>
+</ul>
+<p><strong>Format</strong>: We'll structure the bounding box as a list of <code>west, south, east, north</code> coordinates, and end up with <code>174.8, -37.0, 175.2, -36.7</code></p>
+<p>This bounding box includes:</p>
+<ul>
+<li>The entire Waiheke Island</li>
+<li>Some surrounding water for context</li>
+<li>A small buffer around the island</li>
+</ul>
+<p><strong>Tip</strong>: Need to find a bounding box for a different area? Use <a rel="noreferrer" target="_blank" href="https://bboxfinder.com/">bboxfinder.com</a> - draw a rectangle on the map and it will give you the bounding box coordinates in the format you need.</p>
+<h3>Find the Latest Protomaps Build</h3>
+<ol>
+<li><strong>Check Protomaps builds</strong>: Visit <a rel="noreferrer" target="_blank" href="https://build.protomaps.com/">https://build.protomaps.com/</a></li>
+<li><strong>Find the latest daily build</strong>: Look for the most recent successful build in the "date" column (builds run nightly but it's the "tileset version" that matters for ensuring you've got the latest data)</li>
+<li><strong>Note the filename</strong>: It will look like <code>YYYYMMDD.pmtiles</code> (e.g., <code>20251110.pmtiles</code>)</li>
+<li><strong>Click <u>xray</u></strong> in the same row</li>
+<li>This allows you to inspect the tile layers in the basemap data. Zoom in on <a rel="noreferrer" target="_blank" href="https://pmtiles.io/#url=https%3A%2F%2Fbuild.protomaps.com%2F20251110.pmtiles&map=10/-36.8483/175.0938">Wiaheke Island</a> to see what's there. Toggle on and off <code>pois</code>. What features are these?</li>
+</ol>
+<h3>Download the Protomaps Extract</h3>
+<p>Run this command (replace <code>20251110</code> with a more recent build if you like):</p>
+<pre><code class="language-bash">pmtiles extract https://build.protomaps.com/20251110.pmtiles sources/waiheke_island.pmtiles \
+  --minzoom=10 \
+  --maxzoom=16 \
+  --bbox=174.8,-37.0,175.2,-36.7
+</code></pre>
+<p><strong>Parameters explained:</strong></p>
+<ul>
+<li><code>--minzoom=10</code>: Minimum zoom level (this is the maximum extent of the map, beyond this, the island is too tiny)</li>
+<li><code>--maxzoom=16</code>: Maximum zoom level (this is the maximum detail you can get from the data)</li>
+<li><code>--bbox=174.8,-37.0,175.2,-36.7</code>: Bounding box for Waiheke Island</li>
+</ul>
+<p><strong>Note</strong>: This extract will typically be 50-200 MB, well under the 1 GB limit Github supports.</p>
+<h3>Wait for Download</h3>
+<p>The download process can take a few minutes depending on:</p>
+<ul>
+<li>Your internet connection</li>
+<li>The size of the extract</li>
+<li>Server load</li>
+</ul>
+<p>You'll see progress output showing the download status, and the number of tiles and total file size of your download.</p>
 <h3>Commit Your Changes</h3>
-<p>First, let's save your work to your repository. Switch to the Source Control tab on VS Code and commit the new files you created in the previous step with a meaningful commit message, just as you did in Step 2.</p>
-<p>To open a new terminal window and commit manually:</p>
-<ol>
-<li>
-<p><strong>Check your changes</strong>:</p>
-<pre><code class="language-bash">git status
-</code></pre>
-<p>You should see:</p>
-<ul>
-<li><code>index.html</code> (new file)</li>
-<li><code>styles.json</code> (new file)</li>
-</ul>
-</li>
-<li>
-<p><strong>Add your files</strong>:</p>
-<pre><code class="language-bash">git add .
-</code></pre>
-</li>
-<li>
-<p><strong>Commit your changes</strong>:</p>
-<pre><code class="language-bash">git commit -m "Add initial map of Te Ara Hura trail"
-</code></pre>
-</li>
-<li>
-<p><strong>Push to your fork</strong>:</p>
-<pre><code class="language-bash">git push origin main
-</code></pre>
-</li>
-</ol>
-<h3>Add .nojekyll File (Recommended)</h3>
-<p>GitHub Pages uses Jekyll by default to process sites. For pure static files (HTML, CSS, JS), Jekyll processing isn't needed and can sometimes cause issues. Adding a <code>.nojekyll</code> file tells GitHub to skip Jekyll processing.</p>
-<p><strong>Note</strong>: Your site might work without this file, but it's a best practice to include it to ensure Jekyll doesn't interfere with your files.</p>
-<p>Open a new terminal if you don't have one open already and paste the following lines, one at a time:</p>
-<pre><code class="language-bash">touch .nojekyll
-git add .nojekyll
-git commit -m "Add .nojekyll to disable Jekyll processing"
-git push origin main
-</code></pre>
-<h3>Enable GitHub Pages</h3>
-<ol>
-<li>
-<p><strong>Go to your repository on GitHub</strong>: Navigate to the webpage for your fork on GitHub</p>
-</li>
-<li>
-<p><strong>Open Settings</strong>: Click on the "Settings" tab at the top</p>
-</li>
-<li>
-<p><strong>Go to Pages</strong>: In the left sidebar, click "Pages"</p>
-</li>
-<li>
-<p><strong>Configure Pages</strong>:</p>
-<ul>
-<li><strong>Source</strong>: Select "Deploy from a branch"</li>
-<li><strong>Branch</strong>: Select <code>main</code></li>
-<li><strong>Folder</strong>: Select <code>/ (root)</code></li>
-<li>Click "Save"</li>
-</ul>
-</li>
-<li>
-<p><strong>Wait for deployment</strong>: GitHub will take a minute or two to build and deploy your site</p>
-</li>
-<li>
-<p><strong>Get your URL</strong>: At the top of the page GitHub will display "Your site is live at" and your site URL, which will be:</p>
-<pre><code>https://YOUR-USERNAME.github.io/standalone_web_maps_foss4g2025/
-</code></pre>
-</li>
-</ol>
-<h3>Verify Your Deployment</h3>
-<ol>
-<li>
-<p><strong>Visit your GitHub Pages URL</strong>: Navigate to the URL GitHub provided</p>
-</li>
-<li>
-<p><strong>Check your map</strong>: You should see your the Te Ara Hura trail as in the previous step</p>
-</li>
-<li>
-<p><strong>Check in different browsers</strong>: Try opening in Chrome, Firefox<sup>*</sup>, and Safari</p>
-</li>
-</ol>
-<p><sup>*</sup> <em>There is currently a <a rel="noreferrer" target="_blank" href="https://github.com/protomaps/PMTiles/issues/584">bug</a> in Firefox that prevents PMTiles from rendering correctly via Github Pages. There's a simple fix and we're hopeful it will get merged.</em></p>
-<h3>Update Your Links</h3>
-<p>If you have any hard-coded paths or URLs in your files, make sure they work with your GitHub Pages URL. Since we're using relative paths (<code>lib/</code>, <code>sources/</code>), everything should work automatically.</p>
+<p>Follow the process from Step 4 and Step 2 to add, commit, and push <code>waiheke_island.pmtiles</code> to your remote fork.</p>
 <h3>What You Have Now</h3>
 <p>At the end of this step, you should have:</p>
 <ul>
-<li>Your map files committed to your repository</li>
-<li>GitHub Pages enabled and configured</li>
-<li>A live URL where your map is accessible</li>
-<li><code>.nojekyll</code> file (recommended) to ensure Jekyll doesn't interfere</li>
+<li><code>sources/waiheke_island.pmtiles</code> - Protomaps basemap tiles for Waiheke Island</li>
 </ul>
-<p>Your map is now live on the web! 🎉</p>
-<p>Now you are probably wondering how to add a basemap, or at the very least some reference layers. We'll tackle that next.</p>
+<p>Both locally on your hard drive and remotely via Github.</p>
+<h3>Next Steps</h3>
+<p>In the next step, we'll configure the stylesheet to match the Protomaps tiles and integrate them into your map. We'll also download the necessary sprites and fonts.</p>
 
         
         
         <hr>
-<p><strong><a href="../step-03/">← Previous: Step 3</a> | <a href="../step-05/">Next: Step 5 - Download Protomaps Reference Layers →</a></strong></p>
+<p><strong><a href="../step-04/">← Previous: Step 4</a> | <a href="../step-06/">Next: Step 6 - Configure the Stylesheet →</a></strong></p>
       </article>
     </main>
   </div>

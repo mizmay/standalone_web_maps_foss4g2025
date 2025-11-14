@@ -68,15 +68,7 @@ out body;
    - Create a new folder called `sources/` in your local repository
    - Move the downloaded `te_ara_hura.geojson` file there
 
-  From the terminal:
-
-   ```bash
-   # Make sure you're in your repository directory
-   mkdir sources
-   cp ~/Downloads/te_ara_hura.geojson sources/te_ara_hura.geojson
-   ```
-
-2. **Verify the file**:
+1. **Verify the file**:
    ```bash
    ls -lh sources/te_ara_hura.geojson
    ```

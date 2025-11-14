@@ -3,7 +3,8 @@ layout: base.njk
 title: Step 4 - Initialize GitHub Pages to Display Your Map
 step: 4
 prev: step-03.html
-next: null
+next: step-05.html
+showMapPreview: false
 ---
 
 ## Deploy Your Map to GitHub Pages
@@ -12,7 +13,9 @@ In this step, you'll deploy your map so it's accessible on the web via GitHub Pa
 
 ### Commit Your Changes
 
-First, let's save your work to your repository. Switch to the Source Control tab on VS Code and commit the new files you created in the previous step as you did in Step 2, or open a new terminal window and follow the steps below to do it manually:
+First, let's save your work to your repository. Switch to the Source Control tab on VS Code and commit the new files you created in the previous step with a meaningful commit message, just as you did in Step 2.
+
+To open a new terminal window and commit manually:
 
 1. **Check your changes**:
    ```bash
@@ -102,5 +105,5 @@ Now you are probably wondering how to add a basemap, or at the very least some r
 
 ---
 
-**[← Previous: Step 3](../step-03/)**
+**[← Previous: Step 3](../step-03/) | [Next: Step 5 - Download Protomaps Reference Layers →](../step-05/)**
 

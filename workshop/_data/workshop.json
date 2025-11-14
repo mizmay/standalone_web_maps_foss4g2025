@@ -25,10 +25,30 @@
       "number": 4,
       "file": "step-04.html",
       "title": "Initialize GitHub Pages to Display Your Map"
+    },
+    {
+      "number": 5,
+      "file": "step-05.html",
+      "title": "Download Reference Layers from Protomaps"
+    },
+    {
+      "number": 6,
+      "file": "step-06.html",
+      "title": "Configure the Stylesheet"
+    },
+    {
+      "number": 7,
+      "file": "step-07.html",
+      "title": "Add Terrain (Hillshade, Contours)"
+    },
+    {
+      "number": 8,
+      "file": "step-08.html",
+      "title": "Add Interactivity"
     }
   ],
   "bonusSteps": [],
-  "totalSteps": 4,
+  "totalSteps": 8,
   "totalBonusSteps": 0
 }
 
