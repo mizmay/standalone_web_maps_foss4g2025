@@ -164,6 +164,20 @@
 <p>You'll see progress output showing the download status, and the number of tiles and total file size of your download.</p>
 <h3>Commit Your Changes</h3>
 <p>Follow the process from Step 4 and Step 2 to add, commit, and push <code>waiheke_island.pmtiles</code> to your remote fork.</p>
+<h3>Download Protomaps Stylesheet</h3>
+<p>Protomaps provides a base stylesheet that matches the PMTiles tiles. We'll download the appropriate version:</p>
+<ol>
+<li><strong>In your browser, go back to the Protomaps Builds page</strong>: Visit <a rel="noreferrer" target="_blank" href="https://build.protomaps.com/">https://build.protomaps.com/</a></li>
+<li><strong>Click <u>map</u></strong> in the row for the build you just downloaded</li>
+<li><strong>Click the "Get style JSON"</strong> and then "Copy to Clipboard"</li>
+<li><strong>Create a new text file</strong> in your text editor (File &gt; New Text File in VS Code) and paste from the clipboard</li>
+<li><strong>Save the file</strong> as <code>protomaps.5.7.0.json</code>. No need to add it to the repository.</li>
+</ol>
+<p>You now have a style JSON that when formatted is over 12,000 lines long!</p>
+<p>You can also access the latest stylesheet and other assets from: <a rel="noreferrer" target="_blank" href="https://github.com/protomaps/basemaps-assets">https://github.com/protomaps/basemaps-assets</a></p>
+<p>Or directly from the command line:</p>
+<pre><code class="language-bash">curl -o protomaps.5.7.0.json https://raw.githubusercontent.com/protomaps/basemaps-assets/main/styles/protomaps-light.json
+</code></pre>
 <h3>What You Have Now</h3>
 <p>At the end of this step, you should have:</p>
 <ul>
@@ -171,7 +185,7 @@
 </ul>
 <p>Both locally on your hard drive and remotely via Github.</p>
 <h3>Next Steps</h3>
-<p>In the next step, we'll configure the stylesheet to match the Protomaps tiles and integrate them into your map. We'll also download the necessary sprites and fonts.</p>
+<p>In the next step, we'll configure the stylesheet to match the Protomaps tiles and integrate them into your map.</p>
 
         
         

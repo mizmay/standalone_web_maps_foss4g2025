@@ -89,6 +89,25 @@ You'll see progress output showing the download status, and the number of tiles 
 
 Follow the process from Step 4 and Step 2 to add, commit, and push `waiheke_island.pmtiles` to your remote fork.
 
+### Download Protomaps Stylesheet
+
+Protomaps provides a base stylesheet that matches the PMTiles tiles. We'll download the appropriate version:
+
+1. **In your browser, go back to the Protomaps Builds page**: Visit [https://build.protomaps.com/](https://build.protomaps.com/)
+2. **Click <u>map</u>** in the row for the build you just downloaded
+3. **Click the "Get style JSON"** and then "Copy to Clipboard"
+4. **Create a new text file** in your text editor (File > New Text File in VS Code) and paste from the clipboard
+5. **Save the file** as `protomaps.5.7.0.json`. No need to add it to the repository.
+
+You now have a style JSON that when formatted is over 12,000 lines long!
+
+You can also access the latest stylesheet and other assets from: [https://github.com/protomaps/basemaps-assets](https://github.com/protomaps/basemaps-assets)
+
+Or directly from the command line:
+```bash
+curl -o protomaps.5.7.0.json https://raw.githubusercontent.com/protomaps/basemaps-assets/main/styles/protomaps-light.json
+```
+
 ### What You Have Now
 
 At the end of this step, you should have:
@@ -98,7 +117,7 @@ Both locally on your hard drive and remotely via Github.
 
 ### Next Steps
 
-In the next step, we'll configure the stylesheet to match the Protomaps tiles and integrate them into your map. We'll also download the necessary sprites and fonts.
+In the next step, we'll configure the stylesheet to match the Protomaps tiles and integrate them into your map.
 
 ---
 
