@@ -5,7 +5,7 @@ step: 6
 prev: step-05.html
 next: step-07.html
 mapImage: step-06.png
-mapNote: "This is what your map should look like when you view it locally at http://localhost:1234/"
+mapNote: "This is what your map should look like when you view it locally and via your Github Pages website"
 ---
 
 ## Configure the Stylesheet
@@ -209,7 +209,7 @@ standalone_web_maps_foss4g2025/
 
 ### Commit Your Changes
 
-Add, commit, and push your revised `index.html` and `style.json` to your remote fork.
+Add, commit, and push your revised `index.html` and `style.json` to your remote fork. Verify that the map you see via your local server and the one you see via Github Pages match the image below.
 
 ### What You Have Now
 
