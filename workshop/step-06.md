@@ -4,6 +4,8 @@ title: Step 6 - Configure the Stylesheet
 step: 6
 prev: step-05.html
 next: step-07.html
+mapImage: step-06.png
+mapNote: "This is what your map should look like when you view it locally at http://localhost:1234/"
 ---
 
 ## Configure the Stylesheet
@@ -50,8 +52,7 @@ Update your `index.html` to load PMTiles support.
 
 2. **Refresh your browser**: Go to `http://localhost:1234/index.html`
 
-3. **You should see**:
-   - No change yet! Verify you still see the trail line
+3. **You should see** no change yet! Verify you still see the trail line
 
 ### Troubleshooting
 
@@ -144,33 +145,28 @@ If you are using it, VS Code will register an error for bad syntax, so save ofte
    }
    ```
    
-4. **Add your trail layer** just inside the closing square bracket `]` just above glyph and sprite lines you just deleted. This bracket is the end of the list of style layers:
+4. **Add your trail layer** just inside the closing square bracket `]` just above glyph and sprite lines. This bracket is the end of the list of style layers. With the trail style added it should look like this:
 
    ```json
    [
         {   // end of the style layer places_country
         },  // be sure to add a comma after this bracket if there isn't one
+      {
+         "id": "trail-line",
+         "type": "line",
+         "source": "te-ara-hura",
+         "paint": {
+               "line-color": "#e41f18",
+               "line-width": 3,
+               "line-dasharray": [2, 2]
+         }
+      }
+   ],
    ```
 
-   Copy this section from here or from the existing `style.json` and paste it above the `],`:
+5. **Save `protomaps.5.7.0.json` with your modifications as `style.json`**. this will overwrite the previous stylesheet now that you've moved everything into the larger file.
 
-   ```json
-        {
-            "id": "trail-line",
-            "type": "line",
-            "source": "te-ara-hura",
-            "paint": {
-                "line-color": "#e41f18",
-                "line-width": 3,
-                "line-dasharray": [2, 2]
-            }
-        }
-  ],
-   ```
-
-1. **Save `protomaps.5.7.0.json` with your modifications as `style.json`**. this will overwrite the previous stylesheet now that you've moved everything into the larger file.
-
-You can delete `protomaps.5.7.0.json` as you do not need it anymore.
+You can delete `protomaps.5.7.0.json`. You do not need it anymore.
 
 ### Test Your Map
 
@@ -211,6 +207,10 @@ standalone_web_maps_foss4g2025/
     └── te_ara_hura.geojson      # GeoJSON file for Te Ara Hura trail
 ```
 
+### Commit Your Changes
+
+Add, commit, and push your revised `index.html` and `style.json` to your remote fork.
+
 ### What You Have Now
 
 At the end of this step, you should have:
@@ -220,4 +220,3 @@ At the end of this step, you should have:
 ---
 
 **[← Previous: Step 5](../step-05/) | [Next: Step 7 - Add Terrain →](../step-07/)**
-

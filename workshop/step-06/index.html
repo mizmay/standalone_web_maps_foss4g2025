@@ -146,10 +146,7 @@
 <p><strong>Refresh your browser</strong>: Go to <code>http://localhost:1234/index.html</code></p>
 </li>
 <li>
-<p><strong>You should see</strong>:</p>
-<ul>
-<li>No change yet! Verify you still see the trail line</li>
-</ul>
+<p><strong>You should see</strong> no change yet! Verify you still see the trail line</p>
 </li>
 </ol>
 <h3>Troubleshooting</h3>
@@ -236,84 +233,95 @@
 </code></pre>
 </li>
 <li>
-<p><strong>Add your trail layer</strong> just inside the closing square bracket <code>]</code> just above glyph and sprite lines you just deleted. This bracket is the end of the list of style layers:</p>
+<p><strong>Add your trail layer</strong> just inside the closing square bracket <code>]</code> just above glyph and sprite lines. This bracket is the end of the list of style layers. With the trail style added it should look like this:</p>
 <pre><code class="language-json">[
      {   // end of the style layer places_country
      },  // be sure to add a comma after this bracket if there isn't one
-</code></pre>
-<p>Copy this section from here or from the existing <code>style.json</code> and paste it above the <code>],</code>:</p>
-<pre><code class="language-json">     {
-         "id": "trail-line",
-         "type": "line",
-         "source": "te-ara-hura",
-         "paint": {
-             "line-color": "#e41f18",
-             "line-width": 3,
-             "line-dasharray": [2, 2]
-         }
-     }
+   {
+      "id": "trail-line",
+      "type": "line",
+      "source": "te-ara-hura",
+      "paint": {
+            "line-color": "#e41f18",
+            "line-width": 3,
+            "line-dasharray": [2, 2]
+      }
+   }
+],
 </code></pre>
 </li>
+<li>
+<p><strong>Save <code>protomaps.5.7.0.json</code> with your modifications as <code>style.json</code></strong>. this will overwrite the previous stylesheet now that you've moved everything into the larger file.</p>
+</li>
 </ol>
-<p>],</p>
-<pre><code>
-1. **Save `protomaps.5.7.0.json` with your modifications as `style.json`**. this will overwrite the previous stylesheet now that you've moved everything into the larger file.
-
-You can delete `protomaps.5.7.0.json` as you do not need it anymore.
-
-### Test Your Map
-
-1. **Check to make sure your local server is still running**, if not type `make serve` in a terminal window.
-
-2. **Refresh your browser**: Go to `http://localhost:1234/index.html`
-
-3. **You should see**:
-- The Protomaps basemap (roads, labels, landcover)
-- Proper styling with icons and fonts
-- The Te Ara Hura trail displayed on top
-
-### Troubleshooting
-
-**Map doesn't load?**
-- Check developer console for errors
-- Verify `style.json` exists in root directory
-- Verify file paths in stylesheet are correct
-
-**PMTiles not loading?**
-- Verify `sources/waiheke_island.pmtiles` exists
-- Check that PMTiles protocol is initialized in `index.js`
-- Verify the PMTiles URL in `style.json` uses `pmtiles://` protocol
-
-### Verify Your Directory Structure
-
-Congratulations! You should now have all the files you need to render the map. Double-check it looks like this:
-
-</code></pre>
-<p>standalone_web_maps_foss4g2025/
+<p>You can delete <code>protomaps.5.7.0.json</code>. You do not need it anymore.</p>
+<h3>Test Your Map</h3>
+<ol>
+<li>
+<p><strong>Check to make sure your local server is still running</strong>, if not type <code>make serve</code> in a terminal window.</p>
+</li>
+<li>
+<p><strong>Refresh your browser</strong>: Go to <code>http://localhost:1234/index.html</code></p>
+</li>
+<li>
+<p><strong>You should see</strong>:</p>
+<ul>
+<li>The Protomaps basemap (roads, labels, landcover)</li>
+<li>Proper styling with icons and fonts</li>
+<li>The Te Ara Hura trail displayed on top</li>
+</ul>
+</li>
+</ol>
+<h3>Troubleshooting</h3>
+<p><strong>Map doesn't load?</strong></p>
+<ul>
+<li>Check developer console for errors</li>
+<li>Verify <code>style.json</code> exists in root directory</li>
+<li>Verify file paths in stylesheet are correct</li>
+</ul>
+<p><strong>PMTiles not loading?</strong></p>
+<ul>
+<li>Verify <code>sources/waiheke_island.pmtiles</code> exists</li>
+<li>Check that PMTiles protocol is initialized in <code>index.js</code></li>
+<li>Verify the PMTiles URL in <code>style.json</code> uses <code>pmtiles://</code> protocol</li>
+</ul>
+<h3>Verify Your Directory Structure</h3>
+<p>Congratulations! You should now have all the files you need to render the map. Double-check it looks like this:</p>
+<pre><code>standalone_web_maps_foss4g2025/
 ├── README.md                    # This file
 ├── Makefile                     # Build and serve commands (uses Caddy)
 ├── index.html                   # Main HTML file for the web map (contains inline CSS and JavaScript)
 ├── style.json                   # Source and style for Te Ara Hura and the Protomaps tile layers, fonts and sprites
 ├── lib/                         # Third-party libraries (self-contained)
 └── sources/                     # Source data files
-├── waiheke_island.pmtiles   # PMTiles archive for Waiheke Island basemap - added in later steps
-└── te_ara_hura.geojson      # GeoJSON file for Te Ara Hura trail</p>
-<pre><code>
-### What You Have Now
-
-At the end of this step, you should have:
-- `style.json` - Protomaps bassemap styls and your trail layer style
-- Map displaying Protomaps basemap with your trail layer
-
----
-
-**[← Previous: Step 5](../step-05/) | [Next: Step 7 - Add Terrain →](../step-07/)**
-
+    ├── waiheke_island.pmtiles   # PMTiles archive for Waiheke Island basemap - added in later steps
+    └── te_ara_hura.geojson      # GeoJSON file for Te Ara Hura trail
 </code></pre>
+<h3>Commit Your Changes</h3>
+<p>Add, commit, and push your revised <code>index.html</code> and <code>style.json</code> to your remote fork.</p>
+<h3>What You Have Now</h3>
+<p>At the end of this step, you should have:</p>
+<ul>
+<li><code>style.json</code> - Protomaps bassemap styls and your trail layer style</li>
+<li>Map displaying Protomaps basemap with your trail layer</li>
+</ul>
+
+        
+          <div class="map-preview-container">
+  <h2>Your Map Preview</h2>
+  <div class="map-preview-wrapper">
+    <img src="../images/step-06.png" alt="Map preview showing expected result at this stage" class="map-preview-image" style="max-width: 100%; height: auto; border: 1px solid #dee2e6; border-radius: 4px;">
+    
+      <p class="map-note">This is what your map should look like when you view it locally at http://localhost:1234/</p>
+    
+  </div>
+</div>
+
 
         
         
-        
+        <hr>
+<p><strong><a href="../step-05/">← Previous: Step 5</a> | <a href="../step-07/">Next: Step 7 - Add Terrain →</a></strong></p>
       </article>
     </main>
   </div>
