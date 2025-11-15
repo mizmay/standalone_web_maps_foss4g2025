@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Step 8 - Add Interactivity - Te Ara Hura Workshop</title>
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@300;400;600&family=Overpass+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../workshop.css">
+</head>
+<body>
+  <div class="workshop-container">
+    <aside class="workshop-sidebar">
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+        <span class="toggle-icon">☰</span>
+      </button>
+      <div class="sidebar-content" id="sidebarContent">
+        <div class="sidebar-logo">
+          <img src="../images/foss4g2025-logo.svg" alt="FOSS4G 2025" class="logo">
+        </div>
+        <div class="sidebar-header">
+          <h2><a href="../welcome/" class="sidebar-header-link">Standalone Web Maps, No Platform Required</a></h2>
+        </div>
+        <nav class="sidebar-nav">
+          
+            
+            
+              <a href="../step-01/" class="sidebar-item">
+            
+              <span class="step-number">Step 1</span>
+              <span class="step-title">Get Set Up</span>
+            </a>
+          
+            
+            
+              <a href="../step-02/" class="sidebar-item">
+            
+              <span class="step-number">Step 2</span>
+              <span class="step-title">Use Overpass to Create an OpenStreetMap Extract</span>
+            </a>
+          
+            
+            
+              <a href="../step-03/" class="sidebar-item">
+            
+              <span class="step-number">Step 3</span>
+              <span class="step-title">Use Maplibre to Render Your Map</span>
+            </a>
+          
+            
+            
+              <a href="../step-04/" class="sidebar-item">
+            
+              <span class="step-number">Step 4</span>
+              <span class="step-title">Initialize GitHub Pages to Display Your Map</span>
+            </a>
+          
+            
+            
+              <a href="../step-05/" class="sidebar-item">
+            
+              <span class="step-number">Step 5</span>
+              <span class="step-title">Download Reference Layers from Protomaps</span>
+            </a>
+          
+            
+            
+              <a href="../step-06/" class="sidebar-item">
+            
+              <span class="step-number">Step 6</span>
+              <span class="step-title">Configure the Stylesheet</span>
+            </a>
+          
+            
+            
+              <a href="../step-07/" class="sidebar-item">
+            
+              <span class="step-number">Step 7</span>
+              <span class="step-title">Add Terrain (Hillshade, Contours)</span>
+            </a>
+          
+            
+            
+              <a href="./" class="sidebar-item active">
+            
+              <span class="step-number">Step 8</span>
+              <span class="step-title">Add Interactivity</span>
+            </a>
+          
+          
+            <div class="sidebar-divider"></div>
+            <div class="sidebar-label">Bonus Steps</div>
+            
+          
+        </nav>
+      </div>
+    </aside>
+
+    <main class="workshop-main">
+      <article class="workshop-content">
+        
+          <h1>Step 8 - Add Interactivity</h1>
+        
+        
+        
+        <h2>Adding Interactivity to Your Map</h2>
+<p>In this final main step, we'll add interactive features to your map, such as popups when clicking on the trail, map controls, and hover effects.</p>
+<h3>Add Map Controls</h3>
+<p>Let's add standard map controls (zoom, rotate, etc.):</p>
+<ol>
+<li><strong>Update <code>index.js</code></strong> to add navigation controls:<pre><code class="language-javascript">// Initialize PMTiles protocol
+const protocol = new pmtiles.Protocol();
+maplibregl.addProtocol("pmtiles", protocol.tile);
+
+// Create the map
+const map = new maplibregl.Map({
+  container: 'map',
+  style: 'style.json',
+  center: [175.07092, -36.79898],
+  zoom: 12
+});
+
+// Add navigation controls (zoom, rotate, pitch)
+map.addControl(new maplibregl.NavigationControl(), 'top-right');
+
+// Add fullscreen control (optional)
+map.addControl(new maplibregl.FullscreenControl(), 'top-right');
+
+// Wait for map to load
+map.on('load', function() {
+  // ... existing trail source and layer code ...
+});
+</code></pre>
+</li>
+</ol>
+<h3>Add Popup on Click</h3>
+<p>Let's add a popup that shows information when you click on the trail:</p>
+<ol>
+<li><strong>Create a popup element</strong> and add click handler in <code>index.js</code>:<pre><code class="language-javascript">// Create popup
+const popup = new maplibregl.Popup({
+  closeButton: true,
+  closeOnClick: false
+});
+
+// Wait for map to load
+map.on('load', function() {
+  // ... existing source and layer code ...
+
+  // Add click handler to trail
+  map.on('click', 'te-ara-hura', function(e) {
+    const coordinates = e.lngLat;
+    const properties = e.features[0].properties;
+
+    // Build popup content
+    const popupContent = `
+      &lt;div class="popup-content"&gt;
+        &lt;h3&gt;Te Ara Hura&lt;/h3&gt;
+        &lt;p&gt;The Wandering Path&lt;/p&gt;
+        &lt;p&gt;Explore Waiheke Island's beautiful trails&lt;/p&gt;
+        &lt;a href="https://www.aucklandcouncil.govt.nz/parks-recreation/get-outdoors/find-a-walk/Pages/te-ara-hura-walk-waiheke-network.aspx" 
+           target="_blank"&gt;Learn more&lt;/a&gt;
+      &lt;/div&gt;
+    `;
+
+    popup
+      .setLngLat(coordinates)
+      .setHTML(popupContent)
+      .addTo(map);
+  });
+
+  // Change cursor on hover
+  map.on('mouseenter', 'te-ara-hura', function() {
+    map.getCanvas().style.cursor = 'pointer';
+  });
+
+  map.on('mouseleave', 'te-ara-hura', function() {
+    map.getCanvas().style.cursor = '';
+  });
+});
+</code></pre>
+</li>
+</ol>
+<h3>Add Hover Effects</h3>
+<p>Enhance the trail appearance on hover:</p>
+<ol>
+<li>
+<p><strong>Update the trail layer</strong> in your <code>style.json</code> to include hover state:</p>
+<pre><code class="language-json">{
+  "id": "te-ara-hura-hover",
+  "type": "line",
+  "source": "te-ara-hura",
+  "paint": {
+    "line-color": "#ff0000",
+    "line-width": 5,
+    "line-opacity": 0.7,
+    "line-dasharray": [2, 2]
+  },
+  "filter": ["==", "$type", "LineString"]
+}
+</code></pre>
+</li>
+<li>
+<p><strong>Add hover handler</strong> in <code>index.js</code>:</p>
+<pre><code class="language-javascript">// Update trail layer style on hover
+map.on('mouseenter', 'te-ara-hura', function() {
+  map.setPaintProperty('te-ara-hura', 'line-width', 5);
+});
+
+map.on('mouseleave', 'te-ara-hura', function() {
+  map.setPaintProperty('te-ara-hura', 'line-width', 3);
+});
+</code></pre>
+</li>
+</ol>
+<h3>Style the Popup</h3>
+<p>Add styles for the popup in <code>styles.css</code>:</p>
+<pre><code class="language-css">.maplibregl-popup-content {
+  padding: 15px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.popup-content h3 {
+  margin: 0 0 10px 0;
+  color: #e41f18;
+}
+
+.popup-content p {
+  margin: 5px 0;
+  color: #333;
+}
+
+.popup-content a {
+  color: #667eea;
+  text-decoration: none;
+}
+
+.popup-content a:hover {
+  text-decoration: underline;
+}
+</code></pre>
+<h3>Add Scale Control (Optional)</h3>
+<p>Add a scale indicator to show distances:</p>
+<pre><code class="language-javascript">// Add scale control
+map.addControl(new maplibregl.ScaleControl({
+  maxWidth: 100,
+  unit: 'metric'
+}), 'bottom-left');
+</code></pre>
+<h3>Add Geolocate Control (Optional)</h3>
+<p>Add a button to center the map on the user's location:</p>
+<pre><code class="language-javascript">// Add geolocate control
+map.addControl(new maplibregl.GeolocateControl({
+  positionOptions: {
+    enableHighAccuracy: true
+  },
+  trackUserLocation: true
+}), 'top-right');
+</code></pre>
+<h3>Test Your Interactive Map</h3>
+<ol>
+<li>
+<p><strong>Refresh your browser</strong>: Go to <code>http://localhost:1234/index.html</code></p>
+</li>
+<li>
+<p><strong>Test interactions</strong>:</p>
+<ul>
+<li><strong>Click on the trail</strong>: Should show a popup with information</li>
+<li><strong>Hover over the trail</strong>: Should change color/thickness</li>
+<li><strong>Use zoom controls</strong>: Should zoom in/out</li>
+<li><strong>Try fullscreen</strong>: Should go fullscreen</li>
+</ul>
+</li>
+</ol>
+<h3>Troubleshooting</h3>
+<p><strong>Popup doesn't appear?</strong></p>
+<ul>
+<li>Check browser console (F12) for errors</li>
+<li>Verify the layer ID matches in the click handler</li>
+<li>Make sure the trail layer is clickable (check layer order)</li>
+</ul>
+<p><strong>Hover doesn't work?</strong></p>
+<ul>
+<li>Verify mouseenter/mouseleave handlers are attached</li>
+<li>Check that layer ID matches</li>
+</ul>
+<p><strong>Controls don't appear?</strong></p>
+<ul>
+<li>Check browser console for errors</li>
+<li>Verify MapLibre GL JS is loaded</li>
+<li>Check that controls are added after map creation</li>
+</ul>
+<h3>What You Have Now</h3>
+<p>At the end of this step, you should have:</p>
+<ul>
+<li>Navigation controls (zoom, rotate, pitch)</li>
+<li>Popup on click showing trail information</li>
+<li>Hover effects on the trail</li>
+<li>Cursor changes on hover</li>
+<li>Optional: Scale control, fullscreen, geolocate</li>
+</ul>
+<p>Your map is now fully interactive! 🎉</p>
+<h3>Congratulations!</h3>
+<p>You've completed all 8 main steps! You now have:</p>
+<ul>
+<li>A working standalone web map</li>
+<li>Protomaps basemap integration</li>
+<li>Te Ara Hura trail displayed</li>
+<li>Terrain visualization</li>
+<li>Interactive features</li>
+</ul>
+<p>If time permits, check out the <strong>bonus steps</strong> to customize your map further!</p>
+
+        
+        
+        <hr>
+<p><strong><a href="../step-07/">← Previous: Step 7</a></strong></p>
+      </article>
+    </main>
+  </div>
+
+  <footer class="workshop-footer">
+    <p>FOSS4G 2025 Workshop - <a rel="noreferrer" target="_blank" href="https://talks.osgeo.org/foss4g-2025/speaker/7A883D/">Stephanie May</a></p>
+    <p class="footer-attribution">
+      Background image: <a rel="noreferrer" target="_blank" href="https://www.flickr.com/photos/4nitsirk/5624277298" title="The sun returns to Waiheke Island">The sun returns to Waiheke Island</a> by <a rel="noreferrer" target="_blank" href="https://www.flickr.com/photos/4nitsirk/">Kristina D.C. Hoeppner</a>, <a target="_blank" href="https://creativecommons.org/licenses/by-sa/2.0/deed.en" rel="noreferrer">CC BY-SA 2.0</a>
+    </p>
+  </footer>
+
+  <script>
+    // Toggle sidebar on mobile
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebarContent = document.getElementById('sidebarContent');
+    
+    if (sidebarToggle && sidebarContent) {
+      sidebarToggle.addEventListener('click', function() {
+        const sidebar = sidebarContent.closest('.workshop-sidebar');
+        if (sidebar) {
+          sidebar.classList.toggle('open');
+        }
+        sidebarContent.classList.toggle('open');
+        sidebarToggle.classList.toggle('active');
+      });
+      
+      // Close sidebar when clicking outside on mobile
+      document.addEventListener('click', function(event) {
+        if (window.innerWidth <= 768) {
+          if (!sidebarContent.contains(event.target) && !sidebarToggle.contains(event.target)) {
+            sidebarContent.classList.remove('open');
+            sidebarToggle.classList.remove('active');
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
+

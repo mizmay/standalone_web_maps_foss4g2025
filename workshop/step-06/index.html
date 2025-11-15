@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Step 6 - Configure the Stylesheet - Te Ara Hura Workshop</title>
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@300;400;600&family=Overpass+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../workshop.css">
+</head>
+<body>
+  <div class="workshop-container">
+    <aside class="workshop-sidebar">
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+        <span class="toggle-icon">☰</span>
+      </button>
+      <div class="sidebar-content" id="sidebarContent">
+        <div class="sidebar-logo">
+          <img src="../images/foss4g2025-logo.svg" alt="FOSS4G 2025" class="logo">
+        </div>
+        <div class="sidebar-header">
+          <h2><a href="../welcome/" class="sidebar-header-link">Standalone Web Maps, No Platform Required</a></h2>
+        </div>
+        <nav class="sidebar-nav">
+          
+            
+            
+              <a href="../step-01/" class="sidebar-item">
+            
+              <span class="step-number">Step 1</span>
+              <span class="step-title">Get Set Up</span>
+            </a>
+          
+            
+            
+              <a href="../step-02/" class="sidebar-item">
+            
+              <span class="step-number">Step 2</span>
+              <span class="step-title">Use Overpass to Create an OpenStreetMap Extract</span>
+            </a>
+          
+            
+            
+              <a href="../step-03/" class="sidebar-item">
+            
+              <span class="step-number">Step 3</span>
+              <span class="step-title">Use Maplibre to Render Your Map</span>
+            </a>
+          
+            
+            
+              <a href="../step-04/" class="sidebar-item">
+            
+              <span class="step-number">Step 4</span>
+              <span class="step-title">Initialize GitHub Pages to Display Your Map</span>
+            </a>
+          
+            
+            
+              <a href="../step-05/" class="sidebar-item">
+            
+              <span class="step-number">Step 5</span>
+              <span class="step-title">Download Reference Layers from Protomaps</span>
+            </a>
+          
+            
+            
+              <a href="./" class="sidebar-item active">
+            
+              <span class="step-number">Step 6</span>
+              <span class="step-title">Configure the Stylesheet</span>
+            </a>
+          
+            
+            
+              <a href="../step-07/" class="sidebar-item">
+            
+              <span class="step-number">Step 7</span>
+              <span class="step-title">Add Terrain (Hillshade, Contours)</span>
+            </a>
+          
+            
+            
+              <a href="../step-08/" class="sidebar-item">
+            
+              <span class="step-number">Step 8</span>
+              <span class="step-title">Add Interactivity</span>
+            </a>
+          
+          
+            <div class="sidebar-divider"></div>
+            <div class="sidebar-label">Bonus Steps</div>
+            
+          
+        </nav>
+      </div>
+    </aside>
+
+    <main class="workshop-main">
+      <article class="workshop-content">
+        
+          <h1>Step 6 - Configure the Stylesheet</h1>
+        
+        
+        
+        <h2>Configure the Stylesheet</h2>
+<p>Now we'll configure the stylesheet to match the Protomaps tiles we downloaded. This involves downloading the matching Protomaps stylesheet, sprites, and fonts, then storing them locally in your repository.</p>
+<h3>Update index.html</h3>
+<p>Update your <code>index.html</code> to load PMTiles support.</p>
+<ol>
+<li><strong>Add the <code>src</code> link for the PMTiles library</strong> stored in <code>lib/</code>. Add it to the <code>&lt;head&gt;</code> section, just below the local copies of Maplibre GL JS, and notice they are structured similarly.</li>
+</ol>
+<pre><code class="language-html">   &lt;head&gt;
+      &lt;meta charset="UTF-8"&gt;
+      &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+      &lt;title&gt;Te Ara Hura Trail Map&lt;/title&gt;
+      
+      &lt;!-- Local copies of MapLibre GL JS --&gt;
+      &lt;script src="lib/maplibre-gl.5.10.0.js"&gt;&lt;/script&gt;
+      &lt;link href="lib/maplibre-gl.5.10.0.css" rel="stylesheet" /&gt;
+
+      &lt;!-- PMTiles support --&gt;
+      &lt;script src="lib/pmtiles.4.3.0.js"&gt;&lt;/script&gt;
+</code></pre>
+<ol start="2">
+<li><strong>Activate the PMTiles protocol</strong> by adding these lines just above where the map is defined:</li>
+</ol>
+<script>
+  // Initialize PMTiles protocol
+   const protocol = new pmtiles.Protocol();
+   maplibregl.addProtocol("pmtiles", protocol.tile);
+
+   // Javascript to create a new map using Maplibre GL JS
+   const map = new maplibregl.Map({
+      ...})
+</script>
+<ol start="3">
+<li><strong>Save your changes</strong></li>
+</ol>
+<h3>Test Your Map</h3>
+<ol>
+<li>
+<p><strong>Check to make sure your local server is still running</strong>, if not type <code>make serve</code> in a terminal window.</p>
+</li>
+<li>
+<p><strong>Refresh your browser</strong>: Go to <code>http://localhost:1234/index.html</code></p>
+</li>
+<li>
+<p><strong>You should see</strong>:</p>
+<ul>
+<li>No change yet! Verify you still see the trail line</li>
+</ul>
+</li>
+</ol>
+<h3>Troubleshooting</h3>
+<p><strong>Map doesn't load?</strong></p>
+<ul>
+<li>Check developer console for errors</li>
+<li>Verify <code>style.json</code> exists in root directory</li>
+<li>Verify file paths in stylesheet are correct</li>
+</ul>
+<h3>Download Protomaps Stylesheet</h3>
+<p>Protomaps provides a base stylesheet that matches the PMTiles tiles. We'll download the appropriate version:</p>
+<ol>
+<li><strong>In your browser, go back to the Protomaps Builds page</strong>: Visit <a rel="noreferrer" target="_blank" href="https://build.protomaps.com/">https://build.protomaps.com/</a></li>
+<li><strong>Click <u>map</u></strong> in the row for the build you just downloaded</li>
+<li><strong>Click the "Get style JSON"</strong> and then "Copy to Clipboard"</li>
+<li><strong>Create a new text file</strong> in your text editor (File &gt; New Text File in VS Code) and paste from the clipboard</li>
+<li><strong>Save the file</strong> as <code>protomaps.5.7.0.json</code></li>
+</ol>
+<p>You now have a style JSON that when formatted is over 12,000 lines long!</p>
+<p>You can also access the latest stylesheet and other assets from: <a rel="noreferrer" target="_blank" href="https://github.com/protomaps/basemaps-assets">https://github.com/protomaps/basemaps-assets</a></p>
+<p>Or directly from the command line:</p>
+<pre><code class="language-bash">curl -o protomaps.5.7.0.json https://raw.githubusercontent.com/protomaps/basemaps-assets/main/styles/protomaps-light.json
+</code></pre>
+<h3>Combine the Stylesheets</h3>
+<p>Now we need to modify our stylesheet <code>style.json</code> to:</p>
+<ul>
+<li>Use the local PMTiles file</li>
+<li>Show the Protomaps basemap layers</li>
+<li>Also show your existing trail layer</li>
+</ul>
+<p>The instructions below will walk you through how to edit style JSONs directly. We won't do much of this, because editing raw JSON is not for the faint of heart, and if you break the JSON syntax, your map will not load.</p>
+<p>If you are using it, VS Code will register an error for bad syntax, so save often and pay attention.</p>
+<ol>
+<li>
+<p><strong>Open <code>protomaps.5.7.0.json</code> in your text editor</strong> and give the stylesheet a name attribute set to the current file name:</p>
+<pre><code class="language-json">{
+  "version": 8,
+  "name": "protomaps.5.7.0",
+  "sources": { ...}
+}
+</code></pre>
+</li>
+<li>
+<p><strong>Replace the protomaps URL</strong> with <code>pmtiles:///sources/waiheke_island.pmtiles</code>, to reference our custom extract.</p>
+<p>You will find the URL under sources. The final result should look like this:</p>
+<pre><code class="language-json">{
+  "version": 8,
+  "name": "protomaps.5.7.0",
+  "sources": {
+      "protomaps": {
+         "type": "raster",
+         "url": "pmtiles:///sources/waiheke_island.pmtiles",
+         "tileSize": 512
+      }
+  },
+  "layers": [
+    // ... existing Protomaps layers ...
+  ]
+}
+</code></pre>
+</li>
+<li>
+<p><strong>Add your trail source</strong> "te-ara-hura" as shown below, be sure to add a comma after the <code>protomaps</code> source:</p>
+<pre><code class="language-json">{
+  "version": 8,
+  "name": "protomaps.5.7.0",
+  "glyphs": "/lib/fonts/{fontstack}/{range}.pbf",
+  "sprite": "/lib/sprites/sprite",
+  "sources": {
+      "protomaps": {
+         "type": "raster",
+         "url": "pmtiles:///sources/waiheke_island.pmtiles",
+         "tileSize": 512
+      },
+      "te-ara-hura": {
+         "type": "geojson",
+         "data": "sources/te_ara_hura.geojson"
+      }
+  },
+  "layers": [
+    // ... existing Protomaps layers ...
+  ]
+}
+</code></pre>
+</li>
+<li>
+<p><strong>Add your trail layer</strong> just inside the closing square bracket <code>]</code> just above glyph and sprite lines you just deleted. This bracket is the end of the list of style layers:</p>
+<pre><code class="language-json">[
+     {   // end of the style layer places_country
+     },  // be sure to add a comma after this bracket if there isn't one
+</code></pre>
+<p>Copy this section from here or from the existing <code>style.json</code> and paste it above the <code>],</code>:</p>
+<pre><code class="language-json">     {
+         "id": "trail-line",
+         "type": "line",
+         "source": "te-ara-hura",
+         "paint": {
+             "line-color": "#e41f18",
+             "line-width": 3,
+             "line-dasharray": [2, 2]
+         }
+     }
+</code></pre>
+</li>
+</ol>
+<p>],</p>
+<pre><code>
+1. **Save `protomaps.5.7.0.json` with your modifications as `style.json`**. this will overwrite the previous stylesheet now that you've moved everything into the larger file.
+
+You can delete `protomaps.5.7.0.json` as you do not need it anymore.
+
+### Test Your Map
+
+1. **Check to make sure your local server is still running**, if not type `make serve` in a terminal window.
+
+2. **Refresh your browser**: Go to `http://localhost:1234/index.html`
+
+3. **You should see**:
+- The Protomaps basemap (roads, labels, landcover)
+- Proper styling with icons and fonts
+- The Te Ara Hura trail displayed on top
+
+### Troubleshooting
+
+**Map doesn't load?**
+- Check developer console for errors
+- Verify `style.json` exists in root directory
+- Verify file paths in stylesheet are correct
+
+**PMTiles not loading?**
+- Verify `sources/waiheke_island.pmtiles` exists
+- Check that PMTiles protocol is initialized in `index.js`
+- Verify the PMTiles URL in `style.json` uses `pmtiles://` protocol
+
+### Verify Your Directory Structure
+
+Congratulations! You should now have all the files you need to render the map. Double-check it looks like this:
+
+</code></pre>
+<p>standalone_web_maps_foss4g2025/
+├── README.md                    # This file
+├── Makefile                     # Build and serve commands (uses Caddy)
+├── index.html                   # Main HTML file for the web map (contains inline CSS and JavaScript)
+├── style.json                   # Source and style for Te Ara Hura and the Protomaps tile layers, fonts and sprites
+├── lib/                         # Third-party libraries (self-contained)
+└── sources/                     # Source data files
+├── waiheke_island.pmtiles   # PMTiles archive for Waiheke Island basemap - added in later steps
+└── te_ara_hura.geojson      # GeoJSON file for Te Ara Hura trail</p>
+<pre><code>
+### What You Have Now
+
+At the end of this step, you should have:
+- `style.json` - Protomaps bassemap styls and your trail layer style
+- Map displaying Protomaps basemap with your trail layer
+
+---
+
+**[← Previous: Step 5](../step-05/) | [Next: Step 7 - Add Terrain →](../step-07/)**
+
+</code></pre>
+
+        
+        
+        
+      </article>
+    </main>
+  </div>
+
+  <footer class="workshop-footer">
+    <p>FOSS4G 2025 Workshop - <a rel="noreferrer" target="_blank" href="https://talks.osgeo.org/foss4g-2025/speaker/7A883D/">Stephanie May</a></p>
+    <p class="footer-attribution">
+      Background image: <a rel="noreferrer" target="_blank" href="https://www.flickr.com/photos/4nitsirk/5624277298" title="The sun returns to Waiheke Island">The sun returns to Waiheke Island</a> by <a rel="noreferrer" target="_blank" href="https://www.flickr.com/photos/4nitsirk/">Kristina D.C. Hoeppner</a>, <a target="_blank" href="https://creativecommons.org/licenses/by-sa/2.0/deed.en" rel="noreferrer">CC BY-SA 2.0</a>
+    </p>
+  </footer>
+
+  <script>
+    // Toggle sidebar on mobile
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebarContent = document.getElementById('sidebarContent');
+    
+    if (sidebarToggle && sidebarContent) {
+      sidebarToggle.addEventListener('click', function() {
+        const sidebar = sidebarContent.closest('.workshop-sidebar');
+        if (sidebar) {
+          sidebar.classList.toggle('open');
+        }
+        sidebarContent.classList.toggle('open');
+        sidebarToggle.classList.toggle('active');
+      });
+      
+      // Close sidebar when clicking outside on mobile
+      document.addEventListener('click', function(event) {
+        if (window.innerWidth <= 768) {
+          if (!sidebarContent.contains(event.target) && !sidebarToggle.contains(event.target)) {
+            sidebarContent.classList.remove('open');
+            sidebarToggle.classList.remove('active');
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
+
