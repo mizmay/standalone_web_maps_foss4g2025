@@ -51,7 +51,6 @@ This is a configuration file for Caddy. You can open it as a text file and exami
 
   This configuration:
   - Serves all local files (HTML, JSON, PMTiles, etc.) from your repository root
-  - Proxies requests to `/maputnik/*` to Maputnik (which we'll set up later)
   - Works identically on macOS, Linux, and Windows
 
 ### Start the Local Server
@@ -146,8 +145,6 @@ Create a file called `index.html` by copying and pasting the text below into a n
 ### View Your Map
 
 1. **Open your browser** and navigate to: `http://127.0.0.1:1234/index.html`
-   
-   **Note**: Use `127.0.0.1` instead of `localhost` to avoid browser security prompts.
 
 2. **You should see**:
    - An empty white map canvas centered on Waiheke Island
