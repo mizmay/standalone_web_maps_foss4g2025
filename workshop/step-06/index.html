@@ -104,8 +104,8 @@
         
         
         <h2>Configure the Stylesheet</h2>
-<p>Now we'll configure the stylesheet to match the Protomaps tiles we downloaded. This involves downloading the matching Protomaps stylesheet, sprites, and fonts, then storing them locally in your repository.</p>
-<h3>Update index.html</h3>
+<p>Now we'll update our Maplibre to load PMtiles support, and configure the stylesheet to match the Protomaps tiles we downloaded.</p>
+<h3>Add PMTiles Support</h3>
 <p>Update your <code>index.html</code> to load PMTiles support.</p>
 <ol>
 <li><strong>Add the <code>src</code> link for the PMTiles library</strong> stored in <code>lib/</code>. Add it to the <code>&lt;head&gt;</code> section, just below the local copies of Maplibre GL JS, and notice they are structured similarly.</li>
@@ -146,30 +146,9 @@
 <p><strong>Refresh your browser</strong>: Go to <code>http://localhost:1234/index.html</code></p>
 </li>
 <li>
-<p><strong>You should see</strong> no change yet! Verify you still see the trail line</p>
+<p><strong>You should see</strong> no change yet! Verify you still see the trail line. We have to define the styles for the PMTiles Protomaps layers before they will show up.</p>
 </li>
 </ol>
-<h3>Troubleshooting</h3>
-<p><strong>Map doesn't load?</strong></p>
-<ul>
-<li>Check developer console for errors</li>
-<li>Verify <code>style.json</code> exists in root directory</li>
-<li>Verify file paths in stylesheet are correct</li>
-</ul>
-<h3>Download Protomaps Stylesheet</h3>
-<p>Protomaps provides a base stylesheet that matches the PMTiles tiles. We'll download the appropriate version:</p>
-<ol>
-<li><strong>In your browser, go back to the Protomaps Builds page</strong>: Visit <a rel="noreferrer" target="_blank" href="https://build.protomaps.com/">https://build.protomaps.com/</a></li>
-<li><strong>Click <u>map</u></strong> in the row for the build you just downloaded</li>
-<li><strong>Click the "Get style JSON"</strong> and then "Copy to Clipboard"</li>
-<li><strong>Create a new text file</strong> in your text editor (File &gt; New Text File in VS Code) and paste from the clipboard</li>
-<li><strong>Save the file</strong> as <code>protomaps.5.7.0.json</code></li>
-</ol>
-<p>You now have a style JSON that when formatted is over 12,000 lines long!</p>
-<p>You can also access the latest stylesheet and other assets from: <a rel="noreferrer" target="_blank" href="https://github.com/protomaps/basemaps-assets">https://github.com/protomaps/basemaps-assets</a></p>
-<p>Or directly from the command line:</p>
-<pre><code class="language-bash">curl -o protomaps.5.7.0.json https://raw.githubusercontent.com/protomaps/basemaps-assets/main/styles/protomaps-light.json
-</code></pre>
 <h3>Combine the Stylesheets</h3>
 <p>Now we need to modify our stylesheet <code>style.json</code> to:</p>
 <ul>
@@ -184,7 +163,7 @@
 <p><strong>Open <code>protomaps.5.7.0.json</code> in your text editor</strong> and give the stylesheet a name attribute set to the current file name:</p>
 <pre><code class="language-json">{
   "version": 8,
-  "name": "protomaps.5.7.0",
+  "name": "protomaps v4 5.7.0",
   "sources": { ...}
 }
 </code></pre>
@@ -194,7 +173,7 @@
 <p>You will find the URL under sources. The final result should look like this:</p>
 <pre><code class="language-json">{
   "version": 8,
-  "name": "protomaps.5.7.0",
+  "name": "protomaps v4 5.7.0",
   "sources": {
       "protomaps": {
          "type": "raster",
@@ -286,7 +265,7 @@
 <li>Verify the PMTiles URL in <code>style.json</code> uses <code>pmtiles://</code> protocol</li>
 </ul>
 <h3>Verify Your Directory Structure</h3>
-<p>Congratulations! You should now have all the files you need to render the map. Double-check it looks like this:</p>
+<p>You should now have all the files you need to render the map. Double-check it looks like this:</p>
 <pre><code>standalone_web_maps_foss4g2025/
 ├── README.md                    # This file
 ├── Makefile                     # Build and serve commands (uses Caddy)

@@ -10,9 +10,9 @@ mapNote: "This is what your map should look like when you view it locally and vi
 
 ## Configure the Stylesheet
 
-Now we'll configure the stylesheet to match the Protomaps tiles we downloaded. This involves downloading the matching Protomaps stylesheet, sprites, and fonts, then storing them locally in your repository.
+Now we'll update our Maplibre to load PMtiles support, and configure the stylesheet to match the Protomaps tiles we downloaded.
 
-### Update index.html
+### Add PMTiles Support
 
 Update your `index.html` to load PMTiles support.
 
@@ -52,33 +52,8 @@ Update your `index.html` to load PMTiles support.
 
 2. **Refresh your browser**: Go to `http://localhost:1234/index.html`
 
-3. **You should see** no change yet! Verify you still see the trail line
+3. **You should see** no change yet! Verify you still see the trail line. We have to define the styles for the PMTiles Protomaps layers before they will show up.
 
-### Troubleshooting
-
-**Map doesn't load?**
-- Check developer console for errors
-- Verify `style.json` exists in root directory
-- Verify file paths in stylesheet are correct
-
-### Download Protomaps Stylesheet
-
-Protomaps provides a base stylesheet that matches the PMTiles tiles. We'll download the appropriate version:
-
-1. **In your browser, go back to the Protomaps Builds page**: Visit [https://build.protomaps.com/](https://build.protomaps.com/)
-2. **Click <u>map</u>** in the row for the build you just downloaded
-3. **Click the "Get style JSON"** and then "Copy to Clipboard"
-4. **Create a new text file** in your text editor (File > New Text File in VS Code) and paste from the clipboard
-5. **Save the file** as `protomaps.5.7.0.json`
-
-You now have a style JSON that when formatted is over 12,000 lines long!
-
-You can also access the latest stylesheet and other assets from: [https://github.com/protomaps/basemaps-assets](https://github.com/protomaps/basemaps-assets)
-
-Or directly from the command line:
-```bash
-curl -o protomaps.5.7.0.json https://raw.githubusercontent.com/protomaps/basemaps-assets/main/styles/protomaps-light.json
-```
 ### Combine the Stylesheets
 
 Now we need to modify our stylesheet `style.json` to:
@@ -95,7 +70,7 @@ If you are using it, VS Code will register an error for bad syntax, so save ofte
    ```json
    {
      "version": 8,
-     "name": "protomaps.5.7.0",
+     "name": "protomaps v4 5.7.0",
      "sources": { ...}
    }
    ```
@@ -107,7 +82,7 @@ If you are using it, VS Code will register an error for bad syntax, so save ofte
    ```json
    {
      "version": 8,
-     "name": "protomaps.5.7.0",
+     "name": "protomaps v4 5.7.0",
      "sources": {
          "protomaps": {
             "type": "raster",
@@ -193,7 +168,7 @@ You can delete `protomaps.5.7.0.json`. You do not need it anymore.
 
 ### Verify Your Directory Structure
 
-Congratulations! You should now have all the files you need to render the map. Double-check it looks like this:
+You should now have all the files you need to render the map. Double-check it looks like this:
 
 ```
 standalone_web_maps_foss4g2025/

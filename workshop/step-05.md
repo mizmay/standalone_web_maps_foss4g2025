@@ -111,13 +111,12 @@ curl -o protomaps.5.7.0.json https://raw.githubusercontent.com/protomaps/basemap
 ### What You Have Now
 
 At the end of this step, you should have:
-- `sources/waiheke_island.pmtiles` - Protomaps basemap tiles for Waiheke Island
-
-Both locally on your hard drive and remotely via Github.
+- `sources/waiheke_island.pmtiles`: Protomaps basemap tiles for Waiheke Island, stored both locally on your hard drive and remotely via Github.
+- `protomaps.5.7.0.json`: the styles for the Protomaps basemap tiles, saved locally.
 
 ### Next Steps
 
-In the next step, we'll configure the stylesheet to match the Protomaps tiles and integrate them into your map.
+In the next step, we'll configure the stylesheet to style the Protomaps tiles and integrate them into your map.
 
 ---
 
