@@ -52,7 +52,7 @@ This bounding box includes:
 
 ### Find the Latest Protomaps Build
 
-1. **Check Protomaps builds**: Visit [https://build.protomaps.com/](https://build.protomaps.com/)
+1. **Check Protomaps builds**: Visit [https://maps.protomaps.com/builds/](https://maps.protomaps.com/builds/)
 2. **Find the latest daily build**: Look for the most recent successful build in the "date" column (builds run nightly but it's the "tileset version" that matters for ensuring you've got the latest data)
 3. **Note the filename**: It will look like `YYYYMMDD.pmtiles` (e.g., `20251110.pmtiles`)
 4. **Click <u>xray</u>** in the same row
