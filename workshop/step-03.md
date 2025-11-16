@@ -13,9 +13,9 @@ In this step, we'll set up a local web server, create the HTML structure, and us
 
 ### Install Caddy
 
-Since we're working with static files, we need a local web server. We'll use Caddy, which is simple and works well for web maps.
+Since we're working with static files, we need a local web server. We'll use Caddy, which is simple and works well for the file types we are working with.
 
-For this step, you will need a terminal window, either inside VS Code or elsewhere if you are not using this code editor. In VS Code, go to Terminal > New Terminal
+For this step, you will need a terminal window, either inside VS Code (go to View > Terminal if you don't see it). or elsewhere if you are not using this code editor.
 
 Copy and paste or type the commands below at the command prompt.
 
@@ -37,33 +37,37 @@ sudo apt-get install caddy
 
 #### Windows Installation
 
-Download from [https://caddyserver.com/download](https://caddyserver.com/download) or use Chocolatey:
-
 ```bash
 choco install caddy
 ```
 
-#### Verify Installation
+### Understand the Caddyfile
 
-```bash
-caddy version
-```
+The repo you cloned contains a `Caddyfile` configured to serve your map files. This configuration works on macOS, Linux, and Windows.
+
+**Examine the Caddyfile** in the root of your repository:
+   
+This is a configuration file for Caddy. You can open it as a text file and examine it if you are curious.
+
+  This configuration:
+  - Serves all local files (HTML, JSON, PMTiles, etc.) from your repository root
+  - Proxies requests to `/maputnik/*` to Maputnik (which we'll set up later)
+  - Works identically on macOS, Linux, and Windows
 
 ### Start the Local Server
 
-1. **Navigate to your repository**:
+1. **Navigate to your repository**: make sure you are at the root or first level directory. Note this is the directory where the Caddyfile is stored.
+
+2. **Start Caddy** using the Caddyfile:
+   
    ```bash
-   cd /path/to/your/repository
+   caddy run
    ```
-
-2. **Start Caddy** using the Makefile:
-   ```bash
-   make serve
-   ```
-
-   This will start a server at `http://localhost:1234/`
-
+   This will start a server at `http://127.0.0.1:1234/`. Copy and paste this address into a browser.
+   
 3. **Keep the terminal window open** - the server needs to keep running
+
+4. **To stop the server**, press `Ctrl+C` in the terminal where Caddy is running
 
 ## Use Maplibre to Create a Web Map
 
@@ -141,7 +145,9 @@ Create a file called `index.html` by copying and pasting the text below into a n
 
 ### View Your Map
 
-1. **Open your browser** and navigate to: `http://localhost:1234/index.html`
+1. **Open your browser** and navigate to: `http://127.0.0.1:1234/index.html`
+   
+   **Note**: Use `127.0.0.1` instead of `localhost` to avoid browser security prompts.
 
 2. **You should see**:
    - An empty white map canvas centered on Waiheke Island
@@ -152,7 +158,7 @@ Create a file called `index.html` by copying and pasting the text below into a n
 At the end of this step, you should have:
 - `index.html` - HTML file that loads MapLibre and references your stylesheet
 - `style.json` - Stylesheet defining your map sources and layers
-- Local server running at `http://localhost:1234/`
+- Local server running at `http://127.0.0.1:1234/`
 - A working map displaying the Te Ara Hura trail as a red dashed line
 
 At this stage, your map is only available on your local machine. In the next step, we will push your changes to Github Pages, where it will be viewable on the Web.

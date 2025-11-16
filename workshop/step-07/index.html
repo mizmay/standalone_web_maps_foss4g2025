@@ -103,18 +103,19 @@
         
         
         
-        <h2>Adding Terrain Visualization</h2>
-<p>In this step, we'll add terrain visualization to your map using hillshade and contour layers. This will give your map a 3D appearance and help users understand the topography of Waiheke Island.</p>
+        <h3>Update Layer Order</h3>
+<p>Let's change the render order of the style layers so that Te Ara Hura renders below the labels and icons.</p>
+<h2>Adding Terrain</h2>
+<p>In this step, we'll add terrain to your map using hillshade and contour layers. This will give your map a 3D appearance and help users understand the topography of Waiheke Island.</p>
 <h3>Download Terrarium Terrain Tiles</h3>
-<p>Terrarium format terrain tiles provide elevation data. We'll download the terrain tiles for the same bounding box we used for Protomaps:</p>
+<p>We'll download the terrain tiles for the same bounding box we used for Protomaps:</p>
 <ol>
 <li>
 <p><strong>Download Terrarium tiles</strong>: Use the PMTiles CLI to extract terrain tiles:</p>
 <pre><code class="language-bash">pmtiles extract https://registry.opendata.aws/terrain-tiles/terrarium-z12.pmtiles sources/terrarium-waiheke.pmtiles \
   --bbox=174.8,-37.0,175.2,-36.7
 </code></pre>
-<p><strong>Note</strong>: The source for these tiles is <a rel="noreferrer" target="_blank" href="https://registry.opendata.aws/terrain-tiles/">AWS Open Data Registry</a> and they're created by <a rel="noreferrer" target="_blank" href="https://github.com/tilezen/joerd">Tilezen</a>.</p>
-<p><strong>Warning</strong>: These terrain tiles are from approximately 2008 or before. For more recent elevation data, you would need to:</p>
+<p><strong>Note</strong>: The source for these tiles is <a rel="noreferrer" target="_blank" href="https://registry.opendata.aws/terrain-tiles/">AWS Open Data Registry</a> and they're created by <a rel="noreferrer" target="_blank" href="https://github.com/tilezen/joerd">Tilezen</a>. These terrain tiles are from approximately 2008 or before. There are other options for terrain, such as:</p>
 <ul>
 <li>Download a DEM from another source</li>
 <li>Convert it to RGB-encoded PMTiles format</li>
@@ -136,15 +137,10 @@
 <li>
 <p><strong>Add the terrain source</strong> to your <code>sources</code> section in <code>style.json</code>:</p>
 <pre><code class="language-json">{
+  {
   "version": 8,
-  "glyphs": "/lib/fonts/{fontstack}/{range}.pbf",
-  "sprite": "/lib/sprites/sprite",
   "sources": {
-    "protomaps": {
-      "type": "raster",
-      "url": "pmtiles:///sources/waiheke_island.pmtiles",
-      "tileSize": 512
-    },
+    ... },
     "terrain": {
       "type": "raster-dem",
       "url": "pmtiles:///sources/terrarium-waiheke.pmtiles",
@@ -159,7 +155,7 @@
 </code></pre>
 </li>
 <li>
-<p><strong>Add the hillshade layer</strong> to your layers array. This should go <strong>before</strong> your trail layer so it appears underneath:</p>
+<p><strong>Add the hillshade layer</strong> to your layers list. This should go after <strong>before</strong> the <code>landcover</code> layer so it appears underneath:</p>
 <pre><code class="language-json">{
   "id": "hillshade",
   "type": "hillshade",
@@ -168,15 +164,21 @@
     "hillshade-accent-color": "hsla(0, 0%, 0%, 0.1)",
     "hillshade-exaggeration": 0.5,
     "hillshade-highlight-color": "hsla(0, 0%, 100%, 0.1)",
-    "hillshade-illumination-anchor": "viewport",
     "hillshade-illumination-direction": 315,
     "hillshade-shadow-color": "hsla(0, 0%, 0%, 0.5)"
   }
 }
 </code></pre>
+<p>Here is an explanation of these properties:</p>
+<ul>
+<li><code>hillshade-exaggeration</code>: Controls how dramatic the terrain looks (0.0 to 1.0)</li>
+<li><code>hillshade-illumination-direction</code>: Direction of the light source (0-359 degrees)</li>
+<li><code>hillshade-accent-color</code>: Color of shadows</li>
+<li><code>hillshade-highlight-color</code>: Color of highlights</li>
+</ul>
 </li>
 <li>
-<p><strong>Add contour lines</strong> (optional but recommended):</p>
+<p><strong>Add contour lines</strong> (optional):</p>
 <pre><code class="language-json">{
   "id": "contours",
   "type": "line",
@@ -189,53 +191,22 @@
   }
 }
 </code></pre>
-<p><strong>Note</strong>: If your Terrarium extract doesn't include pre-generated contours, you may need to generate them separately or skip this layer.</p>
 </li>
-</ol>
-<h3>Update Layer Order</h3>
-<p>Make sure your layers are in the correct order in <code>style.json</code>:</p>
-<ol>
-<li>Base Protomaps layers (bottom)</li>
-<li>Hillshade layer</li>
-<li>Contour layer (if using)</li>
-<li>Your trail layer (top)</li>
 </ol>
 <h3>Test Your Map</h3>
 <ol>
 <li>
-<p><strong>Refresh your browser</strong>: Go to <code>http://localhost:1234/index.html</code></p>
+<p><strong>Refresh your browser</strong>: Go to <code>http://127.0.0.1:1234/index.html</code></p>
 </li>
 <li>
 <p><strong>You should see</strong>:</p>
 <ul>
 <li>The Protomaps basemap</li>
-<li>Terrain shading showing elevation changes</li>
+<li>Terrain showing the topography</li>
 <li>Contour lines (if added)</li>
 <li>The Te Ara Hura trail displayed on top</li>
 </ul>
 </li>
-</ol>
-<h3>Adjust Hillshade Settings</h3>
-<p>You can adjust the hillshade appearance by modifying these properties in <code>style.json</code>:</p>
-<ul>
-<li><code>hillshade-exaggeration</code>: Controls how dramatic the terrain looks (0.0 to 1.0)</li>
-<li><code>hillshade-illumination-direction</code>: Direction of the light source (0-359 degrees)</li>
-<li><code>hillshade-accent-color</code>: Color of shadows</li>
-<li><code>hillshade-highlight-color</code>: Color of highlights</li>
-</ul>
-<p>Experiment with these values to get the look you want!</p>
-<h3>Alternative: Using Modern DEM Data</h3>
-<p>If you want to use more recent elevation data:</p>
-<ol>
-<li><strong>Find a DEM source</strong> (e.g., local government, national mapping agency)</li>
-<li><strong>Download the DEM</strong> for Waiheke Island area</li>
-<li><strong>Convert to RGB-encoded PMTiles</strong> using tools like:
-<ul>
-<li><a rel="noreferrer" target="_blank" href="https://github.com/mapbox/rio-rgbify">rio-rgbify</a> for encoding</li>
-<li>PMTiles CLI for conversion</li>
-</ul>
-</li>
-<li><strong>Update stylesheet</strong> to use the new DEM source</li>
 </ol>
 <h3>Troubleshooting</h3>
 <p><strong>Terrain doesn't show?</strong></p>

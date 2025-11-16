@@ -14,47 +14,27 @@ In this final main step, we'll add interactive features to your map, such as pop
 
 Let's add standard map controls (zoom, rotate, etc.):
 
-1. **Update `index.js`** to add navigation controls:
+1. **Update `index.html`** to add navigation control definition after the `map` is defined:
    ```javascript
-   // Initialize PMTiles protocol
-   const protocol = new pmtiles.Protocol();
-   maplibregl.addProtocol("pmtiles", protocol.tile);
+    // Javascript to create a new map using Maplibre GL JS
+    const map = new maplibregl.Map({
+        ...
+    });
 
-   // Create the map
-   const map = new maplibregl.Map({
-     container: 'map',
-     style: 'style.json',
-     center: [175.07092, -36.79898],
-     zoom: 12
-   });
-
-   // Add navigation controls (zoom, rotate, pitch)
-   map.addControl(new maplibregl.NavigationControl(), 'top-right');
-
-   // Add fullscreen control (optional)
-   map.addControl(new maplibregl.FullscreenControl(), 'top-right');
-
-   // Wait for map to load
-   map.on('load', function() {
-     // ... existing trail source and layer code ...
-   });
+    // Add navigation controls
+    map.addControl(new maplibregl.NavigationControl(), 'top-right');
    ```
-
 ### Add Popup on Click
 
 Let's add a popup that shows information when you click on the trail:
 
-1. **Create a popup element** and add click handler in `index.js`:
+1. **Create a popup element** and add click handler in `index.html`:
    ```javascript
    // Create popup
    const popup = new maplibregl.Popup({
      closeButton: true,
      closeOnClick: false
    });
-
-   // Wait for map to load
-   map.on('load', function() {
-     // ... existing source and layer code ...
 
      // Add click handler to trail
      map.on('click', 'te-ara-hura', function(e) {
@@ -163,23 +143,9 @@ map.addControl(new maplibregl.ScaleControl({
 }), 'bottom-left');
 ```
 
-### Add Geolocate Control (Optional)
-
-Add a button to center the map on the user's location:
-
-```javascript
-// Add geolocate control
-map.addControl(new maplibregl.GeolocateControl({
-  positionOptions: {
-    enableHighAccuracy: true
-  },
-  trackUserLocation: true
-}), 'top-right');
-```
-
 ### Test Your Interactive Map
 
-1. **Refresh your browser**: Go to `http://localhost:1234/index.html`
+1. **Refresh your browser**: Go to `http://127.0.0.1:1234/index.html`
 
 2. **Test interactions**:
    - **Click on the trail**: Should show a popup with information

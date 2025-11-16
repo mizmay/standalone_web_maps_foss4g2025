@@ -108,43 +108,24 @@
 <h3>Add Map Controls</h3>
 <p>Let's add standard map controls (zoom, rotate, etc.):</p>
 <ol>
-<li><strong>Update <code>index.js</code></strong> to add navigation controls:<pre><code class="language-javascript">// Initialize PMTiles protocol
-const protocol = new pmtiles.Protocol();
-maplibregl.addProtocol("pmtiles", protocol.tile);
+<li><strong>Update <code>index.html</code></strong> to add navigation control definition after the <code>map</code> is defined:<pre><code class="language-javascript"> // Javascript to create a new map using Maplibre GL JS
+ const map = new maplibregl.Map({
+     ...
+ });
 
-// Create the map
-const map = new maplibregl.Map({
-  container: 'map',
-  style: 'style.json',
-  center: [175.07092, -36.79898],
-  zoom: 12
-});
-
-// Add navigation controls (zoom, rotate, pitch)
-map.addControl(new maplibregl.NavigationControl(), 'top-right');
-
-// Add fullscreen control (optional)
-map.addControl(new maplibregl.FullscreenControl(), 'top-right');
-
-// Wait for map to load
-map.on('load', function() {
-  // ... existing trail source and layer code ...
-});
+ // Add navigation controls
+ map.addControl(new maplibregl.NavigationControl(), 'top-right');
 </code></pre>
 </li>
 </ol>
 <h3>Add Popup on Click</h3>
 <p>Let's add a popup that shows information when you click on the trail:</p>
 <ol>
-<li><strong>Create a popup element</strong> and add click handler in <code>index.js</code>:<pre><code class="language-javascript">// Create popup
+<li><strong>Create a popup element</strong> and add click handler in <code>index.html</code>:<pre><code class="language-javascript">// Create popup
 const popup = new maplibregl.Popup({
   closeButton: true,
   closeOnClick: false
 });
-
-// Wait for map to load
-map.on('load', function() {
-  // ... existing source and layer code ...
 
   // Add click handler to trail
   map.on('click', 'te-ara-hura', function(e) {
@@ -246,20 +227,10 @@ map.addControl(new maplibregl.ScaleControl({
   unit: 'metric'
 }), 'bottom-left');
 </code></pre>
-<h3>Add Geolocate Control (Optional)</h3>
-<p>Add a button to center the map on the user's location:</p>
-<pre><code class="language-javascript">// Add geolocate control
-map.addControl(new maplibregl.GeolocateControl({
-  positionOptions: {
-    enableHighAccuracy: true
-  },
-  trackUserLocation: true
-}), 'top-right');
-</code></pre>
 <h3>Test Your Interactive Map</h3>
 <ol>
 <li>
-<p><strong>Refresh your browser</strong>: Go to <code>http://localhost:1234/index.html</code></p>
+<p><strong>Refresh your browser</strong>: Go to <code>http://127.0.0.1:1234/index.html</code></p>
 </li>
 <li>
 <p><strong>Test interactions</strong>:</p>

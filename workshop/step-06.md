@@ -48,9 +48,9 @@ Update your `index.html` to load PMTiles support.
 
 ### Test Your Map
 
-1. **Check to make sure your local server is still running**, if not type `make serve` in a terminal window.
+1. **Check to make sure your local server is still running**, if not type `caddy run` in a terminal window (from your repository root directory).
 
-2. **Refresh your browser**: Go to `http://localhost:1234/index.html`
+2. **Refresh your browser**: Go to `http://127.0.0.1:1234/index.html`
 
 3. **You should see** no change yet! Verify you still see the trail line. We have to define the styles for the PMTiles Protomaps layers before they will show up.
 
@@ -145,9 +145,9 @@ You can delete `protomaps.5.7.0.json`. You do not need it anymore.
 
 ### Test Your Map
 
-1. **Check to make sure your local server is still running**, if not type `make serve` in a terminal window.
+1. **Check to make sure your local server is still running**, if not type `caddy run` in a terminal window (from your repository root directory).
 
-2. **Refresh your browser**: Go to `http://localhost:1234/index.html`
+2. **Refresh your browser**: Go to `http://127.0.0.1:1234/index.html`
 
 3. **You should see**:
    - The Protomaps basemap (roads, labels, landcover)

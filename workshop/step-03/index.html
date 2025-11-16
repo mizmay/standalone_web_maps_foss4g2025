@@ -106,8 +106,8 @@
         <p>In this step, we'll set up a local web server, create the HTML structure, and use MapLibre GL JS to display the Te Ara Hura trail on a map.</p>
 <h2>Setting up a Local Server</h2>
 <h3>Install Caddy</h3>
-<p>Since we're working with static files, we need a local web server. We'll use Caddy, which is simple and works well for web maps.</p>
-<p>For this step, you will need a terminal window, either inside VS Code or elsewhere if you are not using this code editor. In VS Code, go to Terminal &gt; New Terminal</p>
+<p>Since we're working with static files, we need a local web server. We'll use Caddy, which is simple and works well for the file types we are working with.</p>
+<p>For this step, you will need a terminal window, either inside VS Code (go to View &gt; Terminal if you don't see it). or elsewhere if you are not using this code editor.</p>
 <p>Copy and paste or type the commands below at the command prompt.</p>
 <h4>macOS Installation</h4>
 <pre><code class="language-bash">brew install caddy
@@ -120,27 +120,34 @@ sudo apt-get update
 sudo apt-get install caddy
 </code></pre>
 <h4>Windows Installation</h4>
-<p>Download from <a rel="noreferrer" target="_blank" href="https://caddyserver.com/download">https://caddyserver.com/download</a> or use Chocolatey:</p>
 <pre><code class="language-bash">choco install caddy
 </code></pre>
-<h4>Verify Installation</h4>
-<pre><code class="language-bash">caddy version
-</code></pre>
+<h3>Understand the Caddyfile</h3>
+<p>The repo you cloned contains a <code>Caddyfile</code> configured to serve your map files. This configuration works on macOS, Linux, and Windows.</p>
+<p><strong>Examine the Caddyfile</strong> in the root of your repository:</p>
+<p>This is a configuration file for Caddy. You can open it as a text file and examine it if you are curious.</p>
+<p>This configuration:</p>
+<ul>
+<li>Serves all local files (HTML, JSON, PMTiles, etc.) from your repository root</li>
+<li>Proxies requests to <code>/maputnik/*</code> to Maputnik (which we'll set up later)</li>
+<li>Works identically on macOS, Linux, and Windows</li>
+</ul>
 <h3>Start the Local Server</h3>
 <ol>
 <li>
-<p><strong>Navigate to your repository</strong>:</p>
-<pre><code class="language-bash">cd /path/to/your/repository
-</code></pre>
+<p><strong>Navigate to your repository</strong>: make sure you are at the root or first level directory. Note this is the directory where the Caddyfile is stored.</p>
 </li>
 <li>
-<p><strong>Start Caddy</strong> using the Makefile:</p>
-<pre><code class="language-bash">make serve
+<p><strong>Start Caddy</strong> using the Caddyfile:</p>
+<pre><code class="language-bash">caddy run
 </code></pre>
-<p>This will start a server at <code>http://localhost:1234/</code></p>
+<p>This will start a server at <code>http://127.0.0.1:1234/</code>. Copy and paste this address into a browser.</p>
 </li>
 <li>
 <p><strong>Keep the terminal window open</strong> - the server needs to keep running</p>
+</li>
+<li>
+<p><strong>To stop the server</strong>, press <code>Ctrl+C</code> in the terminal where Caddy is running</p>
 </li>
 </ol>
 <h2>Use Maplibre to Create a Web Map</h2>
@@ -209,7 +216,8 @@ sudo apt-get install caddy
 <h3>View Your Map</h3>
 <ol>
 <li>
-<p><strong>Open your browser</strong> and navigate to: <code>http://localhost:1234/index.html</code></p>
+<p><strong>Open your browser</strong> and navigate to: <code>http://127.0.0.1:1234/index.html</code></p>
+<p><strong>Note</strong>: Use <code>127.0.0.1</code> instead of <code>localhost</code> to avoid browser security prompts.</p>
 </li>
 <li>
 <p><strong>You should see</strong>:</p>
@@ -224,7 +232,7 @@ sudo apt-get install caddy
 <ul>
 <li><code>index.html</code> - HTML file that loads MapLibre and references your stylesheet</li>
 <li><code>style.json</code> - Stylesheet defining your map sources and layers</li>
-<li>Local server running at <code>http://localhost:1234/</code></li>
+<li>Local server running at <code>http://127.0.0.1:1234/</code></li>
 <li>A working map displaying the Te Ara Hura trail as a red dashed line</li>
 </ul>
 <p>At this stage, your map is only available on your local machine. In the next step, we will push your changes to Github Pages, where it will be viewable on the Web.</p>
