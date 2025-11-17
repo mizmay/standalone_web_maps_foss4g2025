@@ -8,9 +8,160 @@ mapImage: step-06.png
 mapNote: "This is what your map should look like when you view it locally and via your Github Pages website"
 ---
 
+Now we'll update our Maplibre to load PMtiles support, and configure the stylesheet to match the Protomaps tiles we downloaded.
+
 ## Configure the Stylesheet
 
-Now we'll update our Maplibre to load PMtiles support, and configure the stylesheet to match the Protomaps tiles we downloaded.
+Now we need to modify our stylesheet `style.json` to:
+- Use the local PMTiles file
+- Show the Protomaps basemap layers
+- Also show your existing trail layer
+
+### View the Protomaps Stylesheet in Maputnik
+
+Maputnik allows you to edit the style layers in a GUI, which is helpful since the stylesheet is otherwise over 12,000 lines of JSON when formatted in your text editor.
+
+Maputnik also allows you to make changes and see the results live, without having to switch windows or refresh a browser pane. This is particularly helpful when you are developing a style layer from scratch.
+
+Maputnik is [maintained by Maplibre](https://github.com/maplibre/maputnik) as a way of making it easier to understand available style parameters.
+
+1. **Go to [https://maplibre.org/maputnik/](https://maplibre.org/maputnik/)** to view the Maputnik style editor.
+2. **Load the Protomaps Light style** under Open > Gallery Styles > Protomaps Light.
+3. **Zoom in on Auckland** and then find Waiheke Island in the map panel on the right
+4. **Click on Expand** in the top left corner to see all the map layers
+
+You should now see the fully expanded list of layers defined in the Protomaps stylesheet. It is a lot!
+
+**Note: Maplibre renders these layers in order from top to bottom, so the last layer in the list will render on top.**
+
+The position a layer has in the render order is commonly referred to as the **z-order**
+
+Observe the z-orders of various layers in this stylesheet. For any basemap the order will generally be:
+- Landcover (areas) on the bottom
+- Roads / Streams (lines) in the middle
+- Labels and Icons (points) on the top
+
+### Add Te Ara Hura
+
+We're going to use Maputnik to add the trail styles from `style.json` in Step 3 into the Protomaps style sheet here.
+
+Here's the `style.josn` from Step 3:
+
+```json
+{
+  "version": 8,
+  "sources": {
+    "te-ara-hura": {
+      "type": "geojson",
+      "data": "sources/te_ara_hura.geojson"
+    }
+  },
+  "layers": [
+    {
+      "id": "trail-line",
+      "type": "line",
+      "source": "te-ara-hura",
+      "paint": {
+        "line-color": "#e41f18",
+        "line-width": 3,
+        "line-dasharray": [2, 2]
+      }
+    }
+  ]
+}
+```
+
+#### Add the GeoJSON Source
+
+1. **Click on Data Sources** in the top bar of Maputnik. In the panel that pops up, you will see #protomaps listed under **Active Sources**
+   
+2. **Add New Source** at the bottom of the panel. Here you are going to input the fields you pasted into `style.json` in Step 3. 
+   
+   - `Source ID` is `te-ara-hura`
+   - Under `Source Type` use the drop-down to select "GeoJSON (URL)"
+   - Under `URL` paste `http://127.0.0.1:1234/sources/te_ara_hura.geojson`
+
+3. **Allow Access** when you get a broswer prompt saying Maputnik is requesting access to your local server.
+
+#### Add a Trail Layer
+
+1. **Click "Add Layer"** at the top of the list of layers
+
+2. **Input the id, type, and source** as defined in the `style.json` from Step 3
+
+3. **Input the color, width and dasharray** as defined in the `style.json` from Step 3
+   
+4. **Scroll to the JSON Editor** at the bottom of the Add Layer panel. Click the > to expand.
+
+You should see a layer definition like this. If you don't, you can copy and paste this in:
+
+```json
+    {
+      "id": "trail-line",
+      "type": "line",
+      "source": "te-ara-hura",
+      "paint": {
+        "line-color": "#e41f18",
+        "line-width": 3,
+        "line-dasharray": [2, 2]
+      }
+    }
+```
+You should also see the trail as a red dashed line circling Waiheke Island.
+
+#### Adjust the Z-Order
+
+Let's fix the fact that the red dashed trail line is currently rendering on top of all our labels, and bisecting the Waiheke Island Aerodrome.
+
+1. **Note the symbols at the start of each layer**: diamond for area layers, squiggle for line layers, marker for point layers.
+   
+2. **Find the layer you just created** at the bottom of the list of layers. Note the squiggle next to it, because this is a line layer
+
+3. **Drag Te Ara Hura** to group it as the last of the line layers, so that it renders on top of roads and rivers, but under the labels.
+
+#### Export, Save and Edit
+
+1. **Click "Save" at the top** to save this stylesheet back into the repo. You can name it `style.json` and overwrite the earlier file at this point.
+   
+2. **Open `style.json` as a text file** and adjust the addresses for your `sources`, `glyphs`, and `fonts`
+   - Remove the local server address `http://127.0.0.1:1234/` from the `sources` urls
+   - Replace the `glyphs` address with `lib/fonts/{fontstack}/{range}.pbf` to reference the fonts in your repo
+   - Replace the `sprite` address with `https://YOUR-USERNAME.github.io/standalone_web_maps_foss4g2025/lib/sprite/light` where `YOUR-USERNAME is your github handle
+
+3. **Check the final result**, it should look like the JSON below.
+
+```json
+{
+  "version": 8,
+  "name": "style@4.3.0 theme@light lang@en",
+  "metadata": {"maputnik:renderer": "mlgljs"},
+  "sources": {
+    "te-ara-hura": {
+      "type": "geojson",
+      "data": "sources/te_ara_hura.geojson"
+    },
+    "protomaps": {
+      "type": "vector",
+      "url": "pmtiles://sources/waiheke_island.pmtiles"
+    }
+  },
+  "sprite": "https://YOUR-USERNAME.github.io/standalone_web_maps_foss4g2025/lib/sprite/light",
+  "glyphs": "lib/fonts/{fontstack}/{range}.pbf",
+  "layers": [
+   ...
+  ],
+}
+```
+
+4. **Save your changes**
+
+### Test Your Map
+
+1. **Check to make sure your local server is still running**, if not type `caddy run` in a terminal window (from your repository root directory).
+
+2. **Refresh your browser**: Go to `http://127.0.0.1:1234/index.html`
+
+3. **You should see** no change yet! Verify you still see the trail line. We have to define the styles for the PMTiles Protomaps layers before they will show up.
 
 ### Add PMTiles Support
 
@@ -45,103 +196,6 @@ Update your `index.html` to load PMTiles support.
 </script>
 
 3. **Save your changes**
-
-### Test Your Map
-
-1. **Check to make sure your local server is still running**, if not type `caddy run` in a terminal window (from your repository root directory).
-
-2. **Refresh your browser**: Go to `http://127.0.0.1:1234/index.html`
-
-3. **You should see** no change yet! Verify you still see the trail line. We have to define the styles for the PMTiles Protomaps layers before they will show up.
-
-### Combine the Stylesheets
-
-Now we need to modify our stylesheet `style.json` to:
-- Use the local PMTiles file
-- Show the Protomaps basemap layers
-- Also show your existing trail layer
-
-The instructions below will walk you through how to edit style JSONs directly. We won't do much of this, because editing raw JSON is not for the faint of heart, and if you break the JSON syntax, your map will not load. 
-
-If you are using it, VS Code will register an error for bad syntax, so save often and pay attention.
-
-1. **Open `protomaps.5.7.0.json` in your text editor** and give the stylesheet a name attribute set to the current file name:
-   
-   ```json
-   {
-     "version": 8,
-     "name": "protomaps v4 5.7.0",
-     "sources": { ...}
-   }
-   ```
-
-2. **Replace the protomaps URL** with `pmtiles:///sources/waiheke_island.pmtiles`, to reference our custom extract.
-
-   You will find the URL under sources. The final result should look like this:
-   
-   ```json
-   {
-     "version": 8,
-     "name": "protomaps v4 5.7.0",
-     "sources": {
-         "protomaps": {
-            "type": "raster",
-            "url": "pmtiles:///sources/waiheke_island.pmtiles",
-            "tileSize": 512
-         }
-     },
-     "layers": [
-       // ... existing Protomaps layers ...
-     ]
-   }
-   ```
-3. **Add your trail source** "te-ara-hura" as shown below, be sure to add a comma after the `protomaps` source:
-
-   ```json
-   {
-     "version": 8,
-     "name": "protomaps.5.7.0",
-     "glyphs": "/lib/fonts/{fontstack}/{range}.pbf",
-     "sprite": "/lib/sprites/sprite",
-     "sources": {
-         "protomaps": {
-            "type": "raster",
-            "url": "pmtiles:///sources/waiheke_island.pmtiles",
-            "tileSize": 512
-         },
-         "te-ara-hura": {
-            "type": "geojson",
-            "data": "sources/te_ara_hura.geojson"
-         }
-     },
-     "layers": [
-       // ... existing Protomaps layers ...
-     ]
-   }
-   ```
-   
-4. **Add your trail layer** just inside the closing square bracket `]` just above glyph and sprite lines. This bracket is the end of the list of style layers. With the trail style added it should look like this:
-
-   ```json
-   [
-        {   // end of the style layer places_country
-        },  // be sure to add a comma after this bracket if there isn't one
-      {
-         "id": "trail-line",
-         "type": "line",
-         "source": "te-ara-hura",
-         "paint": {
-               "line-color": "#e41f18",
-               "line-width": 3,
-               "line-dasharray": [2, 2]
-         }
-      }
-   ],
-   ```
-
-5. **Save `protomaps.5.7.0.json` with your modifications as `style.json`**. this will overwrite the previous stylesheet now that you've moved everything into the larger file.
-
-You can delete `protomaps.5.7.0.json`. You do not need it anymore.
 
 ### Test Your Map
 
@@ -184,7 +238,9 @@ standalone_web_maps_foss4g2025/
 
 ### Commit Your Changes
 
-Add, commit, and push your revised `index.html` and `style.json` to your remote fork. Verify that the map you see via your local server and the one you see via Github Pages match the image below.
+Add, commit, and push your revised `index.html` and `style.json` to your remote fork. 
+
+Verify that the map you see via your local server and the one you see via Github Pages match the image below.
 
 ### What You Have Now
 
