@@ -22,7 +22,7 @@ This workshop is divided into 8 main steps:
 4. [**Initialize GitHub Pages to Display Your Map**](../step-04/) - Deploy your map to the web
 5. [**Define a Bounding Box and Download Reference Layers from Protomaps**](../step-05/) - Download basemap tiles
 6. [**Configure the Stylesheet**](../step-06/) - Set up styling with local sprites and fonts
-7. [**Add Terrain (Hillshade, Contours)**](../step-07/) - Visualize elevation and topography
+7. [**Add Terrain**](../step-07/) - Visualize elevation and topography
 8. [**Add Interactivity**](../step-08/) - Add popups, controls, and interactive features
 
 ### Bonus Steps (Time Permitting)

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Step 7 - Add Terrain (Hillshade, Contours) - Te Ara Hura Workshop</title>
+  <title>Step 7 - Add Terrain - Te Ara Hura Workshop</title>
   <link rel="icon" type="image/x-icon" href="../favicon.ico">
   <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@300;400;600&family=Overpass+Mono:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../workshop.css">
@@ -99,40 +99,35 @@
     <main class="workshop-main">
       <article class="workshop-content">
         
-          <h1>Step 7 - Add Terrain (Hillshade, Contours)</h1>
+          <h1>Step 7 - Add Terrain</h1>
         
         
         
-        <h3>Update Layer Order</h3>
-<p>Let's change the render order of the style layers so that Te Ara Hura renders below the labels and icons.</p>
-<h2>Adding Terrain</h2>
-<p>In this step, we'll add terrain to your map using hillshade and contour layers. This will give your map a 3D appearance and help users understand the topography of Waiheke Island.</p>
-<h3>Download Terrarium Terrain Tiles</h3>
+        <h2>Creating a Hillshade</h2>
+<p>In this step, we'll add terrain to your map by styling custom tiles with a hillshade effect. This will give your map a 3D appearance and help users understand the topography of Waiheke Island.</p>
+<h3>Download Terrain Tiles</h3>
 <p>We'll download the terrain tiles for the same bounding box we used for Protomaps:</p>
 <ol>
 <li>
-<p><strong>Download Terrarium tiles</strong>: Use the PMTiles CLI to extract terrain tiles:</p>
-<pre><code class="language-bash">pmtiles extract https://registry.opendata.aws/terrain-tiles/terrarium-z12.pmtiles sources/terrarium-waiheke.pmtiles \
-  --bbox=174.8,-37.0,175.2,-36.7
+<p><strong>Download Mapterhorn tiles</strong>: Use the PMTiles CLI to extract raster-dem tiles:</p>
+<pre><code class="language-bash">pmtiles extract \
+--bbox=174.8,-37.0,175.2,-36.7 \
+https://download.mapterhorn.com/planet.pmtiles \
+sources/waiheke_island_terrain.pmtiles
 </code></pre>
-<p><strong>Note</strong>: The source for these tiles is <a rel="noreferrer" target="_blank" href="https://registry.opendata.aws/terrain-tiles/">AWS Open Data Registry</a> and they're created by <a rel="noreferrer" target="_blank" href="https://github.com/tilezen/joerd">Tilezen</a>. These terrain tiles are from approximately 2008 or before. There are other options for terrain, such as:</p>
-<ul>
-<li>Download a DEM from another source</li>
-<li>Convert it to RGB-encoded PMTiles format</li>
-<li>Use it as a raster-dem source instead</li>
-</ul>
+<p><strong>Note</strong>: The source for these tiles is <a rel="noreferrer" target="_blank" href="https://protomaps.com/blog/mapterhorn-terrain/">Mapterhorn</a>, a recent effort to update the quality and coverage of global terrain tiles. The work is ongoing, so if you have a business with an interest high resolution terrain data for visualization, please reach out!</p>
 </li>
 <li>
 <p><strong>Wait for download</strong>: This may take several minutes depending on your connection.</p>
 </li>
 <li>
 <p><strong>Verify the file</strong>:</p>
-<pre><code class="language-bash">ls -lh sources/terrarium-waiheke.pmtiles
+<pre><code class="language-bash">ls -lh sources/waiheke_island_terrain.pmtiles 
 </code></pre>
 </li>
 </ol>
 <h3>Update Your Stylesheet</h3>
-<p>Now we'll add the terrain layers to your <code>style.json</code>:</p>
+<p>Now we'll add the terrain layers to your <code>style.json</code>. Follow the instructions for Step 6 to do this through Maputnik, or follow the instructions below to edit the <code>style.json</code> directly.</p>
 <ol>
 <li>
 <p><strong>Add the terrain source</strong> to your <code>sources</code> section in <code>style.json</code>:</p>
@@ -143,7 +138,7 @@
     ... },
     "terrain": {
       "type": "raster-dem",
-      "url": "pmtiles:///sources/terrarium-waiheke.pmtiles",
+      "url": "pmtiles://sources/waiheke_island_terrain.pmtiles",
       "tileSize": 256,
       "encoding": "terrarium"
     }
@@ -155,7 +150,7 @@
 </code></pre>
 </li>
 <li>
-<p><strong>Add the hillshade layer</strong> to your layers list. This should go after <strong>before</strong> the <code>landcover</code> layer so it appears underneath:</p>
+<p><strong>Add the hillshade layer</strong> to your layers list. This should go after the <code>earth</code> layer but <strong>before</strong> the <code>landcover</code> layer so it appears underneath:</p>
 <pre><code class="language-json">{
   "id": "hillshade",
   "type": "hillshade",
@@ -177,34 +172,18 @@
 <li><code>hillshade-highlight-color</code>: Color of highlights</li>
 </ul>
 </li>
-<li>
-<p><strong>Add contour lines</strong> (optional):</p>
-<pre><code class="language-json">{
-  "id": "contours",
-  "type": "line",
-  "source": "terrain",
-  "source-layer": "contours",
-  "paint": {
-    "line-color": "hsl(210, 10%, 30%)",
-    "line-width": 1,
-    "line-opacity": 0.4
-  }
-}
-</code></pre>
-</li>
 </ol>
 <h3>Test Your Map</h3>
 <ol>
 <li>
-<p><strong>Refresh your browser</strong>: Go to <code>http://127.0.0.1:1234/index.html</code></p>
+<p><strong>Refresh your browser</strong>: make sure Caddy is still running and go to <code>http://127.0.0.1:1234/index.html</code></p>
 </li>
 <li>
 <p><strong>You should see</strong>:</p>
 <ul>
 <li>The Protomaps basemap</li>
-<li>Terrain showing the topography</li>
-<li>Contour lines (if added)</li>
-<li>The Te Ara Hura trail displayed on top</li>
+<li>Terrain showing the topography underneath the landcover</li>
+<li>Te Ara Hura displayed on top</li>
 </ul>
 </li>
 </ol>
@@ -216,27 +195,35 @@
 <li>Check browser console (F12) for errors</li>
 <li>Make sure the terrain source uses <code>pmtiles://</code> protocol</li>
 </ul>
-<p><strong>Hillshade too dark/bright?</strong></p>
-<ul>
-<li>Adjust <code>hillshade-exaggeration</code> (lower = subtler, higher = more dramatic)</li>
-<li>Adjust <code>hillshade-illumination-direction</code> (changes where shadows appear)</li>
-<li>Modify color values for shadows and highlights</li>
-</ul>
-<p><strong>File too large?</strong></p>
-<ul>
-<li>The terrain extract might be large</li>
-<li>You can reduce zoom levels or bounding box if needed</li>
-<li>Check file size: <code>ls -lh sources/terrarium-waiheke.pmtiles</code></li>
-</ul>
+<h3>Commit Your Changes</h3>
+<p>Add, commit, and push your revised <code>index.html</code> and <code>style.json</code> to your remote fork.</p>
+<p>Verify that the map you see via your local server and the one you see via Github Pages match the image below.</p>
 <h3>What You Have Now</h3>
 <p>At the end of this step, you should have:</p>
 <ul>
 <li><code>sources/terrarium-waiheke.pmtiles</code> - Terrain elevation data</li>
 <li>Hillshade layer displaying terrain shading</li>
-<li>Contour lines (optional) showing elevation contours</li>
-<li>Map with full terrain visualization</li>
 </ul>
 <p>Your map now shows the beautiful topography of Waiheke Island! 🏔️</p>
+<h3>Want to take this further?</h3>
+<p>These style edits are just the beginning. If you want to keep polishing, here are some challenges:</p>
+<ol>
+<li><strong>Add some transparency to the landcover</strong> so that you can see the terrain through it</li>
+<li><strong>Refine the Te Ara Hura styling</strong> by changing the color, or changing the line width across zooms</li>
+<li><strong>Refine the terrain styling</strong> by modifying the color values for shadows and highlights, changing the exaggeration</li>
+</ol>
+
+        
+          <div class="map-preview-container">
+  <h2>Your Map Preview</h2>
+  <div class="map-preview-wrapper">
+    <img src="../images/step-07.png" alt="Map preview showing expected result at this stage" class="map-preview-image" style="max-width: 100%; height: auto; border: 1px solid #dee2e6; border-radius: 4px;">
+    
+      <p class="map-note">This is what your map should look like when you view it locally and via your Github Pages website</p>
+    
+  </div>
+</div>
+
 
         
         

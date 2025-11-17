@@ -1,44 +1,39 @@
 ---
 layout: base.njk
-title: Step 7 - Add Terrain (Hillshade, Contours)
+title: Step 7 - Add Terrain
 step: 7
 prev: step-06.html
 next: step-08.html
+mapImage: step-07.png
+mapNote: "This is what your map should look like when you view it locally and via your Github Pages website"
 ---
+## Creating a Hillshade
 
-### Update Layer Order
+In this step, we'll add terrain to your map by styling custom tiles with a hillshade effect. This will give your map a 3D appearance and help users understand the topography of Waiheke Island.
 
-Let's change the render order of the style layers so that Te Ara Hura renders below the labels and icons.
-
-## Adding Terrain
-
-In this step, we'll add terrain to your map using hillshade and contour layers. This will give your map a 3D appearance and help users understand the topography of Waiheke Island.
-
-### Download Terrarium Terrain Tiles
+### Download Terrain Tiles
 
 We'll download the terrain tiles for the same bounding box we used for Protomaps:
 
-1. **Download Terrarium tiles**: Use the PMTiles CLI to extract terrain tiles:
-   ```bash
-   pmtiles extract https://registry.opendata.aws/terrain-tiles/terrarium-z12.pmtiles sources/terrarium-waiheke.pmtiles \
-     --bbox=174.8,-37.0,175.2,-36.7
-   ```
-
-   **Note**: The source for these tiles is [AWS Open Data Registry](https://registry.opendata.aws/terrain-tiles/) and they're created by [Tilezen](https://github.com/tilezen/joerd). These terrain tiles are from approximately 2008 or before. There are other options for terrain, such as:
-   - Download a DEM from another source
-   - Convert it to RGB-encoded PMTiles format
-   - Use it as a raster-dem source instead
+1. **Download Mapterhorn tiles**: Use the PMTiles CLI to extract raster-dem tiles:
+    ```bash
+    pmtiles extract \
+    --bbox=174.8,-37.0,175.2,-36.7 \
+    https://download.mapterhorn.com/planet.pmtiles \
+    sources/waiheke_island_terrain.pmtiles
+    ```
+   **Note**: The source for these tiles is [Mapterhorn](https://protomaps.com/blog/mapterhorn-terrain/), a recent effort to update the quality and coverage of global terrain tiles. The work is ongoing, so if you have a business with an interest high resolution terrain data for visualization, please reach out!
 
 2. **Wait for download**: This may take several minutes depending on your connection.
 
 3. **Verify the file**:
    ```bash
-   ls -lh sources/terrarium-waiheke.pmtiles
+   ls -lh sources/waiheke_island_terrain.pmtiles 
    ```
 
 ### Update Your Stylesheet
 
-Now we'll add the terrain layers to your `style.json`:
+Now we'll add the terrain layers to your `style.json`. Follow the instructions for Step 6 to do this through Maputnik, or follow the instructions below to edit the `style.json` directly.
 
 1. **Add the terrain source** to your `sources` section in `style.json`:
    ```json
@@ -49,7 +44,7 @@ Now we'll add the terrain layers to your `style.json`:
        ... },
        "terrain": {
          "type": "raster-dem",
-         "url": "pmtiles:///sources/terrarium-waiheke.pmtiles",
+         "url": "pmtiles://sources/waiheke_island_terrain.pmtiles",
          "tileSize": 256,
          "encoding": "terrarium"
        }
@@ -60,7 +55,7 @@ Now we'll add the terrain layers to your `style.json`:
    }
    ```
 
-2. **Add the hillshade layer** to your layers list. This should go after **before** the `landcover` layer so it appears underneath:
+2. **Add the hillshade layer** to your layers list. This should go after the `earth` layer but **before** the `landcover` layer so it appears underneath:
    ```json
    {
      "id": "hillshade",
@@ -82,30 +77,14 @@ Now we'll add the terrain layers to your `style.json`:
    - `hillshade-accent-color`: Color of shadows
    - `hillshade-highlight-color`: Color of highlights
 
-3. **Add contour lines** (optional):
-   ```json
-   {
-     "id": "contours",
-     "type": "line",
-     "source": "terrain",
-     "source-layer": "contours",
-     "paint": {
-       "line-color": "hsl(210, 10%, 30%)",
-       "line-width": 1,
-       "line-opacity": 0.4
-     }
-   }
-   ```
-
 ### Test Your Map
 
-1. **Refresh your browser**: Go to `http://127.0.0.1:1234/index.html`
+1. **Refresh your browser**: make sure Caddy is still running and go to `http://127.0.0.1:1234/index.html`
 
 2. **You should see**:
    - The Protomaps basemap
-   - Terrain showing the topography
-   - Contour lines (if added)
-   - The Te Ara Hura trail displayed on top
+   - Terrain showing the topography underneath the landcover
+   - Te Ara Hura displayed on top
 
 
 ### Troubleshooting
@@ -116,25 +95,26 @@ Now we'll add the terrain layers to your `style.json`:
 - Check browser console (F12) for errors
 - Make sure the terrain source uses `pmtiles://` protocol
 
-**Hillshade too dark/bright?**
-- Adjust `hillshade-exaggeration` (lower = subtler, higher = more dramatic)
-- Adjust `hillshade-illumination-direction` (changes where shadows appear)
-- Modify color values for shadows and highlights
+### Commit Your Changes
 
-**File too large?**
-- The terrain extract might be large
-- You can reduce zoom levels or bounding box if needed
-- Check file size: `ls -lh sources/terrarium-waiheke.pmtiles`
+Add, commit, and push your revised `index.html` and `style.json` to your remote fork. 
+
+Verify that the map you see via your local server and the one you see via Github Pages match the image below.
 
 ### What You Have Now
 
 At the end of this step, you should have:
 - `sources/terrarium-waiheke.pmtiles` - Terrain elevation data
 - Hillshade layer displaying terrain shading
-- Contour lines (optional) showing elevation contours
-- Map with full terrain visualization
 
 Your map now shows the beautiful topography of Waiheke Island! 🏔️
+
+### Want to take this further?
+
+These style edits are just the beginning. If you want to keep polishing, here are some challenges:
+1. **Add some transparency to the landcover** so that you can see the terrain through it
+2. **Refine the Te Ara Hura styling** by changing the color, or changing the line width across zooms
+3. **Refine the terrain styling** by modifying the color values for shadows and highlights, changing the exaggeration
 
 ---
 
