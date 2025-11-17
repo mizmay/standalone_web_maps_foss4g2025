@@ -108,7 +108,9 @@
 <h3>Add Map Controls</h3>
 <p>Let's add standard map controls (zoom, rotate, etc.):</p>
 <ol>
-<li><strong>Update <code>index.html</code></strong> to add navigation control definition after the <code>map</code> is defined:<pre><code class="language-javascript"> // Javascript to create a new map using Maplibre GL JS
+<li>
+<p><strong>Update <code>index.html</code></strong> to add navigation control definition after the <code>map</code> is defined:</p>
+<pre><code class="language-javascript"> // Javascript to create a new map using Maplibre GL JS
  const map = new maplibregl.Map({
      ...
  });
@@ -117,55 +119,21 @@
  map.addControl(new maplibregl.NavigationControl(), 'top-right');
 </code></pre>
 </li>
-</ol>
-<h3>Add Popup on Click</h3>
-<p>Let's add a popup that shows information when you click on the trail:</p>
-<ol>
-<li><strong>Create a popup element</strong> and add click handler in <code>index.html</code>:<pre><code class="language-javascript">// Create popup
-const popup = new maplibregl.Popup({
-  closeButton: true,
-  closeOnClick: false
-});
-
-  // Add click handler to trail
-  map.on('click', 'te-ara-hura', function(e) {
-    const coordinates = e.lngLat;
-    const properties = e.features[0].properties;
-
-    // Build popup content
-    const popupContent = `
-      &lt;div class="popup-content"&gt;
-        &lt;h3&gt;Te Ara Hura&lt;/h3&gt;
-        &lt;p&gt;The Wandering Path&lt;/p&gt;
-        &lt;p&gt;Explore Waiheke Island's beautiful trails&lt;/p&gt;
-        &lt;a href="https://www.aucklandcouncil.govt.nz/parks-recreation/get-outdoors/find-a-walk/Pages/te-ara-hura-walk-waiheke-network.aspx" 
-           target="_blank"&gt;Learn more&lt;/a&gt;
-      &lt;/div&gt;
-    `;
-
-    popup
-      .setLngLat(coordinates)
-      .setHTML(popupContent)
-      .addTo(map);
-  });
-
-  // Change cursor on hover
-  map.on('mouseenter', 'te-ara-hura', function() {
-    map.getCanvas().style.cursor = 'pointer';
-  });
-
-  map.on('mouseleave', 'te-ara-hura', function() {
-    map.getCanvas().style.cursor = '';
-  });
-});
-</code></pre>
+<li>
+<p><strong>Add a scale bar</strong> to show distances:</p>
 </li>
 </ol>
+<pre><code class="language-javascript">// Add scale control
+map.addControl(new maplibregl.ScaleControl({
+  maxWidth: 100,
+  unit: 'metric'
+}), 'bottom-left');
+</code></pre>
 <h3>Add Hover Effects</h3>
 <p>Enhance the trail appearance on hover:</p>
 <ol>
 <li>
-<p><strong>Update the trail layer</strong> in your <code>style.json</code> to include hover state:</p>
+<p><strong>Add a new style</strong> in your <code>style.json</code> below the primary <code>te-ara-hura</code> style for the hover state:</p>
 <pre><code class="language-json">{
   "id": "te-ara-hura-hover",
   "type": "line",
@@ -176,57 +144,25 @@ const popup = new maplibregl.Popup({
     "line-opacity": 0.7,
     "line-dasharray": [2, 2]
   },
-  "filter": ["==", "$type", "LineString"]
 }
 </code></pre>
 </li>
 <li>
 <p><strong>Add hover handler</strong> in <code>index.js</code>:</p>
-<pre><code class="language-javascript">// Update trail layer style on hover
-map.on('mouseenter', 'te-ara-hura', function() {
-  map.setPaintProperty('te-ara-hura', 'line-width', 5);
+<pre><code class="language-javascript">// Swap between trail layers on hover
+map.on('mouseenter', 'te-ara_hura', function() {
+  map.setLayoutProperty('te-ara_hura', 'visibility', 'none');
+  map.setLayoutProperty('te-ara-hura-hover', 'visibility', 'visible');
 });
 
-map.on('mouseleave', 'te-ara-hura', function() {
-  map.setPaintProperty('te-ara-hura', 'line-width', 3);
+map.on('mouseleave', 'te-ara-hura-hover', function() {
+  map.setLayoutProperty('te-ara_hura', 'visibility', 'visible');
+  map.setLayoutProperty('te-ara-hura-hover', 'visibility', 'none');
 });
+
 </code></pre>
 </li>
 </ol>
-<h3>Style the Popup</h3>
-<p>Add styles for the popup in <code>styles.css</code>:</p>
-<pre><code class="language-css">.maplibregl-popup-content {
-  padding: 15px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
-
-.popup-content h3 {
-  margin: 0 0 10px 0;
-  color: #e41f18;
-}
-
-.popup-content p {
-  margin: 5px 0;
-  color: #333;
-}
-
-.popup-content a {
-  color: #667eea;
-  text-decoration: none;
-}
-
-.popup-content a:hover {
-  text-decoration: underline;
-}
-</code></pre>
-<h3>Add Scale Control (Optional)</h3>
-<p>Add a scale indicator to show distances:</p>
-<pre><code class="language-javascript">// Add scale control
-map.addControl(new maplibregl.ScaleControl({
-  maxWidth: 100,
-  unit: 'metric'
-}), 'bottom-left');
-</code></pre>
 <h3>Test Your Interactive Map</h3>
 <ol>
 <li>
@@ -238,28 +174,9 @@ map.addControl(new maplibregl.ScaleControl({
 <li><strong>Click on the trail</strong>: Should show a popup with information</li>
 <li><strong>Hover over the trail</strong>: Should change color/thickness</li>
 <li><strong>Use zoom controls</strong>: Should zoom in/out</li>
-<li><strong>Try fullscreen</strong>: Should go fullscreen</li>
 </ul>
 </li>
 </ol>
-<h3>Troubleshooting</h3>
-<p><strong>Popup doesn't appear?</strong></p>
-<ul>
-<li>Check browser console (F12) for errors</li>
-<li>Verify the layer ID matches in the click handler</li>
-<li>Make sure the trail layer is clickable (check layer order)</li>
-</ul>
-<p><strong>Hover doesn't work?</strong></p>
-<ul>
-<li>Verify mouseenter/mouseleave handlers are attached</li>
-<li>Check that layer ID matches</li>
-</ul>
-<p><strong>Controls don't appear?</strong></p>
-<ul>
-<li>Check browser console for errors</li>
-<li>Verify MapLibre GL JS is loaded</li>
-<li>Check that controls are added after map creation</li>
-</ul>
 <h3>What You Have Now</h3>
 <p>At the end of this step, you should have:</p>
 <ul>
