@@ -28,7 +28,9 @@ Maputnik is [maintained by Maplibre](https://github.com/maplibre/maputnik) as a 
 1. **Go to [https://maplibre.org/maputnik/](https://maplibre.org/maputnik/)** to view the Maputnik style editor.
 2. **Load the Protomaps Light style** under Open > Gallery Styles > Protomaps Light.
 3. **Zoom in on Auckland** and then find Waiheke Island in the map panel on the right
-4. **Click on Expand** in the top left corner to see all the map layers
+4. **Change from Map to Inspect** from the drop-down in the top bar, this will allow you to hover and see all of the tile layers and attributes
+6. **Change back from Inspect to Map** from the drop-down in the top bar
+5. **Click on Expand** in the top left corner to see all the map layers
 
 You should now see the fully expanded list of layers defined in the Protomaps stylesheet. It is a lot!
 
