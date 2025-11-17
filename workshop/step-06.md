@@ -129,6 +129,7 @@ Let's fix the fact that the red dashed trail line is currently rendering on top 
    - Remove the local server address `http://127.0.0.1:1234/` from the `sources` urls
    - Replace the `glyphs` address with `lib/fonts/{fontstack}/{range}.pbf` to reference the fonts in your repo
    - Replace the `sprite` address with `https://YOUR-USERNAME.github.io/standalone_web_maps_foss4g2025/lib/sprite/light` where `YOUR-USERNAME is your github handle
+   - Add attribution for Protomaps and Openstreetmap
 
 3. **Check the final result**, it should look like the JSON below.
 
@@ -136,7 +137,6 @@ Let's fix the fact that the red dashed trail line is currently rendering on top 
 {
   "version": 8,
   "name": "style@4.3.0 theme@light lang@en",
-  "metadata": {"maputnik:renderer": "mlgljs"},
   "sources": {
     "te-ara-hura": {
       "type": "geojson",
@@ -144,7 +144,8 @@ Let's fix the fact that the red dashed trail line is currently rendering on top 
     },
     "protomaps": {
       "type": "vector",
-      "url": "pmtiles://sources/waiheke_island.pmtiles"
+      "url": "pmtiles://sources/waiheke_island.pmtiles",
+      "attribution": "© <a href=\"https://openstreetmap.org\" target=\"_blank\" rel=\"noopener noreferrer\">OpenStreetMap</a>"
     }
   },
   "sprite": "https://YOUR-USERNAME.github.io/standalone_web_maps_foss4g2025/lib/sprite/light",

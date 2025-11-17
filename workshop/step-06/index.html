@@ -226,6 +226,7 @@
 <li>Remove the local server address <code>http://127.0.0.1:1234/</code> from the <code>sources</code> urls</li>
 <li>Replace the <code>glyphs</code> address with <code>lib/fonts/{fontstack}/{range}.pbf</code> to reference the fonts in your repo</li>
 <li>Replace the <code>sprite</code> address with <code>https://YOUR-USERNAME.github.io/standalone_web_maps_foss4g2025/lib/sprite/light</code> where `YOUR-USERNAME is your github handle</li>
+<li>Add attribution for Protomaps and Openstreetmap</li>
 </ul>
 </li>
 <li>
@@ -235,7 +236,6 @@
 <pre><code class="language-json">{
   "version": 8,
   "name": "style@4.3.0 theme@light lang@en",
-  "metadata": {"maputnik:renderer": "mlgljs"},
   "sources": {
     "te-ara-hura": {
       "type": "geojson",
@@ -243,7 +243,8 @@
     },
     "protomaps": {
       "type": "vector",
-      "url": "pmtiles://sources/waiheke_island.pmtiles"
+      "url": "pmtiles://sources/waiheke_island.pmtiles",
+      "attribution": "© &lt;a href=\"https://openstreetmap.org\" target=\"_blank\" rel=\"noopener noreferrer\"&gt;OpenStreetMap&lt;/a&gt;"
     }
   },
   "sprite": "https://YOUR-USERNAME.github.io/standalone_web_maps_foss4g2025/lib/sprite/light",
