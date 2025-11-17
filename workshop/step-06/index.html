@@ -289,7 +289,7 @@
 <ol start="2">
 <li><strong>Activate the PMTiles protocol</strong> by adding these lines just above where the map is defined:</li>
 </ol>
-<script>
+<pre><code class="language-html">&lt;script&gt;
   // Initialize PMTiles protocol
    const protocol = new pmtiles.Protocol();
    maplibregl.addProtocol("pmtiles", protocol.tile);
@@ -297,7 +297,8 @@
    // Javascript to create a new map using Maplibre GL JS
    const map = new maplibregl.Map({
       ...})
-</script>
+&lt;/script&gt;
+</code></pre>
 <ol start="3">
 <li><strong>Save your changes</strong></li>
 </ol>

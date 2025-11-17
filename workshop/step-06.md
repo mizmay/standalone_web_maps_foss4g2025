@@ -187,7 +187,8 @@ Update your `index.html` to load PMTiles support.
 ```
 
 2. **Activate the PMTiles protocol** by adding these lines just above where the map is defined:
-
+   
+```html
 <script>
   // Initialize PMTiles protocol
    const protocol = new pmtiles.Protocol();
@@ -197,6 +198,7 @@ Update your `index.html` to load PMTiles support.
    const map = new maplibregl.Map({
       ...})
 </script>
+```
 
 3. **Save your changes**
 
