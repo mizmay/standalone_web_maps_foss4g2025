@@ -103,47 +103,12 @@
         
         
         
-        <h2>Deploy Your Map to GitHub Pages</h2>
-<p>In this step, you'll deploy your map so it's accessible on the web via GitHub Pages. Since you're working from your <strong>forked version</strong> of this repository, your map will be hosted on your own GitHub Pages site.</p>
-<h3>Commit Your Changes</h3>
-<p>First, let's save your work to your repository. Switch to the Source Control tab on VS Code and commit the new files you created in the previous step with a meaningful commit message, just as you did in Step 2.</p>
-<p>To open a new terminal window and commit manually:</p>
-<ol>
-<li>
-<p><strong>Check your changes</strong>:</p>
-<pre><code class="language-bash">git status
-</code></pre>
-<p>You should see:</p>
-<ul>
-<li><code>index.html</code> (new file)</li>
-<li><code>styles.json</code> (new file)</li>
-</ul>
-</li>
-<li>
-<p><strong>Add your files</strong>:</p>
-<pre><code class="language-bash">git add .
-</code></pre>
-</li>
-<li>
-<p><strong>Commit your changes</strong>:</p>
-<pre><code class="language-bash">git commit -m "Add initial map of Te Ara Hura trail"
-</code></pre>
-</li>
-<li>
-<p><strong>Push to your fork</strong>:</p>
-<pre><code class="language-bash">git push origin main
-</code></pre>
-</li>
-</ol>
+        <p>In this step, you'll deploy your map so it's accessible on the web via GitHub Pages. Since you're working from your <strong>forked version</strong> of this repository, your map will be hosted on your own GitHub Pages site.</p>
+<h2>Enable GitHub Pages</h2>
+<p>Go to your forked repo on Github, if you are not there already.</p>
 <h3>Add .nojekyll File (Recommended)</h3>
 <p>GitHub Pages uses Jekyll by default to process sites. For pure static files (HTML, CSS, JS), Jekyll processing isn't needed and can sometimes cause issues. Adding a <code>.nojekyll</code> file tells GitHub to skip Jekyll processing.</p>
-<p><strong>Note</strong>: Your site might work without this file, but it's a best practice to include it to ensure Jekyll doesn't interfere with your files.</p>
-<p>Open a new terminal if you don't have one open already and paste the following lines, one at a time:</p>
-<pre><code class="language-bash">touch .nojekyll
-git add .nojekyll
-git commit -m "Add .nojekyll to disable Jekyll processing"
-git push origin main
-</code></pre>
+<p>TO DO: instructions for adding <code>.nojekyll</code> from Github</p>
 <h3>Enable GitHub Pages</h3>
 <ol>
 <li>
@@ -173,7 +138,7 @@ git push origin main
 </code></pre>
 </li>
 </ol>
-<h3>Verify Your Deployment</h3>
+<h2>Verify Your Deployment</h2>
 <ol>
 <li>
 <p><strong>Visit your GitHub Pages URL</strong>: Navigate to the URL GitHub provided</p>
@@ -186,8 +151,6 @@ git push origin main
 </li>
 </ol>
 <p><sup>*</sup> <em>There is currently a <a rel="noreferrer" target="_blank" href="https://github.com/protomaps/PMTiles/issues/584">bug</a> in Firefox that prevents PMTiles from rendering correctly via Github Pages. There's a simple fix and we're hopeful it will get merged.</em></p>
-<h3>Update Your Links</h3>
-<p>If you have any hard-coded paths or URLs in your files, make sure they work with your GitHub Pages URL. Since we're using relative paths (<code>lib/</code>, <code>sources/</code>), everything should work automatically.</p>
 <h3>What You Have Now</h3>
 <p>At the end of this step, you should have:</p>
 <ul>
