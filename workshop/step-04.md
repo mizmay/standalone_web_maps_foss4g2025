@@ -17,8 +17,6 @@ Go to your forked repo on Github, if you are not there already.
 
 GitHub Pages uses Jekyll by default to process sites. For pure static files (HTML, CSS, JS), Jekyll processing isn't needed and can sometimes cause issues. Adding a `.nojekyll` file tells GitHub to skip Jekyll processing.
 
-TO DO: instructions for adding `.nojekyll` from Github
-
 ### Enable GitHub Pages
 
 1. **Go to your repository on GitHub**: Navigate to the webpage for your fork on GitHub
