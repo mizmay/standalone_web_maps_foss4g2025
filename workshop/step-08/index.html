@@ -150,13 +150,13 @@ map.addControl(new maplibregl.ScaleControl({
 <li>
 <p><strong>Add hover handler</strong> in <code>index.js</code>:</p>
 <pre><code class="language-javascript">// Swap between trail layers on hover
-map.on('mouseenter', 'te-ara_hura', function() {
-  map.setLayoutProperty('te-ara_hura', 'visibility', 'none');
+map.on('mouseenter', 'trail-line', function() {
+  map.setLayoutProperty('trail-line', 'visibility', 'none');
   map.setLayoutProperty('te-ara-hura-hover', 'visibility', 'visible');
 });
 
 map.on('mouseleave', 'te-ara-hura-hover', function() {
-  map.setLayoutProperty('te-ara_hura', 'visibility', 'visible');
+  map.setLayoutProperty('trail-line', 'visibility', 'visible');
   map.setLayoutProperty('te-ara-hura-hover', 'visibility', 'none');
 });
 
@@ -166,7 +166,11 @@ map.on('mouseleave', 'te-ara-hura-hover', function() {
 <h3>Test Your Interactive Map</h3>
 <ol>
 <li>
-<p><strong>Refresh your browser</strong>: Go to <code>http://127.0.0.1:1234/index.html</code></p>
+<p><strong>Refresh your browser</strong>:</p>
+<ul>
+<li><strong>If using local Caddy</strong>: Go to <code>http://127.0.0.1:1234/index.html</code></li>
+<li><strong>If using GitHub Codespaces</strong>: Use your forwarded URL (e.g., <code>https://xxxxx-1234.preview.app.github.dev/index.html</code>)</li>
+</ul>
 </li>
 <li>
 <p><strong>Test interactions</strong>:</p>

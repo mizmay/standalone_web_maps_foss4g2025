@@ -57,19 +57,21 @@ Enhance the trail appearance on hover:
 2. **Add hover handler** in `index.js`:
    ```javascript
    // Swap between trail layers on hover
-   map.on('mouseenter', 'te-ara_hura', function() {
-     map.setLayoutProperty('te-ara_hura', 'visibility', 'none');
+   map.on('mouseenter', 'trail-line', function() {
+     map.setLayoutProperty('trail-line', 'visibility', 'none');
      map.setLayoutProperty('te-ara-hura-hover', 'visibility', 'visible');
    });
 
    map.on('mouseleave', 'te-ara-hura-hover', function() {
-     map.setLayoutProperty('te-ara_hura', 'visibility', 'visible');
+     map.setLayoutProperty('trail-line', 'visibility', 'visible');
      map.setLayoutProperty('te-ara-hura-hover', 'visibility', 'none');
    });
 
 ### Test Your Interactive Map
 
-1. **Refresh your browser**: Go to `http://127.0.0.1:1234/index.html`
+1. **Refresh your browser**: 
+   - **If using local Caddy**: Go to `http://127.0.0.1:1234/index.html`
+   - **If using GitHub Codespaces**: Use your forwarded URL (e.g., `https://xxxxx-1234.preview.app.github.dev/index.html`)
 
 2. **Test interactions**:
    - **Click on the trail**: Should show a popup with information
