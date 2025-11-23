@@ -89,6 +89,8 @@ You'll see progress output showing the download status, and the number of tiles 
 
 Follow the process from Step 4 and Step 2 to add, commit, and push `waiheke_island.pmtiles` to your remote fork.
 
+**Note for Codespaces users**: Commit these changes in your Codespaces environment using the terminal or Source Control panel.
+
 ### What You Have Now
 
 At the end of this step, you should have:
