@@ -134,7 +134,7 @@
 </ul>
 <h3>Add Te Ara Hura</h3>
 <p>We're going to use Maputnik to add the trail styles from <code>style.json</code> in Step 3 into the Protomaps style sheet here.</p>
-<p>Here's the <code>style.josn</code> from Step 3:</p>
+<p>Here's the <code>style.json</code> from Step 3:</p>
 <pre><code class="language-json">{
   "version": 8,
   "sources": {
@@ -167,11 +167,16 @@
 <ul>
 <li><code>Source ID</code> is <code>te-ara-hura</code></li>
 <li>Under <code>Source Type</code> use the drop-down to select "GeoJSON (URL)"</li>
-<li>Under <code>URL</code> paste <code>http://127.0.0.1:1234/sources/te_ara_hura.geojson</code></li>
+<li>Under <code>URL</code> paste:
+<ul>
+<li><strong>If using local Caddy</strong>: <code>http://127.0.0.1:1234/sources/te_ara_hura.geojson</code></li>
+<li><strong>If using GitHub Codespaces</strong>: Use your forwarded URL (e.g., <code>https://xxxxx-1234.preview.app.github.dev/sources/te_ara_hura.geojson</code>)</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>
-<p><strong>Allow Access</strong> when you get a broswer prompt saying Maputnik is requesting access to your local server.</p>
+<p><strong>Allow Access</strong> when you get a browser prompt saying Maputnik is requesting access to your local server (or Codespaces server).</p>
 </li>
 </ol>
 <h4>Add a Trail Layer</h4>
@@ -223,7 +228,7 @@
 <li>
 <p><strong>Open <code>style.json</code> as a text file</strong> and adjust the addresses for your <code>sources</code>, <code>glyphs</code>, and <code>fonts</code></p>
 <ul>
-<li>Remove the local server address <code>http://127.0.0.1:1234/</code> from the <code>sources</code> urls</li>
+<li>Remove the server address (either <code>http://127.0.0.1:1234/</code> for local Caddy or your Codespaces forwarded URL) from the <code>sources</code> urls</li>
 <li>Replace the <code>glyphs</code> address with <code>lib/fonts/{fontstack}/{range}.pbf</code> to reference the fonts in your repo</li>
 <li>Replace the <code>sprite</code> address with <code>https://YOUR-USERNAME.github.io/standalone_web_maps_foss4g2025/lib/sprite/light</code> where `YOUR-USERNAME is your github handle</li>
 <li>Add attribution for Protomaps and Openstreetmap</li>
@@ -260,10 +265,14 @@
 <h3>Test Your Map</h3>
 <ol>
 <li>
-<p><strong>Check to make sure your local server is still running</strong>, if not type <code>caddy run</code> in a terminal window (from your repository root directory).</p>
+<p><strong>Check to make sure your server is still running</strong>, if not type <code>caddy run</code> in a terminal window (from your repository root directory).</p>
 </li>
 <li>
-<p><strong>Refresh your browser</strong>: Go to <code>http://127.0.0.1:1234/index.html</code></p>
+<p><strong>Refresh your browser</strong>:</p>
+<ul>
+<li><strong>If using local Caddy</strong>: Go to <code>http://127.0.0.1:1234/index.html</code></li>
+<li><strong>If using GitHub Codespaces</strong>: Use your forwarded URL (e.g., <code>https://xxxxx-1234.preview.app.github.dev/index.html</code>)</li>
+</ul>
 </li>
 <li>
 <p><strong>You should see</strong> no change yet! Verify you still see the trail line. We have to define the styles for the PMTiles Protomaps layers before they will show up.</p>
@@ -305,10 +314,14 @@
 <h3>Test Your Map</h3>
 <ol>
 <li>
-<p><strong>Check to make sure your local server is still running</strong>, if not type <code>caddy run</code> in a terminal window (from your repository root directory).</p>
+<p><strong>Check to make sure your server is still running</strong>, if not type <code>caddy run</code> in a terminal window (from your repository root directory).</p>
 </li>
 <li>
-<p><strong>Refresh your browser</strong>: Go to <code>http://127.0.0.1:1234/index.html</code></p>
+<p><strong>Refresh your browser</strong>:</p>
+<ul>
+<li><strong>If using local Caddy</strong>: Go to <code>http://127.0.0.1:1234/index.html</code></li>
+<li><strong>If using GitHub Codespaces</strong>: Use your forwarded URL (e.g., <code>https://xxxxx-1234.preview.app.github.dev/index.html</code>)</li>
+</ul>
 </li>
 <li>
 <p><strong>You should see</strong>:</p>
@@ -346,7 +359,8 @@
 </code></pre>
 <h3>Commit Your Changes</h3>
 <p>Add, commit, and push your revised <code>index.html</code> and <code>style.json</code> to your remote fork.</p>
-<p>Verify that the map you see via your local server and the one you see via Github Pages match the image below.</p>
+<p><strong>Note for Codespaces users</strong>: Commit these changes in your Codespaces environment using the terminal or Source Control panel.</p>
+<p>Verify that the map you see via your server (local or Codespaces) and the one you see via GitHub Pages match the image below.</p>
 <h3>What You Have Now</h3>
 <p>At the end of this step, you should have:</p>
 <ul>

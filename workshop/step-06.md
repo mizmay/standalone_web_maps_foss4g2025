@@ -7,7 +7,6 @@ next: step-07.html
 mapImage: step-06.png
 mapNote: "This is what your map should look like when you view it locally and via your Github Pages website"
 ---
-
 Now we'll update our Maplibre to load PMtiles support, and configure the stylesheet to match the Protomaps tiles we downloaded.
 
 ## Configure the Stylesheet
@@ -47,7 +46,7 @@ Observe the z-orders of various layers in this stylesheet. For any basemap the o
 
 We're going to use Maputnik to add the trail styles from `style.json` in Step 3 into the Protomaps style sheet here.
 
-Here's the `style.josn` from Step 3:
+Here's the `style.json` from Step 3:
 
 ```json
 {
@@ -81,9 +80,11 @@ Here's the `style.josn` from Step 3:
    
    - `Source ID` is `te-ara-hura`
    - Under `Source Type` use the drop-down to select "GeoJSON (URL)"
-   - Under `URL` paste `http://127.0.0.1:1234/sources/te_ara_hura.geojson`
+   - Under `URL` paste:
+     - **If using local Caddy**: `http://127.0.0.1:1234/sources/te_ara_hura.geojson`
+     - **If using GitHub Codespaces**: Use your forwarded URL (e.g., `https://xxxxx-1234.preview.app.github.dev/sources/te_ara_hura.geojson`)
 
-3. **Allow Access** when you get a broswer prompt saying Maputnik is requesting access to your local server.
+3. **Allow Access** when you get a browser prompt saying Maputnik is requesting access to your local server (or Codespaces server).
 
 #### Add a Trail Layer
 
@@ -126,7 +127,7 @@ Let's fix the fact that the red dashed trail line is currently rendering on top 
 1. **Click "Save" at the top** to save this stylesheet back into the repo. You can name it `style.json` and overwrite the earlier file at this point.
    
 2. **Open `style.json` as a text file** and adjust the addresses for your `sources`, `glyphs`, and `fonts`
-   - Remove the local server address `http://127.0.0.1:1234/` from the `sources` urls
+   - Remove the server address (either `http://127.0.0.1:1234/` for local Caddy or your Codespaces forwarded URL) from the `sources` urls
    - Replace the `glyphs` address with `lib/fonts/{fontstack}/{range}.pbf` to reference the fonts in your repo
    - Replace the `sprite` address with `https://YOUR-USERNAME.github.io/standalone_web_maps_foss4g2025/lib/sprite/light` where `YOUR-USERNAME is your github handle
    - Add attribution for Protomaps and Openstreetmap
@@ -160,9 +161,11 @@ Let's fix the fact that the red dashed trail line is currently rendering on top 
 
 ### Test Your Map
 
-1. **Check to make sure your local server is still running**, if not type `caddy run` in a terminal window (from your repository root directory).
+1. **Check to make sure your server is still running**, if not type `caddy run` in a terminal window (from your repository root directory).
 
-2. **Refresh your browser**: Go to `http://127.0.0.1:1234/index.html`
+2. **Refresh your browser**: 
+   - **If using local Caddy**: Go to `http://127.0.0.1:1234/index.html`
+   - **If using GitHub Codespaces**: Use your forwarded URL (e.g., `https://xxxxx-1234.preview.app.github.dev/index.html`)
 
 3. **You should see** no change yet! Verify you still see the trail line. We have to define the styles for the PMTiles Protomaps layers before they will show up.
 
@@ -204,9 +207,11 @@ Update your `index.html` to load PMTiles support.
 
 ### Test Your Map
 
-1. **Check to make sure your local server is still running**, if not type `caddy run` in a terminal window (from your repository root directory).
+1. **Check to make sure your server is still running**, if not type `caddy run` in a terminal window (from your repository root directory).
 
-2. **Refresh your browser**: Go to `http://127.0.0.1:1234/index.html`
+2. **Refresh your browser**: 
+   - **If using local Caddy**: Go to `http://127.0.0.1:1234/index.html`
+   - **If using GitHub Codespaces**: Use your forwarded URL (e.g., `https://xxxxx-1234.preview.app.github.dev/index.html`)
 
 3. **You should see**:
    - The Protomaps basemap (roads, labels, landcover)
@@ -243,9 +248,11 @@ standalone_web_maps_foss4g2025/
 
 ### Commit Your Changes
 
-Add, commit, and push your revised `index.html` and `style.json` to your remote fork. 
+Add, commit, and push your revised `index.html` and `style.json` to your remote fork.
 
-Verify that the map you see via your local server and the one you see via Github Pages match the image below.
+**Note for Codespaces users**: Commit these changes in your Codespaces environment using the terminal or Source Control panel.
+
+Verify that the map you see via your server (local or Codespaces) and the one you see via GitHub Pages match the image below.
 
 ### What You Have Now
 
