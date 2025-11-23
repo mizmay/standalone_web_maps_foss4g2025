@@ -167,11 +167,40 @@ If you're unable to install Caddy on your local machine, you can use GitHub Code
 
 **Important**: Make sure you've committed and pushed all your changes (including `index.html` and `style.json` from above, and `sources/te_ara_hura.geojson` from Step 2) to GitHub before opening Codespaces. Codespaces will pull the latest version of your repository, so it needs to be up to date.
 
+
 ### Commit Your Changes
 
-Before setting up the web server, let's save your work to your repository, as Codespaces needs to pull these files from GitHub.
+First, let's save your work to your repository. 
 
-Follow the same process you used in Step 2 to commit and push your changes. You should see `index.html` and `style.json` as new files. Use the commit message: **"Add initial map of Te Ara Hura trail"**
+**If you're using Codespaces**: Use the Source Control panel in Codespaces (or the terminal) to commit your changes. The process is the same as described below, but everything happens in your Codespaces environment.
+
+**If you're working locally**: Switch to the Source Control tab on VS Code and commit the new files you created in the previous step with a meaningful commit message, just as you did in Step 2.
+
+To commit using the command line (works in both local and Codespaces):
+
+1. **Check your changes**:
+   ```bash
+   git status
+   ```
+
+   You should see:
+   - `index.html` (new file)
+   - `styles.json` (new file)
+
+2. **Add your files**:
+   ```bash
+   git add .
+   ```
+
+3. **Commit your changes**:
+   ```bash
+   git commit -m "Add initial map of Te Ara Hura trail"
+   ```
+
+4. **Push to your fork**:
+   ```bash
+   git push origin main
+   ```
 
 #### Open in GitHub Codespaces
 
@@ -237,7 +266,7 @@ At the end of this step, you should have:
 - Server running (either locally at `http://127.0.0.1:1234/` or in Codespaces with a forwarded URL)
 - A working map displaying the Te Ara Hura trail as a red dashed line
 
-At this stage, your map is only available locally (on your machine or in Codespaces). In the next step, we will push your changes to GitHub Pages, where it will be viewable on the Web.
+At this stage, your map is only available locally (on your machine or in Codespaces). In the next step, we will enable GitHub Pages, where it will be viewable on the Web.
 
 ---
 
