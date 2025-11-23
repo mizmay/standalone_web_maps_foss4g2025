@@ -103,10 +103,11 @@
         
         
         
-        <h2>Creating a Hillshade</h2>
-<p>In this step, we'll add terrain to your map by styling custom tiles with a hillshade effect. This will give your map a 3D appearance and help users understand the topography of Waiheke Island.</p>
+        <p>In this step, we'll add terrain to your map by styling custom tiles with a hillshade effect. This will give your map a 3D appearance and help users understand the topography of Waiheke Island.</p>
+<h2>Creating a Hillshade</h2>
+<p>We'll create a hillshade using raster digital elevation model (DEM) tiles we can style from the stylesheet to create the appearance of terrain.</p>
 <h3>Download Terrain Tiles</h3>
-<p>We'll download the terrain tiles for the same bounding box we used for Protomaps:</p>
+<p>We'll download the raster DEM tiles for the same bounding box we used for Protomaps:</p>
 <ol>
 <li>
 <p><strong>Download Mapterhorn tiles</strong>: Use the PMTiles CLI to extract raster-dem tiles:</p>
@@ -176,7 +177,11 @@ sources/waiheke_island_terrain.pmtiles
 <h3>Test Your Map</h3>
 <ol>
 <li>
-<p><strong>Refresh your browser</strong>: make sure Caddy is still running and go to <code>http://127.0.0.1:1234/index.html</code></p>
+<p><strong>Refresh your browser</strong>: make sure your server is still running and go to:</p>
+<ul>
+<li><strong>If using local Caddy</strong>: <code>http://127.0.0.1:1234/index.html</code></li>
+<li><strong>If using GitHub Codespaces</strong>: Use your forwarded URL (e.g., <code>https://xxxxx-1234.preview.app.github.dev/index.html</code>)</li>
+</ul>
 </li>
 <li>
 <p><strong>You should see</strong>:</p>
@@ -197,6 +202,7 @@ sources/waiheke_island_terrain.pmtiles
 </ul>
 <h3>Commit Your Changes</h3>
 <p>Add, commit, and push your revised <code>index.html</code> and <code>style.json</code> to your remote fork.</p>
+<p><strong>Note for Codespaces users</strong>: Commit these changes in your Codespaces environment using the terminal or Source Control panel.</p>
 <p>Verify that the map you see via your local server and the one you see via Github Pages match the image below.</p>
 <h3>What You Have Now</h3>
 <p>At the end of this step, you should have:</p>

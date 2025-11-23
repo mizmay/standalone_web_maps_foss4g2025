@@ -7,13 +7,15 @@ next: step-08.html
 mapImage: step-07.png
 mapNote: "This is what your map should look like when you view it locally and via your Github Pages website"
 ---
+In this step, we'll add terrain to your map by styling custom tiles with a hillshade effect. This will give your map a 3D appearance and help users understand the topography of Waiheke Island.
+
 ## Creating a Hillshade
 
-In this step, we'll add terrain to your map by styling custom tiles with a hillshade effect. This will give your map a 3D appearance and help users understand the topography of Waiheke Island.
+We'll create a hillshade using raster digital elevation model (DEM) tiles we can style from the stylesheet to create the appearance of terrain.
 
 ### Download Terrain Tiles
 
-We'll download the terrain tiles for the same bounding box we used for Protomaps:
+We'll download the raster DEM tiles for the same bounding box we used for Protomaps:
 
 1. **Download Mapterhorn tiles**: Use the PMTiles CLI to extract raster-dem tiles:
     ```bash
@@ -79,7 +81,9 @@ Now we'll add the terrain layers to your `style.json`. Follow the instructions f
 
 ### Test Your Map
 
-1. **Refresh your browser**: make sure Caddy is still running and go to `http://127.0.0.1:1234/index.html`
+1. **Refresh your browser**: make sure your server is still running and go to:
+   - **If using local Caddy**: `http://127.0.0.1:1234/index.html`
+   - **If using GitHub Codespaces**: Use your forwarded URL (e.g., `https://xxxxx-1234.preview.app.github.dev/index.html`)
 
 2. **You should see**:
    - The Protomaps basemap
@@ -97,7 +101,9 @@ Now we'll add the terrain layers to your `style.json`. Follow the instructions f
 
 ### Commit Your Changes
 
-Add, commit, and push your revised `index.html` and `style.json` to your remote fork. 
+Add, commit, and push your revised `index.html` and `style.json` to your remote fork.
+
+**Note for Codespaces users**: Commit these changes in your Codespaces environment using the terminal or Source Control panel. 
 
 Verify that the map you see via your local server and the one you see via Github Pages match the image below.
 
