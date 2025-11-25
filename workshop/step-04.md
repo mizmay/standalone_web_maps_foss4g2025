@@ -9,7 +9,7 @@ showMapPreview: false
 
 In this step, you'll deploy your map so it's accessible on the web via GitHub Pages. Since you're working from your **forked version** of this repository, your map will be hosted on your own GitHub Pages site.
 
-## Enable GitHub Pages
+## Deploy to GitHub Pages
 
 Go to your forked repo on Github, if you are not there already.
 
@@ -17,9 +17,21 @@ Go to your forked repo on Github, if you are not there already.
 
 GitHub Pages uses Jekyll by default to process sites. For pure static files (HTML, CSS, JS), Jekyll processing isn't needed and can sometimes cause issues. Adding a `.nojekyll` file tells GitHub to skip Jekyll processing.
 
+1. **Go to your repository on GitHub**: navigate to the webpage for your fork on GitHub.com
+
+2. **Select "Add File" button** at the top (next to the **< > Code** button)
+
+3. **Select "+ Create New File"** from the drop-down
+
+4. **Enter `.nojekyll` in the text box** where it says "Name your file..." (leave the file contents blank)
+
+5. **Select "Commit changes..."**: default commit message is fine, as is "Commit directly to the main branch"
+
+6. **Select "Commit changes" again**: you should now see the empty file called `.nojeckyll` in your repo
+
 ### Enable GitHub Pages
 
-1. **Go to your repository on GitHub**: Navigate to the webpage for your fork on GitHub
+1. **Go to your repository on GitHub**: Navigate to the webpage for your fork on GitHub (if you aren't there already)
 
 2. **Open Settings**: Click on the "Settings" tab at the top
 
@@ -46,7 +58,7 @@ GitHub Pages uses Jekyll by default to process sites. For pure static files (HTM
 
 3. **Check in different browsers**: Try opening in Chrome, Firefox<sup>*</sup>, and Safari
 
-<sup>*</sup> *There is currently a [bug](https://github.com/protomaps/PMTiles/issues/584) in Firefox that prevents PMTiles from rendering correctly via Github Pages. There's a simple fix and we're hopeful it will get merged.*
+<sup>*</sup> *There is currently a [bug](https://github.com/protomaps/PMTiles/issues/584) in Firefox that prevents PMTiles from rendering correctly via Github Pages. There's a simple fix and we're hopeful it will get merged soon.*
 
 ### What You Have Now
 
