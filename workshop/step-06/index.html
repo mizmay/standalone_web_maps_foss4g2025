@@ -115,7 +115,6 @@
 <p>Maputnik allows you to edit the style layers in a GUI, which is helpful since the stylesheet is otherwise over 12,000 lines of JSON when formatted in your text editor.</p>
 <p>Maputnik also allows you to make changes and see the results live, without having to switch windows or refresh a browser pane. This is particularly helpful when you are developing a style layer from scratch.</p>
 <p>Maputnik is <a rel="noreferrer" target="_blank" href="https://github.com/maplibre/maputnik">maintained by Maplibre</a> as a way of making it easier to understand available style parameters.</p>
-<p><strong>Important for Codespaces users</strong>: Before using Maputnik, you need to make your port public so Maputnik can access your server. In the Codespaces "Ports" tab, right-click on port 1234 (or click the globe icon) and select "Port Visibility" → "Public". This allows Maputnik to access your GeoJSON and other files.</p>
 <ol>
 <li><strong>Go to <a rel="noreferrer" target="_blank" href="https://maplibre.org/maputnik/">https://maplibre.org/maputnik/</a></strong> to view the Maputnik style editor.</li>
 <li><strong>Load the Protomaps Light style</strong> under Open &gt; Gallery Styles &gt; Protomaps Light.</li>
@@ -159,25 +158,26 @@
 }
 </code></pre>
 <h4>Add the GeoJSON Source</h4>
+<p><strong>Important for Codespaces users</strong>: You need to make your port public so Maputnik can access your server. In the Codespaces "Ports" tab, right-click on port 1234 (or click the globe icon) and select "Port Visibility" → "Public". This allows Maputnik to access your GeoJSON and other files.</p>
 <ol>
 <li>
 <p><strong>Click on Data Sources</strong> in the top bar of Maputnik. In the panel that pops up, you will see #protomaps listed under <strong>Active Sources</strong></p>
 </li>
 <li>
-<p><strong>Add New Source</strong> at the bottom of the panel. Here you are going to input the fields you pasted into <code>style.json</code> in Step 3.</p>
+<p><strong>Add New Source</strong> at the bottom of the panel. Here you are going to input the fields from the <code>style.json</code> we introduced in Step 3.</p>
 <ul>
 <li><code>Source ID</code> is <code>te-ara-hura</code></li>
 <li>Under <code>Source Type</code> use the drop-down to select "GeoJSON (URL)"</li>
+<li>Go to the browser tab where you are previewing your map either locally and in codespaces, and type <code>sources/te_ara_hura.geojson</code> at the end of the URL to verify you can see the GeoJSON file there.</li>
+<li>If not, restart Caddy</li>
+<li>Ctrl+C or Cmd+C to copy the URL to your clipboard</li>
 <li>Under <code>URL</code> paste:
 <ul>
-<li><strong>If using local Caddy</strong>: <code>http://127.0.0.1:1234/sources/te_ara_hura.geojson</code></li>
-<li><strong>If using GitHub Codespaces</strong>: Use your forwarded URL (e.g., <code>https://xxxxx-1234.preview.app.github.dev/sources/te_ara_hura.geojson</code>)</li>
+<li><strong>If using local Caddy</strong>: it will look like <code>http://127.0.0.1:1234/sources/te_ara_hura.geojson</code></li>
+<li><strong>If using GitHub Codespaces</strong>: it will look like <code>https://xxxxx-1234.preview.app.github.dev/sources/te_ara_hura.geojson</code>)</li>
 </ul>
 </li>
 </ul>
-</li>
-<li>
-<p><strong>Allow Access</strong> when you get a browser prompt saying Maputnik is requesting access to your local server (or Codespaces server).</p>
 </li>
 </ol>
 <h4>Add a Trail Layer</h4>
@@ -222,6 +222,13 @@
 </li>
 </ol>
 <h4>Export, Save and Edit</h4>
+<p>Now we are going to save the stylesheet you created in Maputnik to your local copy of the workshop repo (e.g. not in Codespaces).</p>
+<p><strong>Important</strong>: If you're working locally and have made changes in Codespaces (or vice versa), update your local repository in VS Code before overwriting <code>style.json</code>:</p>
+<ul>
+<li><strong>Using VS Code GUI</strong>: Open the Source Control panel (View → Source Control, or <code>Ctrl+Shift+G</code> / <code>Cmd+Shift+G</code>), click the <code>...</code> menu, and select "Pull"</li>
+<li><strong>Using command line</strong>: Open the terminal (View → Terminal) and run <code>git pull</code></li>
+</ul>
+<p>Now you're ready to save your stylesheet:</p>
 <ol>
 <li>
 <p><strong>Click "Save" at the top</strong> to save this stylesheet back into the repo. You can name it <code>style.json</code> and overwrite the earlier file at this point.</p>
@@ -229,10 +236,10 @@
 <li>
 <p><strong>Open <code>style.json</code> as a text file</strong> and adjust the addresses for your <code>sources</code>, <code>glyphs</code>, and <code>fonts</code></p>
 <ul>
-<li>Remove the server address (either <code>http://127.0.0.1:1234/</code> for local Caddy or your Codespaces forwarded URL) from the <code>sources</code> urls</li>
+<li>Remove the server address (either <code>http://127.0.0.1:1234/</code> for local Caddy or your Codespaces forwarded URL) from the url for the Te Ara Hura GeoJSON under <code>sources</code></li>
 <li>Replace the <code>glyphs</code> address with <code>lib/fonts/{fontstack}/{range}.pbf</code> to reference the fonts in your repo</li>
 <li>Replace the <code>sprite</code> address with <code>https://YOUR-USERNAME.github.io/standalone_web_maps_foss4g2025/lib/sprite/light</code> where `YOUR-USERNAME is your github handle</li>
-<li>Add attribution for Protomaps and Openstreetmap</li>
+<li>Confirm the attribution for Protomaps and OpenStreetMap</li>
 </ul>
 </li>
 <li>
@@ -264,6 +271,24 @@
 <li><strong>Save your changes</strong></li>
 </ol>
 <h3>Test Your Map</h3>
+<p><strong>If you saved <code>style.json</code> locally and are testing in Codespaces</strong>: First commit and push your local changes, then pull them in Codespaces:</p>
+<ol>
+<li>
+<p><strong>In your local VS Code</strong>: Commit and push your <code>style.json</code> changes</p>
+<ul>
+<li><strong>Using VS Code GUI</strong>: Open Source Control panel, stage <code>style.json</code>, enter a commit message, and click "Commit", then "Sync Changes" (or "Push")</li>
+<li><strong>Using command line</strong>: Run <code>git add style.json</code>, <code>git commit -m "Update style.json with Protomaps configuration"</code>, then <code>git push</code></li>
+</ul>
+</li>
+<li>
+<p><strong>In Codespaces</strong>: Pull the latest changes</p>
+<ul>
+<li><strong>Using VS Code GUI</strong>: Open Source Control panel, click the <code>...</code> menu, and select "Pull"</li>
+<li><strong>Using command line</strong>: Run <code>git pull</code></li>
+</ul>
+</li>
+</ol>
+<p>Now test your map:</p>
 <ol>
 <li>
 <p><strong>Check to make sure your server is still running</strong>, if not type <code>caddy run</code> in a terminal window (from your repository root directory).</p>
@@ -375,7 +400,7 @@
   <div class="map-preview-wrapper">
     <img src="../images/step-06.png" alt="Map preview showing expected result at this stage" class="map-preview-image" style="max-width: 100%; height: auto; border: 1px solid #dee2e6; border-radius: 4px;">
     
-      <p class="map-note">This is what your map should look like when you view it locally and via your Github Pages website</p>
+      <p class="map-note">This is what your map should look like when you view it in Maputnik</p>
     
   </div>
 </div>
