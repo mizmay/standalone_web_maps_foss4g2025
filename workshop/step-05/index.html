@@ -107,12 +107,49 @@
 <h2>Downloading Protomaps</h2>
 <p>Protomaps provides global basemap tiles stored in PMTiles format and extractable by bounding box, so you can grab just what you need to provide some reference layers on your trail map.</p>
 <h3>Install PMTiles CLI</h3>
-<p>First, we need to install the PMTiles command-line tool to download and extract tiles. From the command line:</p>
+<p>First, we need to install the PMTiles command-line tool to download and extract tiles.</p>
+<p><strong>If you're using Codespaces</strong>: PMTiles CLI is automatically installed when your Codespaces environment is created. You can skip the installation steps below and go directly to the "Verify Installation" section.</p>
+<p><strong>If you're working locally</strong>, follow the installation instructions for your operating system:</p>
 <h4>macOS Installation</h4>
 <pre><code class="language-bash">brew install pmtiles
 </code></pre>
-<h4>Linux/Windows Installation</h4>
+<h4>Linux Installation</h4>
 <p>Download from <a rel="noreferrer" target="_blank" href="https://github.com/protomaps/go-pmtiles/releases">https://github.com/protomaps/go-pmtiles/releases</a> or follow the <a rel="noreferrer" target="_blank" href="https://docs.protomaps.com/guide/getting-started">Protomaps Getting Started guide</a>.</p>
+<h4>Windows Installation</h4>
+<ol>
+<li>
+<p><strong>Download the Windows binary</strong>:</p>
+<ul>
+<li>Visit <a rel="noreferrer" target="_blank" href="https://github.com/protomaps/go-pmtiles/releases">https://github.com/protomaps/go-pmtiles/releases</a></li>
+<li>Download the latest <code>pmtiles-windows-amd64.exe</code> file</li>
+</ul>
+</li>
+<li>
+<p><strong>Choose one of these options</strong>:</p>
+<p><strong>Option A: Add to PATH (recommended for ongoing use)</strong></p>
+<ul>
+<li>Create a folder for tools (e.g., <code>C:\tools</code>) if you don't have one</li>
+<li>Move the downloaded <code>pmtiles-windows-amd64.exe</code> to that folder</li>
+<li>Rename it to <code>pmtiles.exe</code></li>
+<li>Add the folder to your system PATH:
+<ul>
+<li>Press <code>Win + R</code>, type <code>sysdm.cpl</code>, press Enter</li>
+<li>Go to "Advanced" tab → "Environment Variables"</li>
+<li>Under "System variables", find "Path" and click "Edit"</li>
+<li>Click "New" and add your tools folder path (e.g., <code>C:\tools</code>)</li>
+<li>Click OK on all dialogs</li>
+</ul>
+</li>
+<li>Open a new terminal/command prompt and verify: <code>pmtiles version</code></li>
+</ul>
+<p><strong>Option B: Use from download location (simpler for one-time use)</strong></p>
+<ul>
+<li>Place the downloaded file in your repository root directory</li>
+<li>Rename it to <code>pmtiles.exe</code></li>
+<li>Use it with the full path: <code>.\pmtiles.exe version</code> (or <code>pmtiles.exe version</code> from the repo root)</li>
+</ul>
+</li>
+</ol>
 <h4>Verify Installation</h4>
 <pre><code class="language-bash">pmtiles version
 </code></pre>

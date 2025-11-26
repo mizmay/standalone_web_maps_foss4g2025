@@ -14,7 +14,11 @@ Protomaps provides global basemap tiles stored in PMTiles format and extractable
 
 ### Install PMTiles CLI
 
-First, we need to install the PMTiles command-line tool to download and extract tiles. From the command line:
+First, we need to install the PMTiles command-line tool to download and extract tiles.
+
+**If you're using Codespaces**: PMTiles CLI is automatically installed when your Codespaces environment is created. You can skip the installation steps below and go directly to the "Verify Installation" section.
+
+**If you're working locally**, follow the installation instructions for your operating system:
 
 #### macOS Installation
 
@@ -22,9 +26,34 @@ First, we need to install the PMTiles command-line tool to download and extract 
 brew install pmtiles
 ```
 
-#### Linux/Windows Installation
+#### Linux Installation
 
 Download from [https://github.com/protomaps/go-pmtiles/releases](https://github.com/protomaps/go-pmtiles/releases) or follow the [Protomaps Getting Started guide](https://docs.protomaps.com/guide/getting-started).
+
+#### Windows Installation
+
+1. **Download the Windows binary**:
+   - Visit [https://github.com/protomaps/go-pmtiles/releases](https://github.com/protomaps/go-pmtiles/releases)
+   - Download the latest `pmtiles-windows-amd64.exe` file
+   
+2. **Choose one of these options**:
+
+   **Option A: Add to PATH (recommended for ongoing use)**
+   - Create a folder for tools (e.g., `C:\tools`) if you don't have one
+   - Move the downloaded `pmtiles-windows-amd64.exe` to that folder
+   - Rename it to `pmtiles.exe`
+   - Add the folder to your system PATH:
+     - Press `Win + R`, type `sysdm.cpl`, press Enter
+     - Go to "Advanced" tab → "Environment Variables"
+     - Under "System variables", find "Path" and click "Edit"
+     - Click "New" and add your tools folder path (e.g., `C:\tools`)
+     - Click OK on all dialogs
+   - Open a new terminal/command prompt and verify: `pmtiles version`
+
+   **Option B: Use from download location (simpler for one-time use)**
+   - Place the downloaded file in your repository root directory
+   - Rename it to `pmtiles.exe`
+   - Use it with the full path: `.\pmtiles.exe version` (or `pmtiles.exe version` from the repo root)
 
 #### Verify Installation
 
