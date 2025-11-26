@@ -24,6 +24,8 @@ Maputnik also allows you to make changes and see the results live, without havin
 
 Maputnik is [maintained by Maplibre](https://github.com/maplibre/maputnik) as a way of making it easier to understand available style parameters.
 
+**Important for Codespaces users**: Before using Maputnik, you need to make your port public so Maputnik can access your server. In the Codespaces "Ports" tab, right-click on port 1234 (or click the globe icon) and select "Port Visibility" → "Public". This allows Maputnik to access your GeoJSON and other files.
+
 1. **Go to [https://maplibre.org/maputnik/](https://maplibre.org/maputnik/)** to view the Maputnik style editor.
 2. **Load the Protomaps Light style** under Open > Gallery Styles > Protomaps Light.
 3. **Zoom in on Auckland** and then find Waiheke Island in the map panel on the right
