@@ -46,7 +46,7 @@ out body;
 
 3. **Run the query**: Click the "Run" button (or press Ctrl+Enter)
 
-4. **Wait for results**: The query will execute and display the trail data on the map
+4. **Wait for results**: Once the query executes, press the magnifying glass icon to display the trail data on the map
 
 5. **Verify the data**: You should see the Te Ara Hura trail network displayed on Waiheke Island
 
@@ -65,15 +65,8 @@ out body;
   In the process of downloading you can create a new `sources` directory inside your local repository, or you can do that now.
 
   Manually, via VS Code or your local file system:
-   - Create a new folder called `sources/` in your local repository
-   - Move the downloaded `te_ara_hura.geojson` file there
-
-1. **Verify the file**:
-   ```bash
-   ls -lh sources/te_ara_hura.geojson
-   ```
-
-   You should see the file listed with its size (464 KB).
+   - Verify that the `sources` directory exists in the project folder
+   - Move the downloaded `te_ara_hura.geojson` file to this directory
 
 ### Commit and Upload to GitHub
 
