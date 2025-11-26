@@ -2,7 +2,7 @@
 	"name": "Web Maps Workshop",
 	"image": "mcr.microsoft.com/devcontainers/base:ubuntu",
 	
-	"postCreateCommand": "curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg && curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list && sudo apt-get update && sudo apt-get install -y caddy",
+	"postCreateCommand": "curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg && curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list && sudo apt-get update && sudo apt-get install -y caddy && curl -L $(curl -s https://api.github.com/repos/protomaps/go-pmtiles/releases/latest | grep 'browser_download_url.*linux_amd64' | cut -d '\"' -f 4) -o /tmp/pmtiles && sudo mv /tmp/pmtiles /usr/local/bin/pmtiles && sudo chmod +x /usr/local/bin/pmtiles",
 	
 	"customizations": {
 		"vscode": {
