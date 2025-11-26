@@ -104,11 +104,12 @@
         
         
         <p>In this step, we'll create the HTML structure and stylesheet, then set up a web server to use MapLibre GL JS to display the Te Ara Hura on a map.</p>
-<h2>Create Your Map Files</h2>
-<p>First, let's create the files needed for your map. We'll set up the web server afterward so you can view your map.</p>
-<h3>Create a Stylesheet</h3>
+<h2>Understand Your Web Map Files</h2>
+<p>First, let's review the files needed for your map. We'll set up the web server afterward so you can view a version of Te Ara Hura rendered via Maplibre.</p>
+<p>The two files to understand are <code>index.html</code>, which contains the code that invokes Maplibre, and <code>style.json</code>, which tells Maplibre how to render your source data.</p>
+<h3>The Stylesheet</h3>
 <p>We need to tell Maplibre how we want the GeoJSON we downloaded in the previous step to be interpreted in order for Te Ara Hura to render on a web map.</p>
-<p>Create a file called <code>style.json</code> by copying and pasting the text below into a new text file and saving it at the root of your repository:</p>
+<p>Open the file called <code>style.json</code> in the root of your repository:</p>
 <pre><code class="language-json">{
   "version": 8,
   "sources": {
@@ -228,8 +229,8 @@ sudo apt-get install caddy
 <h4>Windows Installation</h4>
 <pre><code class="language-bash">choco install caddy
 </code></pre>
-<h3>Option 2: Use GitHub Codespaces (Alternative)</h3>
-<p>If you're unable to install Caddy on your local machine, you can use GitHub Codespaces, which provides a cloud-based development environment with all the tools you need.</p>
+<h3>Option 2: Use GitHub Codespaces</h3>
+<p>If it isn't easy or feasible to install a web server on your local machine, you can use GitHub Codespaces, which provides a cloud-based development environment with all the tools you need.</p>
 <p><strong>Note</strong>: You should already have a forked repository from Step 1. If you haven't forked the repository yet, please go back to Step 1 and complete the fork first.</p>
 <p><strong>Important</strong>: Make sure you've committed and pushed all your changes (including <code>index.html</code> and <code>style.json</code> from above, and <code>sources/te_ara_hura.geojson</code> from Step 2) to GitHub before opening Codespaces. Codespaces will pull the latest version of your repository, so it needs to be up to date.</p>
 <p><strong>Good news</strong>: Caddy will be automatically installed when your Codespaces environment is created, so you can skip the installation step below.</p>
@@ -274,15 +275,16 @@ sudo apt-get install caddy
 <li><strong>Wait for the Codespaces environment to start</strong> (this may take a minute or two)</li>
 </ol>
 <h4>Caddy in Codespaces</h4>
-<p>Once your Codespaces environment is ready, Caddy will already be installed automatically! The repository includes a devcontainer configuration that installs Caddy when the Codespace is created, so you can skip the installation step and go directly to starting the server.</p>
+<p>Once your Codespaces environment is ready, Caddy will already be installed. The repository includes a devcontainer configuration that installs Caddy when the Codespace is created, so you can skip the installation step and go directly to starting the server.</p>
 <h3>Start the Server</h3>
-<p>Once Caddy is installed (either locally or in Codespaces), start the server:</p>
+<p>Once Caddy is installed (either locally or in Codespaces), open the Caddyfile to inspect it's contents. These are special configurations to help with the workflow in this workshop. You don't need to do anything special with this file. Caddy will use it automatically when it is running in the same directory.</p>
+<p>Now you are ready to start the server:</p>
 <ol>
 <li>
-<p><strong>Open a New Terminal</strong> and navigate to your repository root directory (where the Caddyfile is stored).Terminal → New Terminal, or <code>`</code> key) if you do not already have a terminal window open. If you already have a terminal window, create an additional window using the <code>+</code> icon above.</p>
+<p><strong>Open a New Terminal</strong>: Terminal → New Terminal, or <code>`</code> key if you do not already have a terminal window open. If you already have a terminal window, create an additional window using the <code>+</code> icon above. Navigate to the root directory.</p>
 </li>
 <li>
-<p><strong>Start Caddy</strong> using the Caddyfile:</p>
+<p><strong>Start Caddy</strong> if you are in the root directory, here start Caddy with the custom configurations stored in the <code>Caddyfile</code> in your project directory:</p>
 <pre><code class="language-bash">caddy run
 </code></pre>
 </li>
@@ -316,8 +318,6 @@ sudo apt-get install caddy
 <h3>What You Have Now</h3>
 <p>At the end of this step, you should have:</p>
 <ul>
-<li><code>index.html</code> - HTML file that loads MapLibre and references your stylesheet</li>
-<li><code>style.json</code> - Stylesheet defining your map sources and layers</li>
 <li>Server running (either locally at <code>http://127.0.0.1:1234/</code> or in Codespaces with a forwarded URL)</li>
 <li>A working map displaying the Te Ara Hura trail as a red dashed line</li>
 </ul>

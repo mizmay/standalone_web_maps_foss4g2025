@@ -9,15 +9,17 @@ mapNote: "This is what your map should look like when you view it locally or in 
 ---
 In this step, we'll create the HTML structure and stylesheet, then set up a web server to use MapLibre GL JS to display the Te Ara Hura on a map.
 
-## Create Your Map Files
+## Understand Your Web Map Files
 
-First, let's create the files needed for your map. We'll set up the web server afterward so you can view your map.
+First, let's review the files needed for your map. We'll set up the web server afterward so you can view a version of Te Ara Hura rendered via Maplibre.
 
-### Create a Stylesheet
+The two files to understand are `index.html`, which contains the code that invokes Maplibre, and `style.json`, which tells Maplibre how to render your source data.
+
+### The Stylesheet
 
 We need to tell Maplibre how we want the GeoJSON we downloaded in the previous step to be interpreted in order for Te Ara Hura to render on a web map.
 
-Create a file called `style.json` by copying and pasting the text below into a new text file and saving it at the root of your repository:
+Open the file called `style.json` in the root of your repository:
 
 ```json
 {
@@ -159,9 +161,9 @@ sudo apt-get install caddy
 choco install caddy
 ```
 
-### Option 2: Use GitHub Codespaces (Alternative)
+### Option 2: Use GitHub Codespaces
 
-If you're unable to install Caddy on your local machine, you can use GitHub Codespaces, which provides a cloud-based development environment with all the tools you need.
+If it isn't easy or feasible to install a web server on your local machine, you can use GitHub Codespaces, which provides a cloud-based development environment with all the tools you need.
 
 **Note**: You should already have a forked repository from Step 1. If you haven't forked the repository yet, please go back to Step 1 and complete the fork first.
 
@@ -214,15 +216,17 @@ To commit using the command line (works in both local and Codespaces):
 
 #### Caddy in Codespaces
 
-Once your Codespaces environment is ready, Caddy will already be installed automatically! The repository includes a devcontainer configuration that installs Caddy when the Codespace is created, so you can skip the installation step and go directly to starting the server.
+Once your Codespaces environment is ready, Caddy will already be installed. The repository includes a devcontainer configuration that installs Caddy when the Codespace is created, so you can skip the installation step and go directly to starting the server.
 
 ### Start the Server
 
-Once Caddy is installed (either locally or in Codespaces), start the server:
+Once Caddy is installed (either locally or in Codespaces), open the Caddyfile to inspect it's contents. These are special configurations to help with the workflow in this workshop. You don't need to do anything special with this file. Caddy will use it automatically when it is running in the same directory.
 
-1. **Open a New Terminal** and navigate to your repository root directory (where the Caddyfile is stored).Terminal → New Terminal, or `` ` `` key) if you do not already have a terminal window open. If you already have a terminal window, create an additional window using the `+` icon above.
+Now you are ready to start the server:
 
-2. **Start Caddy** using the Caddyfile:
+1. **Open a New Terminal**: Terminal → New Terminal, or `` ` `` key if you do not already have a terminal window open. If you already have a terminal window, create an additional window using the `+` icon above. Navigate to the root directory.
+
+2. **Start Caddy** if you are in the root directory, here start Caddy with the custom configurations stored in the `Caddyfile` in your project directory:
    
    ```bash
    caddy run
@@ -235,7 +239,7 @@ Once Caddy is installed (either locally or in Codespaces), start the server:
    - An empty white map canvas centered on Waiheke Island
    - The Te Ara Hura trail displayed as a red dashed line
  
-4. **Keep the terminal window open** - the server needs to keep running. To stop the server, press `Ctrl+C` in the terminal where Caddy is running.
+1. **Keep the terminal window open** - the server needs to keep running. To stop the server, press `Ctrl+C` in the terminal where Caddy is running.
 
 #### Continue with the Workshop
 
@@ -252,8 +256,6 @@ From this point forward, when you see instructions to:
 ### What You Have Now
 
 At the end of this step, you should have:
-- `index.html` - HTML file that loads MapLibre and references your stylesheet
-- `style.json` - Stylesheet defining your map sources and layers
 - Server running (either locally at `http://127.0.0.1:1234/` or in Codespaces with a forwarded URL)
 - A working map displaying the Te Ara Hura trail as a red dashed line
 
