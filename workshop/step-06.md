@@ -11,7 +11,7 @@ Now we'll update our Maplibre to load PMtiles support, and configure the stylesh
 
 ## Configure the Stylesheet
 
-Now we need to modify our stylesheet `style.json` to:
+We need to modify our stylesheet `style.json` to:
 - Use the local PMTiles file
 - Show the Protomaps basemap layers
 - Also show your existing trail layer
@@ -285,7 +285,7 @@ Verify that the map you see via your server (local or Codespaces) and the one yo
 ### What You Have Now
 
 At the end of this step, you should have:
-- `style.json` - Protomaps bassemap styls and your trail layer style
+- `style.json` - Protomaps basemap styles and your trail layer style
 - Map displaying Protomaps basemap with your trail layer
 
 ---

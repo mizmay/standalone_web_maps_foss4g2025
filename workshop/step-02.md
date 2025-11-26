@@ -6,9 +6,11 @@ prev: step-01.html
 next: step-03.html
 ---
 
+In this step, we'll use Overpass Turbo to extract the Te Ara Hura trail data from OpenStreetMap.
+
 ## Extract Te Ara Hura Data from OpenStreetMap
 
-In this step, we'll use Overpass Turbo to extract the Te Ara Hura trail data from OpenStreetMap. The trail is stored as [relation 6170321](https://www.openstreetmap.org/relation/6170321#map=13/-36.79898/175.07092) in OpenStreetMap.
+The trail is stored as [relation 6170321](https://www.openstreetmap.org/relation/6170321#map=13/-36.79898/175.07092) in OpenStreetMap. Visit the [OpenStreetMap wiki](https://wiki.openstreetmap.org/wiki/Elements) for more about OpenStreetMap data types.
 
 ### About Te Ara Hura
 

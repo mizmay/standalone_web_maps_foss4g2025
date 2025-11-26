@@ -7,6 +7,7 @@ next: step-04.html
 mapImage: step-03.png
 mapNote: "This is what your map should look like when you view it locally or in Codespaces"
 ---
+
 In this step, we'll create the HTML structure and stylesheet, then set up a web server to use MapLibre GL JS to display the Te Ara Hura on a map.
 
 ## Understand Your Web Map Files

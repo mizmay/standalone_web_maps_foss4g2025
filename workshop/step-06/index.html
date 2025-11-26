@@ -105,7 +105,7 @@
         
         <p>Now we'll update our Maplibre to load PMtiles support, and configure the stylesheet to match the Protomaps tiles we downloaded.</p>
 <h2>Configure the Stylesheet</h2>
-<p>Now we need to modify our stylesheet <code>style.json</code> to:</p>
+<p>We need to modify our stylesheet <code>style.json</code> to:</p>
 <ul>
 <li>Use the local PMTiles file</li>
 <li>Show the Protomaps basemap layers</li>
@@ -157,8 +157,17 @@
   ]
 }
 </code></pre>
+<p><strong>Important for Codespaces users</strong>: You need to make your port public so Maputnik can access your server.</p>
+<ol>
+<li>
+<p>In the Codespaces "Ports" tab, right-click on port 1234 (or click the globe icon) and select "Port Visibility" → "Public". This allows Maputnik to access your GeoJSON and other files.</p>
+</li>
+<li>
+<p><strong>Allow Access</strong> when you get a browser prompt saying Maputnik is requesting access to your local server (or Codespaces server).</p>
+</li>
+</ol>
+<p><strong>Important for everyone</strong>: Make sure Caddy is still running. If not, enter <code>caddy run</code> in the terminal.</p>
 <h4>Add the GeoJSON Source</h4>
-<p><strong>Important for Codespaces users</strong>: You need to make your port public so Maputnik can access your server. In the Codespaces "Ports" tab, right-click on port 1234 (or click the globe icon) and select "Port Visibility" → "Public". This allows Maputnik to access your GeoJSON and other files.</p>
 <ol>
 <li>
 <p><strong>Click on Data Sources</strong> in the top bar of Maputnik. In the panel that pops up, you will see #protomaps listed under <strong>Active Sources</strong></p>
@@ -221,6 +230,7 @@
 <p><strong>Drag Te Ara Hura</strong> to group it as the last of the line layers, so that it renders on top of roads and rivers, but under the labels.</p>
 </li>
 </ol>
+<p>Scroll to the bottom of this page, what you see in Maputnik should match the image you see below.</p>
 <h4>Export, Save and Edit</h4>
 <p>Now we are going to save the stylesheet you created in Maputnik to your local copy of the workshop repo (e.g. not in Codespaces).</p>
 <p><strong>Important</strong>: If you're working locally and have made changes in Codespaces (or vice versa), update your local repository in VS Code before overwriting <code>style.json</code>:</p>
@@ -236,10 +246,11 @@
 <li>
 <p><strong>Open <code>style.json</code> as a text file</strong> and adjust the addresses for your <code>sources</code>, <code>glyphs</code>, and <code>fonts</code></p>
 <ul>
-<li>Remove the server address (either <code>http://127.0.0.1:1234/</code> for local Caddy or your Codespaces forwarded URL) from the url for the Te Ara Hura GeoJSON under <code>sources</code></li>
-<li>Replace the <code>glyphs</code> address with <code>lib/fonts/{fontstack}/{range}.pbf</code> to reference the fonts in your repo</li>
-<li>Replace the <code>sprite</code> address with <code>https://YOUR-USERNAME.github.io/standalone_web_maps_foss4g2025/lib/sprite/light</code> where `YOUR-USERNAME is your github handle</li>
-<li>Confirm the attribution for Protomaps and OpenStreetMap</li>
+<li>Under <code>sources</code>, <code>protomaps</code> delete the <code>type</code>, <code>tiles</code> and <code>maxzoom</code> rows with <code>"url": "pmtiles://sources/waiheke_island.pmtiles"</code></li>
+<li>Retain the attribution for Protomaps and OpenStreetMap</li>
+<li>Under <code>sources</code>, remove the server address (either <code>http://127.0.0.1:1234/</code> for local Caddy or your Codespaces forwarded URL) from the beginning of the url for the Te Ara Hura GeoJSON</li>
+<li>(Optional/Recommended): Replace the <code>glyphs</code> address with <code>lib/fonts/{fontstack}/{range}.pbf</code> to reference the fonts in your repo</li>
+<li>(Optional/Recommended): Replace the <code>sprite</code> address with <code>https://YOUR-USERNAME.github.io/standalone_web_maps_foss4g2025/lib/sprite/light</code> where <code>YOUR-USERNAME</code> is your github handle</li>
 </ul>
 </li>
 <li>
@@ -268,10 +279,9 @@
 }
 </code></pre>
 <ol start="4">
-<li><strong>Save your changes</strong></li>
+<li><strong>Save your changes</strong> in the project file on your hard drive.</li>
 </ol>
-<h3>Test Your Map</h3>
-<p><strong>If you saved <code>style.json</code> locally and are testing in Codespaces</strong>: First commit and push your local changes, then pull them in Codespaces:</p>
+<p><strong>Further instructions for Codespaces</strong>: You need to commit and push your local changes, then pull them in Codespaces:</p>
 <ol>
 <li>
 <p><strong>In your local VS Code</strong>: Commit and push your <code>style.json</code> changes</p>
@@ -288,7 +298,7 @@
 </ul>
 </li>
 </ol>
-<p>Now test your map:</p>
+<h3>Test Your Map</h3>
 <ol>
 <li>
 <p><strong>Check to make sure your server is still running</strong>, if not type <code>caddy run</code> in a terminal window (from your repository root directory).</p>
@@ -335,7 +345,7 @@
 &lt;/script&gt;
 </code></pre>
 <ol start="3">
-<li><strong>Save your changes</strong></li>
+<li><strong>Save your changes</strong> to your project file, either locally or in Codespaces.</li>
 </ol>
 <h3>Test Your Map</h3>
 <ol>
@@ -384,13 +394,12 @@
     └── te_ara_hura.geojson      # GeoJSON file for Te Ara Hura trail
 </code></pre>
 <h3>Commit Your Changes</h3>
-<p>Add, commit, and push your revised <code>index.html</code> and <code>style.json</code> to your remote fork.</p>
-<p><strong>Note for Codespaces users</strong>: Commit these changes in your Codespaces environment using the terminal or Source Control panel.</p>
-<p>Verify that the map you see via your server (local or Codespaces) and the one you see via GitHub Pages match the image below.</p>
+<p>Add, commit, and push your revised <code>index.html</code> and <code>style.json</code> to your remote fork, either from your hard drive or via Codespaces.</p>
+<p>Verify that the map you see via your server (local or Codespaces) and the one you see via GitHub Pages match what you saw in Maputnik (image below).</p>
 <h3>What You Have Now</h3>
 <p>At the end of this step, you should have:</p>
 <ul>
-<li><code>style.json</code> - Protomaps bassemap styls and your trail layer style</li>
+<li><code>style.json</code> - Protomaps basemap styles and your trail layer style</li>
 <li>Map displaying Protomaps basemap with your trail layer</li>
 </ul>
 

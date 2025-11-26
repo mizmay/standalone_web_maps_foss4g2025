@@ -14,7 +14,7 @@ Protomaps provides global basemap tiles stored in PMTiles format and extractable
 
 ### Install PMTiles CLI
 
-First, we need to install the PMTiles command-line tool to download and extract tiles.
+We need the PMTiles command-line tool to download and extract a small subset of Protomaps, which is stored as a PMtiles file with global extent. You can either install the tool for yourself locally, or use Codespaces (even if you did not use it in previous steps).
 
 **If you're using Codespaces**: PMTiles CLI is automatically installed when your Codespaces environment is created. You can skip the installation steps below and go directly to the "Verify Installation" section.
 
