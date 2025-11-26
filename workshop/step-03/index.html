@@ -232,6 +232,7 @@ sudo apt-get install caddy
 <p>If you're unable to install Caddy on your local machine, you can use GitHub Codespaces, which provides a cloud-based development environment with all the tools you need.</p>
 <p><strong>Note</strong>: You should already have a forked repository from Step 1. If you haven't forked the repository yet, please go back to Step 1 and complete the fork first.</p>
 <p><strong>Important</strong>: Make sure you've committed and pushed all your changes (including <code>index.html</code> and <code>style.json</code> from above, and <code>sources/te_ara_hura.geojson</code> from Step 2) to GitHub before opening Codespaces. Codespaces will pull the latest version of your repository, so it needs to be up to date.</p>
+<p><strong>Good news</strong>: Caddy will be automatically installed when your Codespaces environment is created, so you can skip the installation step below.</p>
 <h3>Commit Your Changes</h3>
 <p>First, let's save your work to your repository.</p>
 <p><strong>If you're using Codespaces</strong>: Use the Source Control panel in Codespaces (or the terminal) to commit your changes. The process is the same as described below, but everything happens in your Codespaces environment.</p>
@@ -272,22 +273,8 @@ sudo apt-get install caddy
 <li><strong>Click "Create codespace on main"</strong> (or the branch you're working on)</li>
 <li><strong>Wait for the Codespaces environment to start</strong> (this may take a minute or two)</li>
 </ol>
-<h4>Install Caddy in Codespaces</h4>
-<p>Once your Codespaces environment is ready:</p>
-<ol>
-<li>
-<p><strong>Open a terminal</strong> in Codespaces (Terminal → New Terminal, or use the <code>`</code> key)</p>
-</li>
-<li>
-<p><strong>Install Caddy</strong> using the Linux installation commands:</p>
-<pre><code class="language-bash">sudo apt-get install -y debian-keyring debian-archive-keyring apt-transport-https
-curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
-curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
-sudo apt-get update
-sudo apt-get install caddy
-</code></pre>
-</li>
-</ol>
+<h4>Caddy in Codespaces</h4>
+<p>Once your Codespaces environment is ready, Caddy will already be installed automatically! The repository includes a devcontainer configuration that installs Caddy when the Codespace is created, so you can skip the installation step and go directly to starting the server.</p>
 <h3>Start the Server</h3>
 <p>Once Caddy is installed (either locally or in Codespaces), start the server:</p>
 <ol>
@@ -342,7 +329,7 @@ sudo apt-get install caddy
   <div class="map-preview-wrapper">
     <img src="../images/step-03.png" alt="Map preview showing expected result at this stage" class="map-preview-image" style="max-width: 100%; height: auto; border: 1px solid #dee2e6; border-radius: 4px;">
     
-      <p class="map-note">This is what your map should look like when you view it locally at http://localhost:1234/</p>
+      <p class="map-note">This is what your map should look like when you view it locally or in Codespaces</p>
     
   </div>
 </div>

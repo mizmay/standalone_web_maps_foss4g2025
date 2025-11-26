@@ -5,7 +5,7 @@ step: 3
 prev: step-02.html
 next: step-04.html
 mapImage: step-03.png
-mapNote: "This is what your map should look like when you view it locally at http://localhost:1234/"
+mapNote: "This is what your map should look like when you view it locally or in Codespaces"
 ---
 In this step, we'll create the HTML structure and stylesheet, then set up a web server to use MapLibre GL JS to display the Te Ara Hura on a map.
 
@@ -167,6 +167,8 @@ If you're unable to install Caddy on your local machine, you can use GitHub Code
 
 **Important**: Make sure you've committed and pushed all your changes (including `index.html` and `style.json` from above, and `sources/te_ara_hura.geojson` from Step 2) to GitHub before opening Codespaces. Codespaces will pull the latest version of your repository, so it needs to be up to date.
 
+**Good news**: Caddy will be automatically installed when your Codespaces environment is created, so you can skip the installation step below.
+
 
 ### Commit Your Changes
 
@@ -210,20 +212,9 @@ To commit using the command line (works in both local and Codespaces):
 4. **Click "Create codespace on main"** (or the branch you're working on)
 5. **Wait for the Codespaces environment to start** (this may take a minute or two)
 
-#### Install Caddy in Codespaces
+#### Caddy in Codespaces
 
-Once your Codespaces environment is ready:
-
-1. **Open a terminal** in Codespaces (Terminal → New Terminal, or use the `` ` `` key)
-2. **Install Caddy** using the Linux installation commands:
-
-   ```bash
-   sudo apt-get install -y debian-keyring debian-archive-keyring apt-transport-https
-   curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
-   curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
-   sudo apt-get update
-   sudo apt-get install caddy
-   ```
+Once your Codespaces environment is ready, Caddy will already be installed automatically! The repository includes a devcontainer configuration that installs Caddy when the Codespace is created, so you can skip the installation step and go directly to starting the server.
 
 ### Start the Server
 
