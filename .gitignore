@@ -13,6 +13,9 @@ yarn-error.log*
 workshop/**/index-o*
 **/index-o/
 
+## Stuff from other branches
+/lib
+
 # OS files
 .DS_Store
 Thumbs.db
