@@ -118,7 +118,7 @@
 <ol>
 <li><strong>Go to <a rel="noreferrer" target="_blank" href="https://maplibre.org/maputnik/">https://maplibre.org/maputnik/</a></strong> to view the Maputnik style editor.</li>
 <li><strong>Load the Protomaps Light style</strong> under Open &gt; Gallery Styles &gt; Protomaps Light.</li>
-<li><strong>Zoom in on Auckland</strong> and then find Waiheke Island in the map panel on the right</li>
+<li><strong>In the map panel on the right</strong> pan and zoom in on Auckland, then find Waiheke Island</li>
 <li><strong>Change from Map to Inspect</strong> from the drop-down in the top bar, this will allow you to hover and see all of the tile layers and attributes</li>
 <li><strong>Change back from Inspect to Map</strong> from the drop-down in the top bar</li>
 <li><strong>Click on Expand</strong> in the top left corner to see all the map layers</li>
@@ -157,6 +157,7 @@
   ]
 }
 </code></pre>
+<p><strong>Important for everyone</strong>: Make sure Caddy is still running. If not, enter <code>caddy run</code> in the terminal.</p>
 <p><strong>Important for Codespaces users</strong>: You need to make your port public so Maputnik can access your server.</p>
 <ol>
 <li>
@@ -166,7 +167,6 @@
 <p><strong>Allow Access</strong> when you get a browser prompt saying Maputnik is requesting access to your local server (or Codespaces server).</p>
 </li>
 </ol>
-<p><strong>Important for everyone</strong>: Make sure Caddy is still running. If not, enter <code>caddy run</code> in the terminal.</p>
 <h4>Add the GeoJSON Source</h4>
 <ol>
 <li>
@@ -204,7 +204,7 @@
 <p><strong>Scroll to the JSON Editor</strong> at the bottom of the Add Layer panel. Click the &gt; to expand.</p>
 </li>
 </ol>
-<p>You should see a layer definition like this. If you don't, you can copy and paste this in:</p>
+<p>You should see a layer definition like this. If you don't, you can copy and paste this into the JSON box at the bottom of the new layer panel:</p>
 <pre><code class="language-json">    {
       "id": "trail-line",
       "type": "line",

@@ -172,41 +172,6 @@ If it isn't easy or feasible to install a web server on your local machine, you 
 
 **Good news**: Caddy will be automatically installed when your Codespaces environment is created, so you can skip the installation step below.
 
-
-### Commit Your Changes
-
-First, let's save your work to your repository. 
-
-**If you're using Codespaces**: Use the Source Control panel in Codespaces (or the terminal) to commit your changes. The process is the same as described below, but everything happens in your Codespaces environment.
-
-**If you're working locally**: Switch to the Source Control tab on VS Code and commit the new files you created in the previous step with a meaningful commit message, just as you did in Step 2.
-
-To commit using the command line (works in both local and Codespaces):
-
-1. **Check your changes**:
-   ```bash
-   git status
-   ```
-
-   You should see:
-   - `index.html` (new file)
-   - `styles.json` (new file)
-
-2. **Add your files**:
-   ```bash
-   git add .
-   ```
-
-3. **Commit your changes**:
-   ```bash
-   git commit -m "Add initial map of Te Ara Hura trail"
-   ```
-
-4. **Push to your fork**:
-   ```bash
-   git push origin main
-   ```
-
 #### Open in GitHub Codespaces
 
 1. **Navigate to your forked repository** on GitHub (the one you created in Step 1)
@@ -214,8 +179,6 @@ To commit using the command line (works in both local and Codespaces):
 3. **Select the "Codespaces" tab**
 4. **Click "Create codespace on main"** (or the branch you're working on)
 5. **Wait for the Codespaces environment to start** (this may take a minute or two)
-
-#### Caddy in Codespaces
 
 Once your Codespaces environment is ready, Caddy will already be installed. The repository includes a devcontainer configuration that installs Caddy when the Codespace is created, so you can skip the installation step and go directly to starting the server.
 

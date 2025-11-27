@@ -57,6 +57,8 @@ Download from [https://github.com/protomaps/go-pmtiles/releases](https://github.
 
 #### Verify Installation
 
+Open a terminal and input:
+
 ```bash
 pmtiles version
 ```
@@ -116,14 +118,14 @@ You'll see progress output showing the download status, and the number of tiles 
 
 ### Commit Your Changes
 
-Follow the process from Step 4 and Step 2 to add, commit, and push `waiheke_island.pmtiles` to your remote fork.
+Follow the process from Step 2 to add, commit, and push `waiheke_island.pmtiles` to your remote fork.
 
 **Note for Codespaces users**: Commit these changes in your Codespaces environment using the terminal or Source Control panel.
 
 ### What You Have Now
 
 At the end of this step, you should have:
-- `sources/waiheke_island.pmtiles`: Protomaps basemap tiles for Waiheke Island, stored both locally on your hard drive and remotely via Github.
+- `sources/waiheke_island.pmtiles`: Protomaps basemap tiles for Waiheke Island, stored remotely via Github.
 
 ### Next Steps
 

@@ -27,13 +27,13 @@ Let's add standard map controls (zoom, rotate, etc.):
    ```
 2. **Add a scale bar** to show distances:
 
-```javascript
-// Add scale control
-map.addControl(new maplibregl.ScaleControl({
-  maxWidth: 100,
-  unit: 'metric'
-}), 'bottom-left');
-```
+    ```javascript
+    // Add scale bar
+    map.addControl(new maplibregl.ScaleControl({
+      maxWidth: 100,
+      unit: 'metric'
+    }), 'bottom-left');
+    ```
 
 ### Add Hover Effects
 
@@ -41,17 +41,16 @@ Enhance the trail appearance on hover:
 
 1. **Add a new style** in your `style.json` below the primary `te-ara-hura` style for the hover state:
    ```json
-   {
+    {
      "id": "te-ara-hura-hover",
      "type": "line",
      "source": "te-ara-hura",
      "paint": {
-       "line-color": "#ff0000",
-       "line-width": 5,
-       "line-opacity": 0.7,
-       "line-dasharray": [2, 2]
+       "line-color": "#cc0000",
+       "line-width": 3
      },
-   }
+    "layout": {"visibility": "none"}
+    },
    ```
 
 2. **Add hover handler** in `index.js`:

@@ -28,11 +28,6 @@ We'll download the raster DEM tiles for the same bounding box we used for Protom
 
 2. **Wait for download**: This may take several minutes depending on your connection.
 
-3. **Verify the file**:
-   ```bash
-   ls -lh sources/waiheke_island_terrain.pmtiles 
-   ```
-
 ### Update Your Stylesheet
 
 Now we'll add the terrain layers to your `style.json`. Follow the instructions for Step 6 to do this through Maputnik, or follow the instructions below to edit the `style.json` directly.

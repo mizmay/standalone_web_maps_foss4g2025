@@ -26,7 +26,7 @@ Maputnik is [maintained by Maplibre](https://github.com/maplibre/maputnik) as a 
 
 1. **Go to [https://maplibre.org/maputnik/](https://maplibre.org/maputnik/)** to view the Maputnik style editor.
 2. **Load the Protomaps Light style** under Open > Gallery Styles > Protomaps Light.
-3. **Zoom in on Auckland** and then find Waiheke Island in the map panel on the right
+3. **In the map panel on the right** pan and zoom in on Auckland, then find Waiheke Island
 4. **Change from Map to Inspect** from the drop-down in the top bar, this will allow you to hover and see all of the tile layers and attributes
 5. **Change back from Inspect to Map** from the drop-down in the top bar
 6. **Click on Expand** in the top left corner to see all the map layers
@@ -71,14 +71,13 @@ Here's the `style.json` from Step 3:
   ]
 }
 ```
+**Important for everyone**: Make sure Caddy is still running. If not, enter `caddy run` in the terminal.
+
 **Important for Codespaces users**: You need to make your port public so Maputnik can access your server. 
 
 1. In the Codespaces "Ports" tab, right-click on port 1234 (or click the globe icon) and select "Port Visibility" → "Public". This allows Maputnik to access your GeoJSON and other files.
 
 2. **Allow Access** when you get a browser prompt saying Maputnik is requesting access to your local server (or Codespaces server).
-
-**Important for everyone**: Make sure Caddy is still running. If not, enter `caddy run` in the terminal.
-
 
 #### Add the GeoJSON Source
 
@@ -105,7 +104,7 @@ Here's the `style.json` from Step 3:
    
 4. **Scroll to the JSON Editor** at the bottom of the Add Layer panel. Click the > to expand.
 
-You should see a layer definition like this. If you don't, you can copy and paste this in:
+You should see a layer definition like this. If you don't, you can copy and paste this into the JSON box at the bottom of the new layer panel:
 
 ```json
     {

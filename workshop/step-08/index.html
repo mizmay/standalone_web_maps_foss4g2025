@@ -121,30 +121,29 @@
 </li>
 <li>
 <p><strong>Add a scale bar</strong> to show distances:</p>
-</li>
-</ol>
-<pre><code class="language-javascript">// Add scale control
+<pre><code class="language-javascript">// Add scale bar
 map.addControl(new maplibregl.ScaleControl({
   maxWidth: 100,
   unit: 'metric'
 }), 'bottom-left');
 </code></pre>
+</li>
+</ol>
 <h3>Add Hover Effects</h3>
 <p>Enhance the trail appearance on hover:</p>
 <ol>
 <li>
 <p><strong>Add a new style</strong> in your <code>style.json</code> below the primary <code>te-ara-hura</code> style for the hover state:</p>
-<pre><code class="language-json">{
+<pre><code class="language-json"> {
   "id": "te-ara-hura-hover",
   "type": "line",
   "source": "te-ara-hura",
   "paint": {
-    "line-color": "#ff0000",
-    "line-width": 5,
-    "line-opacity": 0.7,
-    "line-dasharray": [2, 2]
+    "line-color": "#cc0000",
+    "line-width": 3
   },
-}
+ "layout": {"visibility": "none"}
+ },
 </code></pre>
 </li>
 <li>

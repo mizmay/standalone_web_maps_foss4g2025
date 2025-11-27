@@ -234,38 +234,6 @@ sudo apt-get install caddy
 <p><strong>Note</strong>: You should already have a forked repository from Step 1. If you haven't forked the repository yet, please go back to Step 1 and complete the fork first.</p>
 <p><strong>Important</strong>: Make sure you've committed and pushed all your changes (including <code>index.html</code> and <code>style.json</code> from above, and <code>sources/te_ara_hura.geojson</code> from Step 2) to GitHub before opening Codespaces. Codespaces will pull the latest version of your repository, so it needs to be up to date.</p>
 <p><strong>Good news</strong>: Caddy will be automatically installed when your Codespaces environment is created, so you can skip the installation step below.</p>
-<h3>Commit Your Changes</h3>
-<p>First, let's save your work to your repository.</p>
-<p><strong>If you're using Codespaces</strong>: Use the Source Control panel in Codespaces (or the terminal) to commit your changes. The process is the same as described below, but everything happens in your Codespaces environment.</p>
-<p><strong>If you're working locally</strong>: Switch to the Source Control tab on VS Code and commit the new files you created in the previous step with a meaningful commit message, just as you did in Step 2.</p>
-<p>To commit using the command line (works in both local and Codespaces):</p>
-<ol>
-<li>
-<p><strong>Check your changes</strong>:</p>
-<pre><code class="language-bash">git status
-</code></pre>
-<p>You should see:</p>
-<ul>
-<li><code>index.html</code> (new file)</li>
-<li><code>styles.json</code> (new file)</li>
-</ul>
-</li>
-<li>
-<p><strong>Add your files</strong>:</p>
-<pre><code class="language-bash">git add .
-</code></pre>
-</li>
-<li>
-<p><strong>Commit your changes</strong>:</p>
-<pre><code class="language-bash">git commit -m "Add initial map of Te Ara Hura trail"
-</code></pre>
-</li>
-<li>
-<p><strong>Push to your fork</strong>:</p>
-<pre><code class="language-bash">git push origin main
-</code></pre>
-</li>
-</ol>
 <h4>Open in GitHub Codespaces</h4>
 <ol>
 <li><strong>Navigate to your forked repository</strong> on GitHub (the one you created in Step 1)</li>
@@ -274,7 +242,6 @@ sudo apt-get install caddy
 <li><strong>Click "Create codespace on main"</strong> (or the branch you're working on)</li>
 <li><strong>Wait for the Codespaces environment to start</strong> (this may take a minute or two)</li>
 </ol>
-<h4>Caddy in Codespaces</h4>
 <p>Once your Codespaces environment is ready, Caddy will already be installed. The repository includes a devcontainer configuration that installs Caddy when the Codespace is created, so you can skip the installation step and go directly to starting the server.</p>
 <h3>Start the Server</h3>
 <p>Once Caddy is installed (either locally or in Codespaces), open the Caddyfile to inspect it's contents. These are special configurations to help with the workflow in this workshop. You don't need to do anything special with this file. Caddy will use it automatically when it is running in the same directory.</p>

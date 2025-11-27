@@ -11,7 +11,7 @@ In this step, you'll deploy your map so it's accessible on the web via GitHub Pa
 
 ## Deploy to GitHub Pages
 
-Go to your forked repo **on Github.com**.
+Go to the web page of your forked repo **on Github.com**.
 
 ### Add .nojekyll File (Recommended)
 
@@ -64,7 +64,7 @@ At the end of this step, you should have:
 - Your map files committed to your repository
 - GitHub Pages enabled and configured
 - A live URL where your map is accessible
-- `.nojekyll` file (recommended) to ensure Jekyll doesn't interfere
+- (Optional) `.nojekyll` file to ensure Jekyll doesn't interfere
 
 Your map is now live on the web! 🎉
 

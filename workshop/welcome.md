@@ -7,8 +7,8 @@ This workshop will guide you through creating a web map of **Te Ara Hura** (The 
 
 ## Workshop Overview
 
-This 3-hour workshop will guide you through creating your own standalone web map. By the end, you'll have a fully functional web map application that you can:
-- Clone and customize for your own projects
+By the end, you'll have a fully functional web map application that you can:
+- Use Git and Github to fork, clone and customize for your own projects
 - Host on GitHub Pages or any static hosting service
 - Share with others without requiring a server
 
@@ -25,7 +25,7 @@ This workshop is divided into 8 main steps:
 7. [**Add Terrain**](../step-07/) - Visualize elevation and topography
 8. [**Add Interactivity**](../step-08/) - Add popups, controls, and interactive features
 
-### Bonus Steps (Time Permitting)
+### Bonus Steps (TBD)
 
 9. **Customize the Stylesheet** - Modify colors and styling
 10. **Create Custom Icons / Spritesheet** - Design and add custom icons
