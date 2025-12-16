@@ -25,11 +25,11 @@ This workshop is divided into 8 main steps:
 7. [**Add Terrain**](../step-07/) - Visualize elevation and topography
 8. [**Add Interactivity**](../step-08/) - Add popups, controls, and interactive features
 
-### Bonus Steps (TBD)
+### Bonus Steps: Coming Soon
 
-9. **Customize the Stylesheet** - Modify colors and styling
-10. **Create Custom Icons / Spritesheet** - Design and add custom icons
-11. **Configure for Cloud Storage** - Use cloud storage for large files
+9. Customize the Stylesheet - Modify colors and styling
+10. Create Custom Icons / Spritesheet - Design and add custom icons
+11. Configure for Cloud Storage - Use cloud storage for large files
 
 ---
 

@@ -37,32 +37,20 @@ workshop-instructions/
 
 ### Setup
 
-1. **Install dependencies**:
-   ```bash
-   npm install
-   ```
+```bash
+npm install
+```
 
-2. **Build the site**:
-   ```bash
-   npm run build
-   ```
-   This will generate HTML files in the `workshop/` directory using relative paths.
-
-3. **Serve locally for testing**:
-   Serve from the repository root to match GitHub Pages structure:
-   ```bash
-   # Using Python
-   python3 -m http.server 8000
-   # Then visit: http://localhost:8000/workshop/welcome/
-   
-   # Or using Caddy (if installed)
-   caddy file-server --listen 127.0.0.1:8000
-   # Then visit: http://localhost:8000/workshop/welcome/
-   ```
-   
-   **Note**: The Eleventy dev server (`npm run serve`) serves from the `workshop/` directory, so relative paths won't work correctly. Use a file server from the repo root instead.
+This will:
+- Read `package.json` and `package-lock.json`
+- Install all dependencies into `node_modules/` (not committed)
+- Ensure consistent versions across all environments
 
 ### Building Locally
+
+```bash
+npm run build
+```
 
 The build process:
 1. Reads Markdown files from `workshop/` directory
@@ -106,6 +94,7 @@ The workshop site is published via GitHub Pages.
    git commit -m "Add step XX"
    git push origin workshop-instructions
    ```
+   **Note**: Remember to commit both source Markdown files AND the generated HTML files after building!
 
 ### Editing Existing Steps
 
@@ -179,6 +168,7 @@ Edit `workshop/_data/workshop.json` to:
    caddy file-server --listen 127.0.0.1:8000
    # Then visit: http://localhost:8000/workshop/welcome/
    ```
+      **Note**: The Eleventy dev server (`npm run serve`) doesn't work correctly because the files are in the `workshop/` directory, so use an alternate dev server from root.
 4. **Verify links and styles work correctly**
 
 ### Deploying to GitHub Pages
@@ -187,13 +177,6 @@ Edit `workshop/_data/workshop.json` to:
    - Uses relative paths (works for both local and GitHub Pages)
 2. **Commit built HTML files**: `git add workshop/**/*.html`
 3. **Push to GitHub**: `git push origin workshop-instructions`
-4. **GitHub Pages automatically updates** (serves from root at `/workshop/`)
-
-### Important Notes
-
-- **Single build command** - no separate local vs GitHub Pages builds needed
-- **Always test locally** by serving from repository root (not from `workshop/` directory)
-- **Relative paths everywhere** - CSS, navigation, and content links use relative paths that work in both environments
 
 ## GitHub Pages Configuration
 
@@ -204,48 +187,9 @@ The workshop site is configured to serve from this branch:
 This means the built HTML files in `workshop/` are served at:
 `https://[username].github.io/[repo-name]/workshop/`
 
-
-### Installing Dependencies
-
-When you clone or pull changes:
-```bash
-npm install
-```
-
-This will:
-- Read `package.json` and `package-lock.json`
-- Install all dependencies into `node_modules/` (not committed)
-- Ensure consistent versions across all environments
-
-## Troubleshooting
-
-**Build fails?**
-- Check that all dependencies are installed: `npm install`
-- Verify Markdown syntax is correct
-- Check Eleventy error messages
-
-**Seeing `index-o.html` files in your editor?**
-- These are Eleventy build artifacts (duplicate permalink outputs)
-- They're already in `.gitignore` and won't be committed
-- Safe to ignore or delete them - they'll be regenerated on build
-- They don't affect the published site
-
-**Changes not showing?**
-- Make sure you ran `npm run build`
-- Verify HTML files were generated
-- Check that you committed and pushed the built files
-
-**Map doesn't embed?**
-- The map preview iframe points to `../../index.html` (relative to instruction pages)
-- Attendees must create `index.html` in the repository root (on `main` branch)
-- Check file paths in templates are correct
-
 ## Resources
 
 - [Eleventy Documentation](https://www.11ty.dev/docs/)
 - [Nunjucks Template Engine](https://mozilla.github.io/nunjucks/)
 - [MapLibre GL JS Documentation](https://maplibre.org/maplibre-gl-js-docs/)
 
----
-
-**Note**: Remember to commit both source Markdown files AND the generated HTML files after building!
