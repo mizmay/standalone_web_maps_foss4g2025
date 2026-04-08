@@ -48,27 +48,21 @@ out body;
 
 3. **Run the query**: Click the "Run" button (or press Ctrl+Enter)
 
-4. **Wait for results**: Once the query executes, press the magnifying glass icon to display the trail data on the map
+4. **Wait for results**: Once the query executes, the trail will appear on the map. Press the magnifying glass icon to zoom to the data.
 
 5. **Verify the data**: You should see the Te Ara Hura trail network displayed on Waiheke Island
 
 ### Download as GeoJSON
 
 1. **Download the data**: Click the "Export" button
-   
-2. **Select format**: Choose "GeoJSON" from the format dropdown
 
-3. **Download the file**: Click "Download" and save the file as `te_ara_hura.geojson`
+2. **In the Export panel**, find the **GeoJSON** section and click **Download**. Save the file as `te_ara_hura.geojson`
 
 ### Save to Your Repository
 
 1. **Copy the file to your repository**:
 
-  In the process of downloading you can create a new `sources` directory inside your local repository, or you can do that now.
-
-  Manually, via VS Code or your local file system:
-   - Verify that the `sources` directory exists in the project folder
-   - Move the downloaded `te_ara_hura.geojson` file to this directory
+  Place the file in the `sources/` folder in your repository. This folder already exists — you should see it in VS Code's file explorer or your local file system.
 
 ### Commit and Upload to GitHub
 
