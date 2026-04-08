@@ -25,7 +25,7 @@ GitHub Pages uses Jekyll by default to process sites. For pure static files (HTM
 
 4. **Select "Commit changes..."**: default commit message is fine, as is "Commit directly to the main branch"
 
-5. **Select "Commit changes" again**: you should now see the empty file called `.nojeckyll` in your repo
+5. **Select "Commit changes" again**: you should now see the empty file called `.nojekyll` in your repo
 
 ### Enable GitHub Pages
 
@@ -52,11 +52,9 @@ GitHub Pages uses Jekyll by default to process sites. For pure static files (HTM
 
 1. **Visit your GitHub Pages URL**: Navigate to the URL GitHub provided
 
-2. **Check your map**: You should see your the Te Ara Hura trail as in the previous step
+2. **Check your map**: You should see the Te Ara Hura trail as in the previous step
 
-3. **Check in different browsers**: Try opening in Chrome, Firefox<sup>*</sup>, and Safari
-
-<sup>*</sup> *There is currently a [bug](https://github.com/protomaps/PMTiles/issues/584) in Firefox that prevents PMTiles from rendering correctly via Github Pages. There's a simple fix and we're hopeful it will get merged soon.*
+3. **Check in different browsers**: Try opening in Chrome, Firefox, and Safari
 
 ### What You Have Now
 
@@ -64,7 +62,7 @@ At the end of this step, you should have:
 - Your map files committed to your repository
 - GitHub Pages enabled and configured
 - A live URL where your map is accessible
-- (Optional) `.nojekyll` file to ensure Jekyll doesn't interfere
+- (Recommended) `.nojekyll` file to ensure Jekyll doesn't interfere
 
 Your map is now live on the web! 🎉
 
@@ -73,4 +71,3 @@ Now you are probably wondering how to add a basemap, or at the very least some r
 ---
 
 **[← Previous: Step 3](../step-03/) | [Next: Step 5 - Download Protomaps Reference Layers →](../step-05/)**
-
