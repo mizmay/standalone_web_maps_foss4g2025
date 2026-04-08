@@ -103,12 +103,10 @@
         
         
         
-        <p>In this step, we'll create the HTML structure and stylesheet, then set up a web server to use MapLibre GL JS to display the Te Ara Hura on a map.</p>
-<h2>Understand Your Web Map Files</h2>
-<p>First, let's review the files needed for your map. We'll set up the web server afterward so you can view a version of Te Ara Hura rendered via Maplibre.</p>
-<p>The two files to understand are <code>index.html</code>, which contains the code that invokes Maplibre, and <code>style.json</code>, which tells Maplibre how to render your source data.</p>
+        <p>In this step, we'll review the web map files in your repository, then set up a web server so you can view Te Ara Hura rendered via MapLibre GL JS.</p>
+<h2>Review Your Web Map Files</h2>
+<p>The two files to understand are <code>index.html</code>, which contains the code that invokes MapLibre, and <code>style.json</code>, which tells MapLibre how to render your source data. Both are already in the root of your repository.</p>
 <h3>The Stylesheet</h3>
-<p>We need to tell Maplibre how we want the GeoJSON we downloaded in the previous step to be interpreted in order for Te Ara Hura to render on a web map.</p>
 <p>Open the file called <code>style.json</code> in the root of your repository:</p>
 <pre><code class="language-json">{
   "version": 8,
@@ -134,8 +132,8 @@
 </code></pre>
 <p>This is a MapLibre stylesheet, a JSON file that defines what data to display (<code>sources</code>) and how to render it (<code>layers</code>). Sources provide the map data (in this case a GeoJSON containing the trail data), while layers define visual styling (colors, line widths, opacity, etc.).</p>
 <p>See the <a rel="noreferrer" target="_blank" href="https://maplibre.org/maplibre-style-spec/">full MapLibre style specification</a> for all the variations and possible parameters that can be defined.</p>
-<h3>Create a Web Map Using GL JS</h3>
-<p>Create a file called <code>index.html</code> by copying and pasting the text below into a new text file and saving this at the root of your repository:</p>
+<h3>The Web Map HTML</h3>
+<p>Open the file called <code>index.html</code> in the root of your repository:</p>
 <pre><code class="language-html">&lt;!DOCTYPE html&gt;
 &lt;html lang="en"&gt;
 &lt;head&gt;
@@ -170,125 +168,69 @@
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-<p>This HTML file brings together all of the assets and instructions Maplibre needs in order to render a map:</p>
+<p>This HTML file brings together all of the assets and instructions MapLibre needs in order to render a map:</p>
 <ol>
 <li>
-<p><strong>It gives the map a title</strong>, In this case "Te Ara Hura Trail Map", though you can change this to anything you like.</p>
+<p><strong>It gives the map a title</strong> — in this case "Te Ara Hura Trail Map", though you can change this to anything you like.</p>
 </li>
 <li>
-<p><strong>It tells the web browser where to look</strong> for the Maplibre rendering library, in this case it's at the nearby file path <code>lib/maplibre-gl.5.10.0.js</code>. Note that it is typical to use the version from a Content Delivery Network (CDN) such as <strong>UNPKG</strong>, <strong>cdnjs</strong> or <strong>jsDelivr</strong> rather than storing a copy of the library alongside your project, but this way you can easily open Maplibre as a text file and see the code you are running in the next steps.</p>
+<p><strong>It tells the web browser where to look</strong> for the MapLibre rendering library, in this case it's at the nearby file path <code>lib/maplibre-gl.5.10.0.js</code>. Note that it is typical to use the version from a Content Delivery Network (CDN) such as <strong>UNPKG</strong>, <strong>cdnjs</strong> or <strong>jsDelivr</strong> rather than storing a copy of the library alongside your project, but this way you can easily open MapLibre as a text file and see the code you are running in the next steps.</p>
 </li>
 <li>
-<p><strong>It tells Maplibre how to render basic map elements in your browser</strong> such as zoom controls, popups, and the attribution link. This information is stored and available for your review at <code>lib/maplibre-gl.5.10.0.css</code>.</p>
+<p><strong>It tells MapLibre how to render basic map elements in your browser</strong> such as zoom controls, popups, and the attribution link. This information is stored and available for your review at <code>lib/maplibre-gl.5.10.0.css</code>.</p>
 </li>
 <li>
-<p><strong>It tells Maplibre to render a map</strong> and to take up the whole browser window, or "viewport" doing it. Note both the style definitions uner <code>#map</code> and the code or script definitions where "map" is defined via <code>new maplibregl.Map({...})</code>. The style definition defines the dimensions of the map, and anything else about how it should be viewed. In the code definition you can see we are providing:</p>
+<p><strong>It tells MapLibre to render a map</strong> and to take up the whole browser window, or "viewport". Note both the style definitions under <code>#map</code> and the script block where <code>map</code> is defined via <code>new maplibregl.Map({...})</code>. The style definition sets the dimensions of the map. In the script you can see we are providing:</p>
 <ul>
-<li>The location of the stylesheet <code>style.json</code> that we defined previously</li>
-<li>A latitude and longitude for where in the world this map is centered, and</li>
+<li>The location of the stylesheet <code>style.json</code></li>
+<li>A latitude and longitude for the map center</li>
 <li>A zoom level, or map scale</li>
 </ul>
 </li>
 </ol>
-<h2>Setting up a Web Server</h2>
-<p>Now that you have your map files ready, let's set up a web server so you can view your map in a browser.</p>
-<h3>Why Caddy?</h3>
-<p>We're using <strong>Caddy</strong> as our web server for this project because:</p>
-<ul>
-<li><strong>Simple configuration</strong>: Caddy uses a straightforward <code>Caddyfile</code> configuration that's easy to understand and works identically across macOS, Linux, and Windows</li>
-<li><strong>No additional setup needed</strong>: Unlike some web servers, Caddy doesn't require complex configuration files or extensive setup - it just works out of the box</li>
-<li><strong>Perfect for static files</strong>: Caddy excels at serving static files (HTML, CSS, JavaScript, JSON, PMTiles) which is exactly what we need for this standalone web map</li>
-<li><strong>Cross-platform</strong>: The same configuration works on all operating systems, making it easy for workshop participants regardless of their platform</li>
-<li><strong>Lightweight</strong>: Caddy is a single binary with no dependencies, making it quick to install and run</li>
-</ul>
-<p>While you could use other web servers (like Python's <code>http.server</code>, Node.js's <code>http-server</code>, or others), Caddy provides a consistent, simple experience that works the same way for everyone.</p>
-<h3>Understand the Caddyfile</h3>
-<p>The repo you cloned contains a <code>Caddyfile</code>. This is a configuration file for Caddy, configured to serve your map files.</p>
-<p><strong>Examine the Caddyfile</strong> in the root of your repository: you can open it as a text file and examine it if you are curious.</p>
-<h3>Install and Run Caddy</h3>
-<p>You have two options for getting Caddy running:</p>
-<ol>
-<li><strong>Install Caddy locally</strong> (recommended if you can install software on your machine)</li>
-<li><strong>Use GitHub Codespaces</strong> (alternative if you cannot install Caddy locally)</li>
-</ol>
-<p>Choose the option that works best for your setup.</p>
-<h3>Option 1: Install Caddy Locally</h3>
-<p>Since we're working with static files, we need a local web server. We'll use Caddy, which is simple and works well for the file types we are working with.</p>
-<p>For this step, you will need a terminal window, either inside VS Code (go to View &gt; Terminal if you don't see it). or elsewhere if you are not using this code editor.</p>
-<p>Copy and paste or type the commands below at the command prompt.</p>
-<h4>macOS Installation</h4>
+<h2>Set Up a Web Server</h2>
+<p>To view your map in a browser, you need a local web server. We're using <strong>Caddy</strong> because it's simple, cross-platform, and has a single configuration file (<code>Caddyfile</code>) that's already set up in your repository.</p>
+<h3>The Caddyfile</h3>
+<p>The <code>Caddyfile</code> in the root of your repository configures Caddy to serve your map files on port 1234, with CORS headers that allow external tools like Maputnik (used in Step 6) to access your files. You don't need to edit it — open it as a text file if you're curious.</p>
+<h3>Install Caddy</h3>
+<p><strong>If you're in Codespaces</strong>, Caddy is already installed — skip to <a href="#start-the-server">Start the Server</a>.</p>
+<p><strong>If you're working locally</strong>, install Caddy for your operating system:</p>
+<h4>macOS</h4>
 <pre><code class="language-bash">brew install caddy
 </code></pre>
-<h4>Linux Installation</h4>
+<h4>Linux</h4>
 <pre><code class="language-bash">sudo apt-get install -y debian-keyring debian-archive-keyring apt-transport-https
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
 curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
 sudo apt-get update
 sudo apt-get install caddy
 </code></pre>
-<h4>Windows Installation</h4>
+<h4>Windows</h4>
+<p>Requires <a rel="noreferrer" target="_blank" href="https://chocolatey.org/install">Chocolatey</a>:</p>
 <pre><code class="language-bash">choco install caddy
 </code></pre>
-<h3>Option 2: Use GitHub Codespaces</h3>
-<p>If it isn't easy or feasible to install a web server on your local machine, you can use GitHub Codespaces, which provides a cloud-based development environment with all the tools you need.</p>
-<p><strong>Note</strong>: You should already have a forked repository from Step 1. If you haven't forked the repository yet, please go back to Step 1 and complete the fork first.</p>
-<p><strong>Important</strong>: Make sure you've committed and pushed all your changes (including <code>index.html</code> and <code>style.json</code> from above, and <code>sources/te_ara_hura.geojson</code> from Step 2) to GitHub before opening Codespaces. Codespaces will pull the latest version of your repository, so it needs to be up to date.</p>
-<p><strong>Good news</strong>: Caddy will be automatically installed when your Codespaces environment is created, so you can skip the installation step below.</p>
-<h4>Open in GitHub Codespaces</h4>
-<ol>
-<li><strong>Navigate to your forked repository</strong> on GitHub (the one you created in Step 1)</li>
-<li><strong>Click the green "Code" button</strong> on your repository page</li>
-<li><strong>Select the "Codespaces" tab</strong></li>
-<li><strong>Click "Create codespace on main"</strong> (or the branch you're working on)</li>
-<li><strong>Wait for the Codespaces environment to start</strong> (this may take a minute or two)</li>
-</ol>
-<p>Once your Codespaces environment is ready, Caddy will already be installed. The repository includes a devcontainer configuration that installs Caddy when the Codespace is created, so you can skip the installation step and go directly to starting the server.</p>
 <h3>Start the Server</h3>
-<p>Once Caddy is installed (either locally or in Codespaces), open the Caddyfile to inspect it's contents. These are special configurations to help with the workflow in this workshop. You don't need to do anything special with this file. Caddy will use it automatically when it is running in the same directory.</p>
-<p>Now you are ready to start the server:</p>
-<ol>
-<li>
-<p><strong>Open a New Terminal</strong>: Terminal → New Terminal, or <code>`</code> key if you do not already have a terminal window open. If you already have a terminal window, create an additional window using the <code>+</code> icon above. Navigate to the root directory.</p>
-</li>
-<li>
-<p><strong>Start Caddy</strong> if you are in the root directory, here start Caddy with the custom configurations stored in the <code>Caddyfile</code> in your project directory:</p>
+<p>Open a terminal (Terminal → New Terminal, or <code>`</code> key in VS Code). Make sure you're in the root directory of your repository, then run:</p>
 <pre><code class="language-bash">caddy run
 </code></pre>
-</li>
-<li>
-<p><strong>View Your Map</strong>:</p>
+<p>Keep this terminal window open — the server needs to stay running. To stop it, press <code>Ctrl+C</code>.</p>
+<h3>View Your Map</h3>
 <ul>
-<li><strong>If working locally</strong>: The server will be available at <code>http://127.0.0.1:1234/</code>. Copy and paste this address into your browser.</li>
-<li><strong>If working in Codespaces</strong>: GitHub Codespaces will automatically forward the port. Look for a notification or check the "Ports" tab in the bottom panel. You should see port 1234 forwarded with a URL like <code>https://xxxxx-1234.preview.app.github.dev/</code>. Click on the forwarded URL or copy it to your browser.
-<strong>You should see</strong>:</li>
+<li><strong>If working locally</strong>: Open <code>http://127.0.0.1:1234/</code> in your browser.</li>
+<li><strong>If working in Codespaces</strong>: Codespaces will automatically forward the port. Look for a notification or check the <strong>Ports</strong> tab in the bottom panel. You should see port 1234 listed with a forwarded URL like <code>https://xxxxx-1234.preview.app.github.dev/</code> — click it to open your map.</li>
+</ul>
+<p><strong>You should see</strong>:</p>
+<ul>
 <li>An empty white map canvas centered on Waiheke Island</li>
 <li>The Te Ara Hura trail displayed as a red dashed line</li>
-</ul>
-</li>
-<li>
-<p><strong>Keep the terminal window open</strong> - the server needs to keep running. To stop the server, press <code>Ctrl+C</code> in the terminal where Caddy is running.</p>
-</li>
-</ol>
-<h4>Continue with the Workshop</h4>
-<p><strong>Important for Codespaces users</strong>: Since you're working in Codespaces, you should do ALL your work there:</p>
-<ul>
-<li><strong>Edit files</strong> in the Codespaces editor (VS Code is built into Codespaces)</li>
-<li><strong>Commit changes</strong> using the terminal or Source Control panel in Codespaces</li>
-<li><strong>Run the server</strong> in the Codespaces terminal (as you just did)</li>
-</ul>
-<p>From this point forward, when you see instructions to:</p>
-<ul>
-<li>Create or edit files → do this in Codespaces</li>
-<li>Commit changes → do this in Codespaces (using <code>git</code> commands in the terminal or the Source Control panel)</li>
-<li>View your map → use your Codespaces forwarded URL (e.g., <code>https://xxxxx-1234.preview.app.github.dev/</code>) instead of <code>http://127.0.0.1:1234/</code></li>
 </ul>
 <h3>What You Have Now</h3>
 <p>At the end of this step, you should have:</p>
 <ul>
-<li>Server running (either locally at <code>http://127.0.0.1:1234/</code> or in Codespaces with a forwarded URL)</li>
+<li>A server running (locally at <code>http://127.0.0.1:1234/</code> or via a Codespaces forwarded URL)</li>
 <li>A working map displaying the Te Ara Hura trail as a red dashed line</li>
 </ul>
-<p>At this stage, your map is only available locally (on your machine or in Codespaces). In the next step, we will enable GitHub Pages, where it will be viewable on the Web.</p>
+<p>At this stage, your map is only available locally (on your machine or in Codespaces). In the next step, we will enable GitHub Pages, where it will be viewable on the web.</p>
 
         
           <div class="map-preview-container">
