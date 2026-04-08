@@ -103,8 +103,8 @@
         
         
         
-        <p>To participate in this workshop and deploy your map, you'll need a GitHub account. You will use it to create your own copy, or fork, of the workshop repo, and learn how to work with it both on Github and on your local machine.</p>
-<h2>On Github</h2>
+        <p>To participate in this workshop and deploy your map, you'll need a GitHub account. You will use it to create your own copy, or fork, of the workshop repo.</p>
+<h2>On GitHub</h2>
 <h3>Log In</h3>
 <p>If you already have a Github account, please sign in.</p>
 <p>Otherwise, follow these steps:</p>
@@ -123,6 +123,7 @@
 </li>
 </ol>
 <h3>Fork the Workshop Repository</h3>
+<p>Forking is important: it gives you a copy under your own GitHub account, which is what allows you to make any changes you want and publish the map via GitHub Pages in Step 4.</p>
 <p>Once you have a GitHub account and are signed in:</p>
 <ol>
 <li>
@@ -138,15 +139,28 @@
 </ul>
 </li>
 </ol>
-<h2>On Your Local Computer</h2>
-<p>After forking, you'll want to work with the code on your computer.</p>
-<p>Scroll down to <strong>Install Prerequisites</strong> if you need to install either:</p>
+<h2>Set Up Your Development Environment</h2>
+<p>After forking, you need a code editor and a way to run the project files. Choose one of the two options below.</p>
+<h3>Option A: Work in the Cloud</h3>
+<p>GitHub Codespaces gives you a virtual machine with a full VS Code editor running in your browser, with Git, Caddy (the web server), and the PMTiles CLI already installed. Nothing to download or configure.</p>
+<ol>
+<li><strong>Navigate to your forked repository</strong> on GitHub (the one you just created)</li>
+<li><strong>Click the green "Code" button</strong></li>
+<li><strong>Select the "Codespaces" tab</strong></li>
+<li><strong>Click "Create codespace on main"</strong></li>
+<li><strong>Wait for the environment to start</strong> — this takes a minute or two on first launch while the setup script installs Caddy and PMTiles</li>
+</ol>
+<p>Once the Codespaces window opens, you'll see a VS Code editor in your browser with your repository files already present. You're ready to go, you can skip to <a href="#verify-your-setup">Verify Your Setup</a> below and move on to Step 2.</p>
+<p><strong>Note</strong>: Codespaces provides a limited number of free hours per month on GitHub's free plan. For a workshop session this is more than sufficient, but be aware the environment will sleep after a period of inactivity and you may need to reopen it.</p>
+<h3>Option B: Work Locally</h3>
+<p>The advantage of working locally is that you will have all the files on your own hard drive, which some people find more conducive to learning. There are instructions for how to work locally throughout this tutorial, but there are a few more setup steps before we can begin.</p>
+<p>Scroll down to <strong>Install Prerequisites</strong> if you need to install:</p>
 <ul>
-<li>VS Code</li>
-<li>Git</li>
+<li>VS Code - code editor</li>
+<li>Git - version/source control</li>
 </ul>
 <p>Once you have the prerequisites, follow the instructions below.</p>
-<h3>Clone Your Fork Locally</h3>
+<h4>Clone Your Fork Locally</h4>
 <ol>
 <li>
 <p><strong>Get your repository URL</strong>:</p>
@@ -171,8 +185,8 @@ cd repository-name
 </code></pre>
 </li>
 </ol>
-<h3>Install Prerequisites</h3>
-<h4>VS Code</h4>
+<h4>Install Prerequisites</h4>
+<h5>VS Code</h5>
 <p>If you don't already have a code editor, a popular choice is Visual Studio Code (VS Code):</p>
 <ol>
 <li><strong>Download VS Code</strong>: Visit <a rel="noreferrer" target="_blank" href="https://code.visualstudio.com/">https://code.visualstudio.com/</a></li>
@@ -180,7 +194,7 @@ cd repository-name
 <li><strong>Verify</strong>: Open VS Code to confirm it's installed correctly</li>
 </ol>
 <p><strong>Note</strong>: VS Code is built on open source but includes proprietary components (telemetry, branding). If you prefer a fully open source alternative, consider <a rel="noreferrer" target="_blank" href="https://vscodium.com/">VSCodium</a>, which uses the same codebase without Microsoft's additions. The workshop instructions work with either version.</p>
-<h4>Git</h4>
+<h5>Git</h5>
 <p>If you have never used Git before, unless you are on Linux, you'll need to install it.</p>
 <p><strong>The easiest way is to follow VS Code's built-in prompts</strong>:</p>
 <ol>
@@ -212,7 +226,7 @@ cd repository-name
 </ol>
 <p><strong>Additional options for installing Git on Windows:</strong></p>
 <p>If you prefer to install Git manually before cloning, you can download it from <a rel="noreferrer" target="_blank" href="https://git-scm.com/download/win">https://git-scm.com/download/win</a> and follow the installation wizard.</p>
-<h4>Set Up Your Git Identity</h4>
+<h5>Set Up Your Git Identity</h5>
 <p><strong>First time only</strong> before you use Git, you need to set up your identity:</p>
 <ul>
 <li>Open a terminal in VS Code (Terminal → New Terminal, or <code>`</code> key)</li>
@@ -226,9 +240,9 @@ git config --global user.email "your.email@example.com"
 <p>You should now have:</p>
 <ul>
 <li>A GitHub account</li>
-<li>A code or text editor installed on your computer</li>
-<li>Your own fork of the workshop repository on Github</li>
-<li>A local copy on your computer</li>
+<li>Your own fork of the workshop repository on GitHub</li>
+<li>A code editor open with the repository files (either in Codespaces or locally)</li>
+<li>Git available (pre-installed in Codespaces; installed locally if using Option B)</li>
 </ul>
 
         
