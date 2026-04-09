@@ -3,104 +3,128 @@ layout: base.njk
 title: Step 8 - Add Interactivity
 step: 8
 prev: step-07.html
-next: step-09.html
 ---
 
 ## Adding Interactivity to Your Map
 
-In this final main step, we'll add interactive features to your map, such as popups when clicking on the trail, map controls, and hover effects.
+In this final step, we'll add interactive features to your map: navigation controls, a scale bar, a click popup on the trail, and a hover effect.
 
 ### Add Map Controls
 
-Let's add standard map controls (zoom, rotate, etc.):
-
-1. **Update `index.html`** to add navigation control definition after the `map` is defined:
+1. **Add navigation controls** to `index.html` after the `map` is defined:
 
    ```javascript
-    // Javascript to create a new map using Maplibre GL JS
-    const map = new maplibregl.Map({
-        ...
-    });
-
-    // Add navigation controls
-    map.addControl(new maplibregl.NavigationControl(), 'top-right');
+   // Add navigation controls (zoom, rotate, pitch)
+   map.addControl(new maplibregl.NavigationControl(), 'top-right');
    ```
-2. **Add a scale bar** to show distances:
 
-    ```javascript
-    // Add scale bar
-    map.addControl(new maplibregl.ScaleControl({
-      maxWidth: 100,
-      unit: 'metric'
-    }), 'bottom-left');
-    ```
+2. **Add a scale bar**:
 
-### Add Hover Effects
+   ```javascript
+   // Add scale bar
+   map.addControl(new maplibregl.ScaleControl({
+     maxWidth: 100,
+     unit: 'metric'
+   }), 'bottom-left');
+   ```
 
-Enhance the trail appearance on hover:
+### Add Click and Hover Interactivity
 
-1. **Add a new style** in your `style.json` below the primary `te-ara-hura` style for the hover state:
+The trail line is the only interactive layer — the Protomaps basemap features don't have click handlers. To make clicking easier on the thin dashed line, we'll add two new layers to the stylesheet alongside a wider transparent hit area.
+
+1. **Add these two layers** to your `style.json` immediately below the `trail-line` layer:
+
    ```json
-    {
-     "id": "te-ara-hura-hover",
+   {
+     "id": "trail-line-hit",
      "type": "line",
      "source": "te-ara-hura",
      "paint": {
-       "line-color": "#cc0000",
-       "line-width": 3
+       "line-color": "transparent",
+       "line-width": 20
+     }
+   },
+   {
+     "id": "trail-line-hover",
+     "type": "line",
+     "source": "te-ara-hura",
+     "paint": {
+       "line-color": "#b81515",
+       "line-width": 3,
+       "line-dasharray": [2, 2]
      },
-    "layout": {"visibility": "none"}
-    },
+     "layout": {"visibility": "none"}
+   }
    ```
 
-2. **Add hover handler** in `index.js`:
+2. **Add these handlers** to `index.html` for the click popup, hover effect, and cursor change:
+
    ```javascript
-   // Swap between trail layers on hover
-   map.on('mouseenter', 'trail-line', function() {
-     map.setLayoutProperty('trail-line', 'visibility', 'none');
-     map.setLayoutProperty('te-ara-hura-hover', 'visibility', 'visible');
+   // Show popup on click
+   map.on('click', 'trail-line-hit', function(e) {
+     const properties = e.features[0].properties;
+     const name = properties.name || 'Te Ara Hura';
+     const surface = properties.surface ? `<br>Surface: ${properties.surface}` : '';
+
+     new maplibregl.Popup()
+       .setLngLat(e.lngLat)
+       .setHTML(`<strong>${name}</strong>${surface}`)
+       .addTo(map);
    });
 
-   map.on('mouseleave', 'te-ara-hura-hover', function() {
-     map.setLayoutProperty('trail-line', 'visibility', 'visible');
-     map.setLayoutProperty('te-ara-hura-hover', 'visibility', 'none');
+   // Show hover layer and pointer cursor on mouseenter
+   map.on('mouseenter', 'trail-line-hit', function() {
+     map.getCanvas().style.cursor = 'pointer';
+     map.setLayoutProperty('trail-line', 'visibility', 'none');
+     map.setLayoutProperty('trail-line-hover', 'visibility', 'visible');
    });
+
+   // Restore default layer and cursor on mouseleave
+   map.on('mouseleave', 'trail-line-hit', function() {
+     map.getCanvas().style.cursor = '';
+     map.setLayoutProperty('trail-line', 'visibility', 'visible');
+     map.setLayoutProperty('trail-line-hover', 'visibility', 'none');
+   });
+   ```
 
 ### Test Your Interactive Map
 
-1. **Refresh your browser**: 
-   - **If using local Caddy**: Go to `http://127.0.0.1:1234/index.html`
-   - **If using GitHub Codespaces**: Use your forwarded URL (e.g., `https://xxxxx-1234.preview.app.github.dev/index.html`)
+1. Make sure your server is still running. If not, run `caddy run` in the terminal.
 
-2. **Test interactions**:
-   - **Click on the trail**: Should show a popup with information
-   - **Hover over the trail**: Should change color/thickness
-   - **Use zoom controls**: Should zoom in/out
+2. Refresh your browser:
+   - **Local**: `http://127.0.0.1:1234/index.html`
+   - **Codespaces**: use your forwarded URL (e.g., `https://xxxxx-1234.preview.app.github.dev/index.html`)
 
+3. **Test interactions**:
+   - **Click on the trail**: should show a popup with the trail name
+   - **Hover over the trail**: should thicken and the cursor should change to a pointer
+   - **Use the zoom controls**: should zoom in/out smoothly
+
+### Commit Your Changes
+
+Add, commit, and push your revised `index.html` and `style.json` to your fork.
+
+Verify that the map you see via your server (local or Codespaces) and the one you see via GitHub Pages match the image below.
 
 ### What You Have Now
 
 At the end of this step, you should have:
-- Navigation controls (zoom, rotate, pitch)
-- Popup on click showing trail information
-- Hover effects on the trail
-- Cursor changes on hover
-- Optional: Scale control, fullscreen, geolocate
 
-Your map is now fully interactive! 🎉
+- Navigation controls (zoom, rotate, pitch)
+- Scale bar showing metric distances
+- Click popup showing trail name and other properties
+- Hover effect with cursor change
 
 ### Congratulations!
 
-You've completed all 8 main steps! You now have:
-- A working standalone web map
-- Protomaps basemap integration
-- Te Ara Hura trail displayed
-- Terrain visualization
-- Interactive features
+You've completed all 8 steps! You now have a fully standalone web map with:
 
-If time permits, check out the **bonus steps** to customize your map further!
+- A working MapLibre GL JS map
+- Protomaps basemap tiles served from a local PMTiles file
+- Te Ara Hura trail displayed from a local GeoJSON file
+- Terrain visualization with hillshade
+- Interactive controls, popups, and hover effects
 
 ---
 
 **[← Previous: Step 7](../step-07/)**
-
