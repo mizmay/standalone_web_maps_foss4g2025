@@ -103,7 +103,7 @@
         
         
         
-        <p>Now we'll update our Maplibre to load PMtiles support, and configure the stylesheet to match the Protomaps tiles we downloaded.</p>
+        <p>Now we'll update MapLibre to load PMTiles support, and configure the stylesheet to match the Protomaps tiles we downloaded.</p>
 <h2>Configure the Stylesheet</h2>
 <p>We need to modify our stylesheet <code>style.json</code> to:</p>
 <ul>
@@ -112,20 +112,20 @@
 <li>Also show your existing trail layer</li>
 </ul>
 <h3>View the Protomaps Stylesheet in Maputnik</h3>
-<p>Maputnik allows you to edit the style layers in a GUI, which is helpful since the stylesheet is otherwise over 12,000 lines of JSON when formatted in your text editor.</p>
+<p>Maputnik allows you to edit style layers in a GUI, which is helpful since the stylesheet is otherwise over 12,000 lines of JSON when formatted in your text editor.</p>
 <p>Maputnik also allows you to make changes and see the results live, without having to switch windows or refresh a browser pane. This is particularly helpful when you are developing a style layer from scratch.</p>
-<p>Maputnik is <a rel="noreferrer" target="_blank" href="https://github.com/maplibre/maputnik">maintained by Maplibre</a> as a way of making it easier to understand available style parameters.</p>
+<p><a rel="noreferrer" target="_blank" href="https://github.com/maplibre/maputnik">Maputnik</a> is maintained by MapLibre as a way of making it easier to understand available style parameters.</p>
 <ol>
 <li><strong>Go to <a rel="noreferrer" target="_blank" href="https://maplibre.org/maputnik/">https://maplibre.org/maputnik/</a></strong> to view the Maputnik style editor.</li>
 <li><strong>Load the Protomaps Light style</strong> under Open &gt; Gallery Styles &gt; Protomaps Light.</li>
 <li><strong>In the map panel on the right</strong> pan and zoom in on Auckland, then find Waiheke Island</li>
-<li><strong>Change from Map to Inspect</strong> from the drop-down in the top bar, this will allow you to hover and see all of the tile layers and attributes</li>
+<li><strong>Change from Map to Inspect</strong> from the drop-down in the top bar — this will allow you to hover and see all of the tile layers and attributes</li>
 <li><strong>Change back from Inspect to Map</strong> from the drop-down in the top bar</li>
 <li><strong>Click on Expand</strong> in the top left corner to see all the map layers</li>
 </ol>
 <p>You should now see the fully expanded list of layers defined in the Protomaps stylesheet. It is a lot!</p>
-<p><strong>Note: Maplibre renders these layers in order from top to bottom, so the last layer in the list will render on top.</strong></p>
-<p>The position a layer has in the render order is commonly referred to as the <strong>z-order</strong></p>
+<p><strong>Note</strong>: MapLibre renders these layers in order from top to bottom, so the last layer in the list will render on top.</p>
+<p>The position a layer has in the render order is commonly referred to as the <strong>z-order</strong>.</p>
 <p>Observe the z-orders of various layers in this stylesheet. For any basemap the order will generally be:</p>
 <ul>
 <li>Landcover (areas) on the bottom</li>
@@ -133,59 +133,25 @@
 <li>Labels and Icons (points) on the top</li>
 </ul>
 <h3>Add Te Ara Hura</h3>
-<p>We're going to use Maputnik to add the trail styles from <code>style.json</code> in Step 3 into the Protomaps style sheet here.</p>
-<p>Here's the <code>style.json</code> from Step 3:</p>
-<pre><code class="language-json">{
-  "version": 8,
-  "sources": {
-    "te-ara-hura": {
-      "type": "geojson",
-      "data": "sources/te_ara_hura.geojson"
-    }
-  },
-  "layers": [
-    {
-      "id": "trail-line",
-      "type": "line",
-      "source": "te-ara-hura",
-      "paint": {
-        "line-color": "#e41f18",
-        "line-width": 3,
-        "line-dasharray": [2, 2]
-      }
-    }
-  ]
-}
-</code></pre>
-<p><strong>Important for everyone</strong>: Make sure Caddy is still running. If not, enter <code>caddy run</code> in the terminal.</p>
-<p><strong>Important for Codespaces users</strong>: You need to make your port public so Maputnik can access your server.</p>
-<ol>
-<li>
-<p>In the Codespaces "Ports" tab, right-click on port 1234 (or click the globe icon) and select "Port Visibility" → "Public". This allows Maputnik to access your GeoJSON and other files.</p>
-</li>
-<li>
-<p><strong>Allow Access</strong> when you get a browser prompt saying Maputnik is requesting access to your local server (or Codespaces server).</p>
-</li>
-</ol>
+<p>We're going to use Maputnik to add the trail styles from <code>style.json</code> in Step 3 into the Protomaps stylesheet.</p>
+<p><strong>Make sure Caddy is still running.</strong> If not, enter <code>caddy run</code> in the terminal.</p>
 <h4>Add the GeoJSON Source</h4>
 <ol>
 <li>
-<p><strong>Click on Data Sources</strong> in the top bar of Maputnik. In the panel that pops up, you will see #protomaps listed under <strong>Active Sources</strong></p>
+<p><strong>Click on Data Sources</strong> in the top bar of Maputnik. In the panel that pops up, you will see <code>protomaps</code> listed under <strong>Active Sources</strong>.</p>
 </li>
 <li>
-<p><strong>Add New Source</strong> at the bottom of the panel. Here you are going to input the fields from the <code>style.json</code> we introduced in Step 3.</p>
+<p><strong>Add New Source</strong> at the bottom of the panel. Input the following:</p>
 <ul>
-<li><code>Source ID</code> is <code>te-ara-hura</code></li>
-<li>Under <code>Source Type</code> use the drop-down to select "GeoJSON (URL)"</li>
-<li>Go to the browser tab where you are previewing your map either locally and in codespaces, and type <code>sources/te_ara_hura.geojson</code> at the end of the URL to verify you can see the GeoJSON file there.</li>
-<li>If not, restart Caddy</li>
-<li>Ctrl+C or Cmd+C to copy the URL to your clipboard</li>
-<li>Under <code>URL</code> paste:
+<li><code>Source ID</code>: <code>te-ara-hura</code></li>
+<li><code>Source Type</code>: select <strong>GeoJSON (URL)</strong> from the drop-down</li>
+<li><code>URL</code>: open your map in a browser tab, then append <code>sources/te_ara_hura.geojson</code> to the URL to verify the file is accessible (no need to download the file). Copy that full URL:
 <ul>
-<li><strong>If using local Caddy</strong>: it will look like <code>http://127.0.0.1:1234/sources/te_ara_hura.geojson</code></li>
-<li><strong>If using GitHub Codespaces</strong>: it will look like <code>https://xxxxx-1234.preview.app.github.dev/sources/te_ara_hura.geojson</code>)</li>
+<li><strong>Local</strong>: <code>http://127.0.0.1:1234/sources/te_ara_hura.geojson</code></li>
+<li><strong>Codespaces</strong>: <code>https://xxxxx-1234.preview.app.github.dev/sources/te_ara_hura.geojson</code></li>
 </ul>
 </li>
+<li>If the file doesn't load, restart Caddy and try again.</li>
 </ul>
 </li>
 </ol>
@@ -195,26 +161,31 @@
 <p><strong>Click "Add Layer"</strong> at the top of the list of layers</p>
 </li>
 <li>
-<p><strong>Input the id, type, and source</strong> as defined in the <code>style.json</code> from Step 3</p>
+<p><strong>Input the id, type, and source</strong> as defined in the <code>style.json</code>, leave <strong>source layer</strong> blank:</p>
+<ul>
+<li><strong>id</strong>: <code>trail-line</code></li>
+<li><strong>type</strong>: <code>line</code></li>
+<li><strong>source</strong>: <code>te-ara-hura</code></li>
+</ul>
 </li>
 <li>
 <p><strong>Input the color, width and dasharray</strong> as defined in the <code>style.json</code> from Step 3</p>
 </li>
 <li>
-<p><strong>Scroll to the JSON Editor</strong> at the bottom of the Add Layer panel. Click the &gt; to expand.</p>
+<p><strong>Scroll to the JSON Editor</strong> at the bottom of the Add Layer panel. Click the <code>&gt;</code> to expand.</p>
 </li>
 </ol>
 <p>You should see a layer definition like this. If you don't, you can copy and paste this into the JSON box at the bottom of the new layer panel:</p>
-<pre><code class="language-json">    {
-      "id": "trail-line",
-      "type": "line",
-      "source": "te-ara-hura",
-      "paint": {
-        "line-color": "#e41f18",
-        "line-width": 3,
-        "line-dasharray": [2, 2]
-      }
-    }
+<pre><code class="language-json">{
+  "id": "trail-line",
+  "type": "line",
+  "source": "te-ara-hura",
+  "paint": {
+    "line-color": "#e41f18",
+    "line-width": 3,
+    "line-dasharray": [2, 2]
+  }
+}
 </code></pre>
 <p>You should also see the trail as a red dashed line circling Waiheke Island.</p>
 <h4>Adjust the Z-Order</h4>
@@ -224,39 +195,51 @@
 <p><strong>Note the symbols at the start of each layer</strong>: diamond for area layers, squiggle for line layers, marker for point layers.</p>
 </li>
 <li>
-<p><strong>Find the layer you just created</strong> at the bottom of the list of layers. Note the squiggle next to it, because this is a line layer</p>
+<p><strong>Find the layer you just created</strong> at the bottom of the list of layers. Note the squiggle next to it, because this is a line layer.</p>
 </li>
 <li>
 <p><strong>Drag Te Ara Hura</strong> to group it as the last of the line layers, so that it renders on top of roads and rivers, but under the labels.</p>
 </li>
 </ol>
-<p>Scroll to the bottom of this page, what you see in Maputnik should match the image you see below.</p>
-<h4>Export, Save and Edit</h4>
-<p>Now we are going to save the stylesheet you created in Maputnik to your local copy of the workshop repo (e.g. not in Codespaces).</p>
-<p><strong>Important</strong>: If you're working locally and have made changes in Codespaces (or vice versa), update your local repository in VS Code before overwriting <code>style.json</code>:</p>
-<ul>
-<li><strong>Using VS Code GUI</strong>: Open the Source Control panel (View → Source Control, or <code>Ctrl+Shift+G</code> / <code>Cmd+Shift+G</code>), click the <code>...</code> menu, and select "Pull"</li>
-<li><strong>Using command line</strong>: Open the terminal (View → Terminal) and run <code>git pull</code></li>
-</ul>
-<p>Now you're ready to save your stylesheet:</p>
+<p>Scroll to the bottom of this page — what you see in Maputnik should match the image below.</p>
+<h4>Export and Save the Stylesheet</h4>
+<p>Maputnik's <strong>Save</strong> button downloads the stylesheet as a file to your browser's Downloads folder — it doesn't write directly to your repository.</p>
+<p>How you get it into your repo depends on your setup:</p>
+<p><strong>If you're working locally</strong>:</p>
+<ol>
+<li>Click <strong>Save</strong> at the top of Maputnik, ignore the API keys, and save the file to your browser's Downloads folder.</li>
+<li>Rename it as <code>style.json</code>.</li>
+<li>If you are using Codespaces, right click on the top-level directory, <code>STANDALONE_WEB_MAPS_FOSS4G2025</code>, and select "Upload". If you are working locally, move the downloaded file into the root of your repository.</li>
+<li>Open it to confirm you see the source and layer definitions you added, then delete the existing <code>style.json</code> and replace it with this one.</li>
+</ol>
+<p><strong>Alternative</strong> if downloading doesn't work:</p>
+<ol>
+<li>In Maputnik, open the <strong>Code Editor</strong> panel and copy the full JSON to your clipboard.</li>
+<li>In your code editor, open <code>style.json</code> and replace its entire contents with the copied JSON on your clipboard.</li>
+<li>Save the file.</li>
+</ol>
+<h4>Edit the Stylesheet</h4>
+<p>Now open <code>style.json</code> in your editor and make the following adjustments:</p>
 <ol>
 <li>
-<p><strong>Click "Save" at the top</strong> to save this stylesheet back into the repo. You can name it <code>style.json</code> and overwrite the earlier file at this point.</p>
+<p>Under <code>sources</code> → <code>protomaps</code>: delete the <code>tiles</code>, and <code>maxzoom</code> fields and add:</p>
+<pre><code class="language-json">"url": "pmtiles://sources/waiheke_island.pmtiles"
+</code></pre>
+<p>Retain the attribution for Protomaps and OpenStreetMap.</p>
 </li>
 <li>
-<p><strong>Open <code>style.json</code> as a text file</strong> and adjust the addresses for your <code>sources</code>, <code>glyphs</code>, and <code>fonts</code></p>
-<ul>
-<li>Under <code>sources</code>, <code>protomaps</code> delete the <code>type</code>, <code>tiles</code> and <code>maxzoom</code> rows with <code>"url": "pmtiles://sources/waiheke_island.pmtiles"</code></li>
-<li>Retain the attribution for Protomaps and OpenStreetMap</li>
-<li>Under <code>sources</code>, remove the server address (either <code>http://127.0.0.1:1234/</code> for local Caddy or your Codespaces forwarded URL) from the beginning of the url for the Te Ara Hura GeoJSON</li>
-<li>(Optional/Recommended): Replace the <code>glyphs</code> address with <code>lib/fonts/{fontstack}/{range}.pbf</code> to reference the fonts in your repo</li>
-<li>(Optional/Recommended): Replace the <code>sprite</code> address with <code>https://YOUR-USERNAME.github.io/standalone_web_maps_foss4g2025/lib/sprite/light</code> where <code>YOUR-USERNAME</code> is your github handle</li>
-</ul>
+<p>Under <code>sources</code> → <code>te-ara-hura</code>: remove the server address from the beginning of the GeoJSON URL, so it reads:</p>
+<pre><code class="language-json">"data": "sources/te_ara_hura.geojson"
+</code></pre>
 </li>
 <li>
-<p><strong>Check the final result</strong>, it should look like the JSON below.</p>
+<p>(Optional): Replace the <code>glyphs</code> address with <code>lib/fonts/{fontstack}/{range}.pbf</code> to reference the fonts in your repo.</p>
+</li>
+<li>
+<p>(Optional): Replace the <code>sprite</code> address with <code>https://YOUR-USERNAME.github.io/standalone_web_maps_foss4g2025/lib/sprite/light</code>.</p>
 </li>
 </ol>
+<p><strong>Check the final result</strong> — the top of your <code>style.json</code> should look like this:</p>
 <pre><code class="language-json">{
   "version": 8,
   "name": "style@4.3.0 theme@light lang@en",
@@ -275,88 +258,69 @@
   "glyphs": "lib/fonts/{fontstack}/{range}.pbf",
   "layers": [
    ...
-  ],
+  ]
 }
 </code></pre>
-<ol start="4">
-<li><strong>Save your changes</strong> in the project file on your hard drive.</li>
-</ol>
-<p><strong>Further instructions for Codespaces</strong>: You need to commit and push your local changes, then pull them in Codespaces:</p>
-<ol>
-<li>
-<p><strong>In your local VS Code</strong>: Commit and push your <code>style.json</code> changes</p>
-<ul>
-<li><strong>Using VS Code GUI</strong>: Open Source Control panel, stage <code>style.json</code>, enter a commit message, and click "Commit", then "Sync Changes" (or "Push")</li>
-<li><strong>Using command line</strong>: Run <code>git add style.json</code>, <code>git commit -m "Update style.json with Protomaps configuration"</code>, then <code>git push</code></li>
-</ul>
-</li>
-<li>
-<p><strong>In Codespaces</strong>: Pull the latest changes</p>
-<ul>
-<li><strong>Using VS Code GUI</strong>: Open Source Control panel, click the <code>...</code> menu, and select "Pull"</li>
-<li><strong>Using command line</strong>: Run <code>git pull</code></li>
-</ul>
-</li>
-</ol>
 <h3>Test Your Map</h3>
 <ol>
 <li>
-<p><strong>Check to make sure your server is still running</strong>, if not type <code>caddy run</code> in a terminal window (from your repository root directory).</p>
+<p>Make sure Caddy is still running. If not, run <code>caddy run</code> in a terminal from your repository root.</p>
 </li>
 <li>
-<p><strong>Refresh your browser</strong>:</p>
+<p>Refresh your browser:</p>
 <ul>
-<li><strong>If using local Caddy</strong>: Go to <code>http://127.0.0.1:1234/index.html</code></li>
-<li><strong>If using GitHub Codespaces</strong>: Use your forwarded URL (e.g., <code>https://xxxxx-1234.preview.app.github.dev/index.html</code>)</li>
+<li><strong>Local</strong>: <code>http://127.0.0.1:1234/index.html</code></li>
+<li><strong>Codespaces</strong>: use your forwarded URL (e.g., <code>https://xxxxx-1234.preview.app.github.dev/index.html</code>)</li>
 </ul>
 </li>
 <li>
-<p><strong>You should see</strong> no change yet! Verify you still see the trail line. We have to define the styles for the PMTiles Protomaps layers before they will show up.</p>
+<p><strong>You should see no change yet</strong> — verify you still see the trail line. We still need to add PMTiles support to <code>index.html</code> before the basemap layers will show up.</p>
 </li>
 </ol>
 <h3>Add PMTiles Support</h3>
 <p>Update your <code>index.html</code> to load PMTiles support.</p>
 <ol>
-<li><strong>Add the <code>src</code> link for the PMTiles library</strong> stored in <code>lib/</code>. Add it to the <code>&lt;head&gt;</code> section, just below the local copies of Maplibre GL JS, and notice they are structured similarly.</li>
+<li><strong>Add the PMTiles library</strong> to the <code>&lt;head&gt;</code> section, just below the MapLibre GL JS references:</li>
 </ol>
-<pre><code class="language-html">   &lt;head&gt;
-      &lt;meta charset="UTF-8"&gt;
-      &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-      &lt;title&gt;Te Ara Hura Trail Map&lt;/title&gt;
-      
-      &lt;!-- Local copies of MapLibre GL JS --&gt;
-      &lt;script src="lib/maplibre-gl.5.10.0.js"&gt;&lt;/script&gt;
-      &lt;link href="lib/maplibre-gl.5.10.0.css" rel="stylesheet" /&gt;
+<pre><code class="language-html">&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Te Ara Hura Trail Map&lt;/title&gt;
+  
+  &lt;!-- Local copies of MapLibre GL JS --&gt;
+  &lt;script src="lib/maplibre-gl.5.10.0.js"&gt;&lt;/script&gt;
+  &lt;link href="lib/maplibre-gl.5.10.0.css" rel="stylesheet" /&gt;
 
-      &lt;!-- PMTiles support --&gt;
-      &lt;script src="lib/pmtiles.4.3.0.js"&gt;&lt;/script&gt;
+  &lt;!-- PMTiles support --&gt;
+  &lt;script src="lib/pmtiles.4.3.0.js"&gt;&lt;/script&gt;
 </code></pre>
 <ol start="2">
 <li><strong>Activate the PMTiles protocol</strong> by adding these lines just above where the map is defined:</li>
 </ol>
 <pre><code class="language-html">&lt;script&gt;
   // Initialize PMTiles protocol
-   const protocol = new pmtiles.Protocol();
-   maplibregl.addProtocol("pmtiles", protocol.tile);
+  const protocol = new pmtiles.Protocol();
+  maplibregl.addProtocol("pmtiles", protocol.tile);
 
-   // Javascript to create a new map using Maplibre GL JS
-   const map = new maplibregl.Map({
-      ...})
+  // Javascript to create a new map using Maplibre GL JS
+  const map = new maplibregl.Map({
+    ...
+  });
 &lt;/script&gt;
 </code></pre>
 <ol start="3">
-<li><strong>Save your changes</strong> to your project file, either locally or in Codespaces.</li>
+<li><strong>Save your changes</strong> to <code>index.html</code>.</li>
 </ol>
 <h3>Test Your Map</h3>
 <ol>
 <li>
-<p><strong>Check to make sure your server is still running</strong>, if not type <code>caddy run</code> in a terminal window (from your repository root directory).</p>
+<p>Make sure Caddy is still running. If not, run <code>caddy run</code> in a terminal from your repository root.</p>
 </li>
 <li>
-<p><strong>Refresh your browser</strong>:</p>
+<p>Refresh your browser:</p>
 <ul>
-<li><strong>If using local Caddy</strong>: Go to <code>http://127.0.0.1:1234/index.html</code></li>
-<li><strong>If using GitHub Codespaces</strong>: Use your forwarded URL (e.g., <code>https://xxxxx-1234.preview.app.github.dev/index.html</code>)</li>
+<li><strong>Local</strong>: <code>http://127.0.0.1:1234/index.html</code></li>
+<li><strong>Codespaces</strong>: use your forwarded URL (e.g., <code>https://xxxxx-1234.preview.app.github.dev/index.html</code>)</li>
 </ul>
 </li>
 <li>
@@ -371,36 +335,35 @@
 <h3>Troubleshooting</h3>
 <p><strong>Map doesn't load?</strong></p>
 <ul>
-<li>Check developer console for errors</li>
-<li>Verify <code>style.json</code> exists in root directory</li>
-<li>Verify file paths in stylesheet are correct</li>
+<li>Check the developer console for errors</li>
+<li>Verify <code>style.json</code> exists in the root directory</li>
+<li>Verify file paths in the stylesheet are correct</li>
 </ul>
 <p><strong>PMTiles not loading?</strong></p>
 <ul>
 <li>Verify <code>sources/waiheke_island.pmtiles</code> exists</li>
-<li>Check that PMTiles protocol is initialized in <code>index.js</code></li>
+<li>Check that the PMTiles protocol is initialized in <code>index.html</code></li>
 <li>Verify the PMTiles URL in <code>style.json</code> uses <code>pmtiles://</code> protocol</li>
 </ul>
 <h3>Verify Your Directory Structure</h3>
 <p>You should now have all the files you need to render the map. Double-check it looks like this:</p>
 <pre><code>standalone_web_maps_foss4g2025/
-├── README.md                    # This file
-├── Makefile                     # Build and serve commands (uses Caddy)
-├── index.html                   # Main HTML file for the web map (contains inline CSS and JavaScript)
+├── Caddyfile                    # Web server configuration
+├── index.html                   # Main HTML file for the web map
 ├── style.json                   # Source and style for Te Ara Hura and the Protomaps tile layers, fonts and sprites
 ├── lib/                         # Third-party libraries (self-contained)
 └── sources/                     # Source data files
-    ├── waiheke_island.pmtiles   # PMTiles archive for Waiheke Island basemap - added in later steps
-    └── te_ara_hura.geojson      # GeoJSON file for Te Ara Hura trail
+    ├── waiheke_island.pmtiles   # PMTiles basemap for Waiheke Island (added in Step 5)
+    └── te_ara_hura.geojson      # GeoJSON file for Te Ara Hura trail (added in Step 2)
 </code></pre>
 <h3>Commit Your Changes</h3>
-<p>Add, commit, and push your revised <code>index.html</code> and <code>style.json</code> to your remote fork, either from your hard drive or via Codespaces.</p>
+<p>Add, commit, and push your revised <code>index.html</code> and <code>style.json</code> to your remote fork.</p>
 <p>Verify that the map you see via your server (local or Codespaces) and the one you see via GitHub Pages match what you saw in Maputnik (image below).</p>
 <h3>What You Have Now</h3>
 <p>At the end of this step, you should have:</p>
 <ul>
-<li><code>style.json</code> - Protomaps basemap styles and your trail layer style</li>
-<li>Map displaying Protomaps basemap with your trail layer</li>
+<li><code>style.json</code> — Protomaps basemap styles and your trail layer style</li>
+<li>Map displaying the Protomaps basemap with your trail layer</li>
 </ul>
 
         
