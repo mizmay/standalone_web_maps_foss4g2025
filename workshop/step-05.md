@@ -10,32 +10,32 @@ In this step, we'll download a tile extract for Waiheke Island to use as our map
 
 ## Downloading Protomaps
 
-Protomaps provides global basemap tiles stored in PMTiles format and extractable by bounding box, so you can grab just what you need to provide some reference layers on your trail map. 
+Protomaps provides global basemap tiles stored in PMTiles format and extractable by bounding box, so you can grab just what you need to provide some reference layers on your trail map.
 
 ### Install PMTiles CLI
 
-We need the PMTiles command-line tool to download and extract a small subset of Protomaps, which is stored as a PMtiles file with global extent. You can either install the tool for yourself locally, or use Codespaces (even if you did not use it in previous steps).
+We need the PMTiles command-line tool to download and extract a small subset of Protomaps, which is stored as a PMTiles file with global extent.
 
-**If you're using Codespaces**: PMTiles CLI is automatically installed when your Codespaces environment is created. You can skip the installation steps below and go directly to the "Verify Installation" section.
+**If you're in Codespaces**, PMTiles CLI is already installed — skip to [Verify Installation](#verify-installation).
 
 **If you're working locally**, follow the installation instructions for your operating system:
 
-#### macOS Installation
+#### macOS
 
 ```bash
 brew install pmtiles
 ```
 
-#### Linux Installation
+#### Linux
 
 Download from [https://github.com/protomaps/go-pmtiles/releases](https://github.com/protomaps/go-pmtiles/releases) or follow the [Protomaps Getting Started guide](https://docs.protomaps.com/guide/getting-started).
 
-#### Windows Installation
+#### Windows
 
 1. **Download the Windows binary**:
    - Visit [https://github.com/protomaps/go-pmtiles/releases](https://github.com/protomaps/go-pmtiles/releases)
    - Download the latest `pmtiles-windows-amd64.exe` file
-   
+
 2. **Choose one of these options**:
 
    **Option A: Add to PATH (recommended for ongoing use)**
@@ -57,7 +57,7 @@ Download from [https://github.com/protomaps/go-pmtiles/releases](https://github.
 
 #### Verify Installation
 
-Open a terminal and input:
+Open a terminal and run:
 
 ```bash
 pmtiles version
@@ -79,59 +79,50 @@ This bounding box includes:
 - Some surrounding water for context
 - A small buffer around the island
 
-**Tip**: Need to find a bounding box for a different area? Use [bboxfinder.com](https://bboxfinder.com/) - draw a rectangle on the map and it will give you the bounding box coordinates in the format you need.
+**Tip**: Need to find a bounding box for a different area? Use [bboxfinder.com](https://bboxfinder.com/) — draw a rectangle on the map and it will give you the bounding box coordinates in the format you need.
 
 ### Find the Latest Protomaps Build
 
 1. **Check Protomaps builds**: Visit [https://maps.protomaps.com/builds/](https://maps.protomaps.com/builds/)
-2. **Find the latest daily build**: Look for the most recent successful build in the "date" column (builds run nightly but it's the "tileset version" that matters for ensuring you've got the latest data)
-3. **Note the filename**: It will look like `YYYYMMDD.pmtiles` (e.g., `20251110.pmtiles`)
-4. **Click <u>xray</u>** in the same row
-5. This allows you to inspect the tile layers in the basemap data. Zoom in on [Wiaheke Island](https://pmtiles.io/#url=https%3A%2F%2Fbuild.protomaps.com%2F20251110.pmtiles&map=10/-36.8483/175.0938) to see what's there. Toggle on and off `pois`. What features are these?
+2. **Find the latest daily build**: Look for the most recent successful build in the "date" column (builds run nightly; usually makes sense to use the most recent one)
+3. **Note the date**: It will look like `YYYYMMDD` (e.g., `20260408`)
+4. **Click xray** in the same row to inspect the tile layers in the basemap data
+5. Zoom in on [Waiheke Island](https://pmtiles.io/#url=https://build.protomaps.com/20260408.pmtiles&map=10/-36.8483/175.0938)
+6. Toggle `pois` on and off — what features are these?
 
 ### Download the Protomaps Extract
 
-Run this command (replace `20251110` with a more recent build if you like):
+Replace `YYYYMMDD` with the date of the build you identified above:
 
 ```bash
-pmtiles extract https://build.protomaps.com/20251110.pmtiles sources/waiheke_island.pmtiles \
+pmtiles extract https://build.protomaps.com/YYYYMMDD.pmtiles sources/waiheke_island.pmtiles \
   --minzoom=10 \
   --maxzoom=16 \
   --bbox=174.8,-37.0,175.2,-36.7
 ```
 
 **Parameters explained:**
-- `--minzoom=10`: Minimum zoom level (this is the maximum extent of the map, beyond this, the island is too tiny)
-- `--maxzoom=16`: Maximum zoom level (this is the maximum detail you can get from the data)
+- `--minzoom=10`: Start extracting when zoomed in this far — at lower zoom levels the island is too small to be useful
+- `--maxzoom=16`: Maximum zoom level (the highest detail available in the data)
 - `--bbox=174.8,-37.0,175.2,-36.7`: Bounding box for Waiheke Island
 
-**Note**: This extract will typically be 50-200 MB, well under the 1 GB limit Github supports.
+**Note**: For this small area the extract will typically be 20–60 MB, comfortably under GitHub's 100 MB per-file limit.
 
 ### Wait for Download
 
-The download process can take a few minutes depending on:
-- Your internet connection
-- The size of the extract
-- Server load
-
-You'll see progress output showing the download status, and the number of tiles and total file size of your download.
+The download process can take a few minutes depending on your internet connection and server load. You'll see progress output showing download status, tile count, and total file size.
 
 ### Commit Your Changes
 
 Follow the process from Step 2 to add, commit, and push `waiheke_island.pmtiles` to your remote fork.
 
-**Note for Codespaces users**: Commit these changes in your Codespaces environment using the terminal or Source Control panel.
-
 ### What You Have Now
 
 At the end of this step, you should have:
-- `sources/waiheke_island.pmtiles`: Protomaps basemap tiles for Waiheke Island, stored remotely via Github.
-
-### Next Steps
+- `sources/waiheke_island.pmtiles`: Protomaps basemap tiles for Waiheke Island
 
 In the next step, we'll configure the stylesheet to style the Protomaps tiles and integrate them into your map.
 
 ---
 
 **[← Previous: Step 4](../step-04/) | [Next: Step 6 - Configure the Stylesheet →](../step-06/)**
-

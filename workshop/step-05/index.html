@@ -107,15 +107,15 @@
 <h2>Downloading Protomaps</h2>
 <p>Protomaps provides global basemap tiles stored in PMTiles format and extractable by bounding box, so you can grab just what you need to provide some reference layers on your trail map.</p>
 <h3>Install PMTiles CLI</h3>
-<p>We need the PMTiles command-line tool to download and extract a small subset of Protomaps, which is stored as a PMtiles file with global extent. You can either install the tool for yourself locally, or use Codespaces (even if you did not use it in previous steps).</p>
-<p><strong>If you're using Codespaces</strong>: PMTiles CLI is automatically installed when your Codespaces environment is created. You can skip the installation steps below and go directly to the "Verify Installation" section.</p>
+<p>We need the PMTiles command-line tool to download and extract a small subset of Protomaps, which is stored as a PMTiles file with global extent.</p>
+<p><strong>If you're in Codespaces</strong>, PMTiles CLI is already installed — skip to <a href="#verify-installation">Verify Installation</a>.</p>
 <p><strong>If you're working locally</strong>, follow the installation instructions for your operating system:</p>
-<h4>macOS Installation</h4>
+<h4>macOS</h4>
 <pre><code class="language-bash">brew install pmtiles
 </code></pre>
-<h4>Linux Installation</h4>
+<h4>Linux</h4>
 <p>Download from <a rel="noreferrer" target="_blank" href="https://github.com/protomaps/go-pmtiles/releases">https://github.com/protomaps/go-pmtiles/releases</a> or follow the <a rel="noreferrer" target="_blank" href="https://docs.protomaps.com/guide/getting-started">Protomaps Getting Started guide</a>.</p>
-<h4>Windows Installation</h4>
+<h4>Windows</h4>
 <ol>
 <li>
 <p><strong>Download the Windows binary</strong>:</p>
@@ -151,7 +151,7 @@
 </li>
 </ol>
 <h4>Verify Installation</h4>
-<p>Open a terminal and input:</p>
+<p>Open a terminal and run:</p>
 <pre><code class="language-bash">pmtiles version
 </code></pre>
 <h3>Define the Bounding Box</h3>
@@ -169,46 +169,39 @@
 <li>Some surrounding water for context</li>
 <li>A small buffer around the island</li>
 </ul>
-<p><strong>Tip</strong>: Need to find a bounding box for a different area? Use <a rel="noreferrer" target="_blank" href="https://bboxfinder.com/">bboxfinder.com</a> - draw a rectangle on the map and it will give you the bounding box coordinates in the format you need.</p>
+<p><strong>Tip</strong>: Need to find a bounding box for a different area? Use <a rel="noreferrer" target="_blank" href="https://bboxfinder.com/">bboxfinder.com</a> — draw a rectangle on the map and it will give you the bounding box coordinates in the format you need.</p>
 <h3>Find the Latest Protomaps Build</h3>
 <ol>
 <li><strong>Check Protomaps builds</strong>: Visit <a rel="noreferrer" target="_blank" href="https://maps.protomaps.com/builds/">https://maps.protomaps.com/builds/</a></li>
-<li><strong>Find the latest daily build</strong>: Look for the most recent successful build in the "date" column (builds run nightly but it's the "tileset version" that matters for ensuring you've got the latest data)</li>
-<li><strong>Note the filename</strong>: It will look like <code>YYYYMMDD.pmtiles</code> (e.g., <code>20251110.pmtiles</code>)</li>
-<li><strong>Click <u>xray</u></strong> in the same row</li>
-<li>This allows you to inspect the tile layers in the basemap data. Zoom in on <a rel="noreferrer" target="_blank" href="https://pmtiles.io/#url=https%3A%2F%2Fbuild.protomaps.com%2F20251110.pmtiles&map=10/-36.8483/175.0938">Wiaheke Island</a> to see what's there. Toggle on and off <code>pois</code>. What features are these?</li>
+<li><strong>Find the latest daily build</strong>: Look for the most recent successful build in the "date" column (builds run nightly; usually makes sense to use the most recent one)</li>
+<li><strong>Note the date</strong>: It will look like <code>YYYYMMDD</code> (e.g., <code>20260408</code>)</li>
+<li><strong>Click xray</strong> in the same row to inspect the tile layers in the basemap data</li>
+<li>Zoom in on <a rel="noreferrer" target="_blank" href="https://pmtiles.io/#url=https://build.protomaps.com/20260408.pmtiles&map=10/-36.8483/175.0938">Waiheke Island</a></li>
+<li>Toggle <code>pois</code> on and off — what features are these?</li>
 </ol>
 <h3>Download the Protomaps Extract</h3>
-<p>Run this command (replace <code>20251110</code> with a more recent build if you like):</p>
-<pre><code class="language-bash">pmtiles extract https://build.protomaps.com/20251110.pmtiles sources/waiheke_island.pmtiles \
+<p>Replace <code>YYYYMMDD</code> with the date of the build you identified above:</p>
+<pre><code class="language-bash">pmtiles extract https://build.protomaps.com/YYYYMMDD.pmtiles sources/waiheke_island.pmtiles \
   --minzoom=10 \
   --maxzoom=16 \
   --bbox=174.8,-37.0,175.2,-36.7
 </code></pre>
 <p><strong>Parameters explained:</strong></p>
 <ul>
-<li><code>--minzoom=10</code>: Minimum zoom level (this is the maximum extent of the map, beyond this, the island is too tiny)</li>
-<li><code>--maxzoom=16</code>: Maximum zoom level (this is the maximum detail you can get from the data)</li>
+<li><code>--minzoom=10</code>: Start extracting when zoomed in this far — at lower zoom levels the island is too small to be useful</li>
+<li><code>--maxzoom=16</code>: Maximum zoom level (the highest detail available in the data)</li>
 <li><code>--bbox=174.8,-37.0,175.2,-36.7</code>: Bounding box for Waiheke Island</li>
 </ul>
-<p><strong>Note</strong>: This extract will typically be 50-200 MB, well under the 1 GB limit Github supports.</p>
+<p><strong>Note</strong>: For this small area the extract will typically be 20–60 MB, comfortably under GitHub's 100 MB per-file limit.</p>
 <h3>Wait for Download</h3>
-<p>The download process can take a few minutes depending on:</p>
-<ul>
-<li>Your internet connection</li>
-<li>The size of the extract</li>
-<li>Server load</li>
-</ul>
-<p>You'll see progress output showing the download status, and the number of tiles and total file size of your download.</p>
+<p>The download process can take a few minutes depending on your internet connection and server load. You'll see progress output showing download status, tile count, and total file size.</p>
 <h3>Commit Your Changes</h3>
 <p>Follow the process from Step 2 to add, commit, and push <code>waiheke_island.pmtiles</code> to your remote fork.</p>
-<p><strong>Note for Codespaces users</strong>: Commit these changes in your Codespaces environment using the terminal or Source Control panel.</p>
 <h3>What You Have Now</h3>
 <p>At the end of this step, you should have:</p>
 <ul>
-<li><code>sources/waiheke_island.pmtiles</code>: Protomaps basemap tiles for Waiheke Island, stored remotely via Github.</li>
+<li><code>sources/waiheke_island.pmtiles</code>: Protomaps basemap tiles for Waiheke Island</li>
 </ul>
-<h3>Next Steps</h3>
 <p>In the next step, we'll configure the stylesheet to style the Protomaps tiles and integrate them into your map.</p>
 
         
