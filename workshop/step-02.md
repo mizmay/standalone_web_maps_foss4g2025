@@ -4,6 +4,8 @@ title: Step 2 - Use Overpass to Create an OpenStreetMap Extract
 step: 2
 prev: step-01.html
 next: step-03.html
+mapImage: step-02.png
+mapNote: "This is what Te Ara Hura looks like in Overpass"
 ---
 
 In this step, we'll use Overpass Turbo to extract the Te Ara Hura trail data from OpenStreetMap.
@@ -50,19 +52,19 @@ out body;
 
 4. **Wait for results**: Once the query executes, the trail will appear on the map. Press the magnifying glass icon to zoom to the data.
 
-5. **Verify the data**: You should see the Te Ara Hura trail network displayed on Waiheke Island
+5. **Verify the data**: You should see the Te Ara Hura trail network displayed on Waiheke Island, as a series of circles (nodes) and lines (ways).
 
 ### Download as GeoJSON
 
 1. **Download the data**: Click the "Export" button
 
-2. **In the Export panel**, find the **GeoJSON** section and click **Download**. Save the file as `te_ara_hura.geojson`
+2. **In the Export panel**, find the **GeoJSON** section and click **Download**. Rename the export as `te_ara_hura.geojson`
 
 ### Save to Your Repository
 
 1. **Copy the file to your repository**:
 
-  Place the file in the `sources/` folder in your repository. This folder already exists — you should see it in VS Code's file explorer or your local file system.
+  Place the file in the `sources/` folder in your repository. If you are using Codespaces, right click on the folder and select "Upload". If you are working locally, drag and drop the renamed file.
 
 ### Commit and Upload to GitHub
 
