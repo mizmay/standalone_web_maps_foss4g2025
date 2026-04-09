@@ -113,7 +113,7 @@ How you get it into your repo depends on your setup:
 
 1. Click **Save** at the top of Maputnik, ignore the API keys, and save the file to your browser's Downloads folder.
 2. Rename it as `style.json`.
-3. If you are using Codespaces, right click on the top-level directory, `STANDALONE_WEB_MAPS_FOSS4G2025`, and select "Upload". If you are working locally, move the downloaded file into the root of your repository.
+3. If you are using Codespaces, right-click on the top-level directory in the Explorer panel and select **Upload**. If you are working locally, move the downloaded file into the root of your repository.
 4. Open it to confirm you see the source and layer definitions you added, then delete the existing `style.json` and replace it with this one.
 
 **Alternative** if downloading doesn't work:

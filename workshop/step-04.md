@@ -11,13 +11,13 @@ In this step, you'll deploy your map so it's accessible on the web via GitHub Pa
 
 ## Deploy to GitHub Pages
 
-Go to the web page of your forked repo **on Github.com**.
+Go to the web page of your forked repo **on GitHub.com**.
 
 ### Add .nojekyll File (Recommended)
 
 GitHub Pages uses Jekyll by default to process sites. For pure static files (HTML, CSS, JS), Jekyll processing isn't needed and can sometimes cause issues. Adding a `.nojekyll` file tells GitHub to skip Jekyll processing.
 
-1. **Select "Add File" button** at the top (next to the **< > Code** button) on the Github.com page for your fork
+1. **Select "Add File" button** at the top (next to the **< > Code** button) on the GitHub.com page for your fork
 
 2. **Select "+ Create New File"** from the drop-down
 

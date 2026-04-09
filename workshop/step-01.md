@@ -12,7 +12,7 @@ To participate in this workshop and deploy your map, you'll need a GitHub accoun
 
 ### Log In
 
-If you already have a Github account, please sign in. 
+If you already have a GitHub account, please sign in. 
 
 Otherwise, follow these steps:
 
@@ -69,7 +69,7 @@ Once you have the prerequisites, follow the instructions below.
 #### Clone Your Fork Locally
 
 1. **Get your repository URL**: 
-   - On your fork's Github page, click the green "Code" button
+   - On your fork's GitHub page, click the green "Code" button
    - Copy the HTTPS URL (looks like `https://github.com/YOUR-USERNAME/standalone_web_maps_foss4g2025.git`)
 
 2. **Clone the repository using VS Code**:

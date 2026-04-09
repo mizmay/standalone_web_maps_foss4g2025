@@ -74,7 +74,7 @@ Open the file called `index.html` in the root of your repository:
   <div id="map"></div>
   
   <script>
-    // Javascript to create a new map using Maplibre GL JS
+    // JavaScript to create a new map using MapLibre GL JS
     const map = new maplibregl.Map({
       container: 'map',
       style: 'style.json',

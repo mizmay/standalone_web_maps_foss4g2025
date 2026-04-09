@@ -105,26 +105,34 @@
         
         <h2>Adding Interactivity to Your Map</h2>
 <p>In this final step, we'll add interactive features to your map: navigation controls, a scale bar, a click popup on the trail, and a hover effect.</p>
+<p>All JavaScript goes inside the <code>&lt;script&gt;</code> tag in <code>index.html</code>, after the <code>map</code> initialization.</p>
 <h3>Add Map Controls</h3>
+<p>Add navigation controls and a scale bar:</p>
+<pre><code class="language-javascript">    // Add navigation controls (zoom, rotate, pitch)
+    map.addControl(new maplibregl.NavigationControl(), 'top-right');
+
+    // Add scale bar
+    map.addControl(new maplibregl.ScaleControl({
+      maxWidth: 100,
+      unit: 'metric'
+    }), 'bottom-left');
+</code></pre>
+<h3>Test Your Interactive Map</h3>
 <ol>
 <li>
-<p><strong>Add navigation controls</strong> to <code>index.html</code> after the <code>map</code> is defined:</p>
-<pre><code class="language-javascript">// Add navigation controls (zoom, rotate, pitch)
-map.addControl(new maplibregl.NavigationControl(), 'top-right');
-</code></pre>
+<p>Make sure your server is still running. If not, run <code>caddy run</code> in the terminal.</p>
 </li>
 <li>
-<p><strong>Add a scale bar</strong>:</p>
-<pre><code class="language-javascript">// Add scale bar
-map.addControl(new maplibregl.ScaleControl({
-  maxWidth: 100,
-  unit: 'metric'
-}), 'bottom-left');
-</code></pre>
+<p>Refresh your browser:</p>
+<ul>
+<li><strong>Local</strong>: <code>http://127.0.0.1:1234/index.html</code></li>
+<li><strong>Codespaces</strong>: use your forwarded URL (e.g., <code>https://xxxxx-1234.preview.app.github.dev/index.html</code>)</li>
+</ul>
 </li>
 </ol>
+<p>You should see navigation controls on the top right, and a scale bar on the bottom left corner of the browser window.</p>
 <h3>Add Click and Hover Interactivity</h3>
-<p>The trail line is the only interactive layer — the Protomaps basemap features don't have click handlers. To make clicking easier on the thin dashed line, we'll add two new layers to the stylesheet alongside a wider transparent hit area.</p>
+<p>The trail line is the only interactive layer — the Protomaps basemap features don't have click handlers. To make clicking easier on the thin dashed line, we'll add a wider transparent hit area alongside a hover layer.</p>
 <ol>
 <li>
 <p><strong>Add these two layers</strong> to your <code>style.json</code> immediately below the <code>trail-line</code> layer:</p>
@@ -151,35 +159,35 @@ map.addControl(new maplibregl.ScaleControl({
 </code></pre>
 </li>
 <li>
-<p><strong>Add these handlers</strong> to <code>index.html</code> for the click popup, hover effect, and cursor change:</p>
-<pre><code class="language-javascript">// Show popup on click
-map.on('click', 'trail-line-hit', function(e) {
-  const properties = e.features[0].properties;
-  const name = properties.name || 'Te Ara Hura';
-  const surface = properties.surface ? `&lt;br&gt;Surface: ${properties.surface}` : '';
-
-  new maplibregl.Popup()
-    .setLngLat(e.lngLat)
-    .setHTML(`&lt;strong&gt;${name}&lt;/strong&gt;${surface}`)
-    .addTo(map);
-});
-
-// Show hover layer and pointer cursor on mouseenter
-map.on('mouseenter', 'trail-line-hit', function() {
-  map.getCanvas().style.cursor = 'pointer';
-  map.setLayoutProperty('trail-line', 'visibility', 'none');
-  map.setLayoutProperty('trail-line-hover', 'visibility', 'visible');
-});
-
-// Restore default layer and cursor on mouseleave
-map.on('mouseleave', 'trail-line-hit', function() {
-  map.getCanvas().style.cursor = '';
-  map.setLayoutProperty('trail-line', 'visibility', 'visible');
-  map.setLayoutProperty('trail-line-hover', 'visibility', 'none');
-});
-</code></pre>
+<p><strong>Add these handlers</strong> to <code>index.html</code> inside the <code>&lt;script&gt;</code> tag, after the map initialization:</p>
 </li>
 </ol>
+<pre><code class="language-javascript">    // Show popup on click
+    map.on('click', 'trail-line-hit', function(e) {
+      const properties = e.features[0].properties;
+      const name = properties.name || 'Te Ara Hura';
+      const surface = properties.surface ? `&lt;br&gt;Surface: ${properties.surface}` : '';
+
+      new maplibregl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(`&lt;strong&gt;${name}&lt;/strong&gt;${surface}`)
+        .addTo(map);
+    });
+
+    // Show hover layer and pointer cursor on mouseenter
+    map.on('mouseenter', 'trail-line-hit', function() {
+      map.getCanvas().style.cursor = 'pointer';
+      map.setLayoutProperty('trail-line', 'visibility', 'none');
+      map.setLayoutProperty('trail-line-hover', 'visibility', 'visible');
+    });
+
+    // Restore default layer and cursor on mouseleave
+    map.on('mouseleave', 'trail-line-hit', function() {
+      map.getCanvas().style.cursor = '';
+      map.setLayoutProperty('trail-line', 'visibility', 'visible');
+      map.setLayoutProperty('trail-line-hover', 'visibility', 'none');
+    });
+</code></pre>
 <h3>Test Your Interactive Map</h3>
 <ol>
 <li>
@@ -196,7 +204,7 @@ map.on('mouseleave', 'trail-line-hit', function() {
 <p><strong>Test interactions</strong>:</p>
 <ul>
 <li><strong>Click on the trail</strong>: should show a popup with the trail name</li>
-<li><strong>Hover over the trail</strong>: should thicken and the cursor should change to a pointer</li>
+<li><strong>Hover over the trail</strong>: should darken and the cursor should change to a pointer</li>
 <li><strong>Use the zoom controls</strong>: should zoom in/out smoothly</li>
 </ul>
 </li>
@@ -209,7 +217,7 @@ map.on('mouseleave', 'trail-line-hit', function() {
 <ul>
 <li>Navigation controls (zoom, rotate, pitch)</li>
 <li>Scale bar showing metric distances</li>
-<li>Click popup showing trail name and other properties</li>
+<li>Click popup showing trail name and surface type (if available)</li>
 <li>Hover effect with cursor change</li>
 </ul>
 <h3>Congratulations!</h3>
@@ -221,6 +229,18 @@ map.on('mouseleave', 'trail-line-hit', function() {
 <li>Terrain visualization with hillshade</li>
 <li>Interactive controls, popups, and hover effects</li>
 </ul>
+
+        
+          <div class="map-preview-container">
+  <h2>Your Map Preview</h2>
+  <div class="map-preview-wrapper">
+    <img src="../images/step-08.png" alt="Map preview showing expected result at this stage" class="map-preview-image" style="max-width: 100%; height: auto; border: 1px solid #dee2e6; border-radius: 4px;">
+    
+      <p class="map-note">This is what your map should look like with interactivity added</p>
+    
+  </div>
+</div>
+
 
         
         
