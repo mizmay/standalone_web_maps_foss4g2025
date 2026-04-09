@@ -103,45 +103,42 @@
         
         
         
-        <p>In this step, we'll add terrain to your map by styling custom tiles with a hillshade effect. This will give your map a 3D appearance and help users understand the topography of Waiheke Island.</p>
+        <p>In this step, we'll add terrain to your map using a hillshade effect. This will give your map a 3D appearance and help users understand the topography of Waiheke Island.</p>
 <h2>Creating a Hillshade</h2>
-<p>We'll create a hillshade using raster digital elevation model (DEM) tiles we can style from the stylesheet to create the appearance of terrain.</p>
+<p>We'll create a hillshade using raster digital elevation model (DEM) tiles styled from the stylesheet to create the appearance of terrain.</p>
 <h3>Download Terrain Tiles</h3>
-<p>We'll download the raster DEM tiles for the same bounding box we used for Protomaps:</p>
+<p>We'll download raster DEM tiles for the same bounding box we used for Protomaps:</p>
 <ol>
 <li>
 <p><strong>Download Mapterhorn tiles</strong>: Use the PMTiles CLI to extract raster-dem tiles:</p>
 <pre><code class="language-bash">pmtiles extract \
+--minzoom=10 \
+--maxzoom=16 \
 --bbox=174.8,-37.0,175.2,-36.7 \
 https://download.mapterhorn.com/planet.pmtiles \
 sources/waiheke_island_terrain.pmtiles
 </code></pre>
-<p><strong>Note</strong>: The source for these tiles is <a rel="noreferrer" target="_blank" href="https://protomaps.com/blog/mapterhorn-terrain/">Mapterhorn</a>, a recent effort to update the quality and coverage of global terrain tiles. The work is ongoing, so if you have a business with an interest high resolution terrain data for visualization, please reach out!</p>
+<p><strong>Note</strong>: <a rel="noreferrer" target="_blank" href="https://protomaps.com/blog/mapterhorn-terrain/">Mapterhorn</a> is a recent effort to update the quality and coverage of global terrain tiles. The work is ongoing — if you have a business interest in high resolution terrain data for visualization, please reach out!</p>
 </li>
 <li>
 <p><strong>Wait for download</strong>: This may take several minutes depending on your connection.</p>
 </li>
 </ol>
 <h3>Update Your Stylesheet</h3>
-<p>Now we'll add the terrain layers to your <code>style.json</code>. Follow the instructions for Step 6 to do this through Maputnik, or follow the instructions below to edit the <code>style.json</code> directly.</p>
+<p>Now we'll add the terrain layers to your <code>style.json</code>. You can do this through Maputnik (as in Step 6) or by editing <code>style.json</code> directly — both approaches work. If you use Maputnik, remember to go through the same export/save process from Step 6 to get the updated stylesheet back into your repository.</p>
 <ol>
 <li>
 <p><strong>Add the terrain source</strong> to your <code>sources</code> section in <code>style.json</code>:</p>
-<pre><code class="language-json">{
-  {
-  "version": 8,
-  "sources": {
-    ... },
-    "terrain": {
-      "type": "raster-dem",
-      "url": "pmtiles://sources/waiheke_island_terrain.pmtiles",
-      "tileSize": 256,
-      "encoding": "terrarium"
-    }
-  },
-  "layers": [
-    // ... existing layers ...
-  ]
+<pre><code class="language-json">"sources": {
+  "te-ara-hura": { ... },
+  "protomaps": { ... },
+  "terrain": {
+    "type": "raster-dem",
+    "url": "pmtiles://sources/waiheke_island_terrain.pmtiles",
+    "tileSize": 256,
+    "encoding": "terrarium",
+    "attribution": "&lt;a href=\"https://mapterhorn.com/attribution\"&gt;Mapterhorn&lt;/a&gt;"
+  }
 }
 </code></pre>
 </li>
@@ -163,19 +160,30 @@ sources/waiheke_island_terrain.pmtiles
 <p>Here is an explanation of these properties:</p>
 <ul>
 <li><code>hillshade-exaggeration</code>: Controls how dramatic the terrain looks (0.0 to 1.0)</li>
-<li><code>hillshade-illumination-direction</code>: Direction of the light source (0-359 degrees)</li>
-<li><code>hillshade-accent-color</code>: Color of shadows</li>
-<li><code>hillshade-highlight-color</code>: Color of highlights</li>
+<li><code>hillshade-illumination-direction</code>: Direction of the light source, measured in degrees from north (0–359)</li>
+<li><code>hillshade-shadow-color</code>: Color applied to shadowed areas</li>
+<li><code>hillshade-highlight-color</code>: Color applied to illuminated (raised) areas</li>
+<li><code>hillshade-accent-color</code>: Additional color layer for accentuating terrain features and improving overall hillshade clarity</li>
 </ul>
 </li>
 </ol>
 <h3>Test Your Map</h3>
 <ol>
 <li>
-<p><strong>Refresh your browser</strong>: make sure your server is still running and go to:</p>
+<p>Make sure your server is still running. If not, run <code>caddy run</code> in the terminal.</p>
+</li>
+<li>
+<p><strong>Do a hard refresh</strong> in your browser — a regular refresh may not reload the new terrain tiles:</p>
 <ul>
-<li><strong>If using local Caddy</strong>: <code>http://127.0.0.1:1234/index.html</code></li>
-<li><strong>If using GitHub Codespaces</strong>: Use your forwarded URL (e.g., <code>https://xxxxx-1234.preview.app.github.dev/index.html</code>)</li>
+<li><strong>Mac</strong>: <code>Cmd + Shift + R</code></li>
+<li><strong>Windows/Linux</strong>: <code>Ctrl + Shift + R</code></li>
+</ul>
+</li>
+<li>
+<p>Go to your map:</p>
+<ul>
+<li><strong>Local</strong>: <code>http://127.0.0.1:1234/index.html</code></li>
+<li><strong>Codespaces</strong>: use your forwarded URL (e.g., <code>https://xxxxx-1234.preview.app.github.dev/index.html</code>)</li>
 </ul>
 </li>
 <li>
@@ -190,28 +198,28 @@ sources/waiheke_island_terrain.pmtiles
 <h3>Troubleshooting</h3>
 <p><strong>Terrain doesn't show?</strong></p>
 <ul>
-<li>Check that <code>sources/terrarium-waiheke.pmtiles</code> exists</li>
+<li>Try a hard refresh (<code>Cmd/Ctrl + Shift + R</code>) — the terrain tiles may be cached</li>
+<li>Check that <code>sources/waiheke_island_terrain.pmtiles</code> exists</li>
 <li>Verify the terrain source is correctly defined in <code>style.json</code></li>
-<li>Check browser console (F12) for errors</li>
-<li>Make sure the terrain source uses <code>pmtiles://</code> protocol</li>
+<li>Check the browser console (F12) for errors</li>
+<li>Make sure the terrain source URL uses the <code>pmtiles://</code> protocol</li>
 </ul>
 <h3>Commit Your Changes</h3>
-<p>Add, commit, and push your revised <code>index.html</code> and <code>style.json</code> to your remote fork.</p>
-<p><strong>Note for Codespaces users</strong>: Commit these changes in your Codespaces environment using the terminal or Source Control panel.</p>
-<p>Verify that the map you see via your local server and the one you see via Github Pages match the image below.</p>
+<p>Add, commit, and push your revised <code>style.json</code> to your remote fork.</p>
+<p>Verify that the map you see via your server (local or Codespaces) and the one you see via GitHub Pages match the image below.</p>
 <h3>What You Have Now</h3>
 <p>At the end of this step, you should have:</p>
 <ul>
-<li><code>sources/terrarium-waiheke.pmtiles</code> - Terrain elevation data</li>
+<li><code>sources/waiheke_island_terrain.pmtiles</code> — Terrain elevation data</li>
 <li>Hillshade layer displaying terrain shading</li>
 </ul>
-<p>Your map now shows the beautiful topography of Waiheke Island! 🏔️</p>
+<p>Your map now shows the beautiful topography of Waiheke Island!</p>
 <h3>Want to take this further?</h3>
 <p>These style edits are just the beginning. If you want to keep polishing, here are some challenges:</p>
 <ol>
-<li><strong>Add some transparency to the landcover</strong> so that you can see the terrain through it</li>
-<li><strong>Refine the Te Ara Hura styling</strong> by changing the color, or changing the line width across zooms</li>
-<li><strong>Refine the terrain styling</strong> by modifying the color values for shadows and highlights, changing the exaggeration</li>
+<li><strong>Add transparency to the landcover</strong> so you can see the terrain through it</li>
+<li><strong>Refine the Te Ara Hura styling</strong> by changing the color or the line width across zoom levels</li>
+<li><strong>Refine the terrain styling</strong> by modifying the shadow and highlight colors or the exaggeration value</li>
 </ol>
 
         
@@ -220,7 +228,7 @@ sources/waiheke_island_terrain.pmtiles
   <div class="map-preview-wrapper">
     <img src="../images/step-07.png" alt="Map preview showing expected result at this stage" class="map-preview-image" style="max-width: 100%; height: auto; border: 1px solid #dee2e6; border-radius: 4px;">
     
-      <p class="map-note">This is what your map should look like when you view it locally and via your Github Pages website</p>
+      <p class="map-note">This is what your map should look like when you view it locally and via your GitHub Pages website</p>
     
   </div>
 </div>
