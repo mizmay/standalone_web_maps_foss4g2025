@@ -4,6 +4,8 @@ title: Step 5 - Download Reference Layers from Protomaps
 step: 5
 prev: step-04.html
 next: step-06.html
+mapImage: step-05.png
+mapNote: "The xray view of Protomaps tiles for Waiheke Island"
 ---
 
 In this step, we'll download a tile extract for Waiheke Island to use as our map's basemap (roads, labels, landcover, etc.).
